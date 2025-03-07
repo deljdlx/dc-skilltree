@@ -1,0 +1,711 @@
+{
+    "ready": false,
+    "selectedNode": null,
+    "previousSelectedNode": null,
+
+
+    "values": {
+        "S": 5,
+        "P": 5,
+        "E": 5,
+        "C": 5,
+        "I": 5,
+        "A": 5,
+        "L": 5
+    },
+
+    "availabilities": {
+        "attributes": 10,
+        "skills": 100,
+        "perks": 2
+    },
+
+    "treeData": [
+        {
+            "id": "root",
+            "text": "Root node",
+            "data": {
+                "code": "ROOT"
+            },
+            "children": [
+                {
+                    "id": "category-attributes",
+                    "text": "Attributes",
+                    "data": {
+                        "code": ""
+                    },
+                    "children": [
+                        {
+                            "id": "j1_5",
+                            "text": "Force",
+                            "data": {
+                                "code": "S",
+                                "description": "La force ! Porter du lourd, taper fort, ou manipuler des armes de bourrin !",
+                                "illustration": "\/images\/6738c2458c328.png"
+                            },
+                            "children": [],
+                            "type": "attribute"
+                        },
+                        {
+                            "id": "j1_8",
+                            "text": "Perception",
+                            "data": {
+                                "code": "P",
+                                "description": "(P)erception",
+                                "illustration": "\/images\/6738c1adb0af9.png"
+                            },
+                            "children": [],
+                            "type": "attribute"
+                        },
+                        {
+                            "id": "j1_6",
+                            "text": "Endurance",
+                            "data": {
+                                "code": "E",
+                                "description": "(E)ndurance",
+                                "illustration": "\/images\/6738c2f8c21e0.png"
+                            },
+                            "children": [],
+                            "type": "attribute"
+                        },
+                        {
+                            "id": "j1_7",
+                            "text": "Agilité",
+                            "data": {
+                                "code": "A",
+                                "description": "(A)gility",
+                                "illustration": "\/images\/6738c18f3d4f9.png"
+                            },
+                            "children": [],
+                            "type": "attribute"
+                        },
+                        {
+                            "id": "j1_9",
+                            "text": "Charisme",
+                            "data": {
+                                "code": "C",
+                                "description": "(C)harism",
+                                "illustration": "\/images\/6738c1fddf7a1.png"
+                            },
+                            "children": [],
+                            "type": "attribute"
+                        },
+                        {
+                            "id": "j1_10",
+                            "text": "Chance",
+                            "data": {
+                                "code": "L",
+                                "description": "(L)uck",
+                                "illustration": "\/images\/6738c1e3f0c9c.png"
+                            },
+                            "children": [],
+                            "type": "attribute"
+                        },
+                        {
+                            "id": "j1_11",
+                            "text": "Intelligence",
+                            "data": {
+                                "code": "I",
+                                "description": "(I)ntelligence",
+                                "illustration": "\/images\/6738c31341b5c.png"
+                            },
+                            "children": [],
+                            "type": "attribute"
+                        }
+                    ],
+                    "type": "category-attributes"
+                },
+                {
+                    "id": "category-perks",
+                    "text": "Perks",
+                    "data": {
+                        "code": ""
+                    },
+                    "children": [
+                        {
+                            "id": "j1_46",
+                            "text": "Tireur d'élite",
+                            "data": {
+                                "code": "PERK_SNIPER",
+                                "bonus": "$CBT-ARMES-LEGERES+=10",
+                                "modifiers": "${SKILL_ENERGY_WEAPONS} += 20\n${SKILL_LIGHT_WEAPONS} += 20\n",
+                                "description": "Il n'y a pas votre pareil pour tirer de loin. Vous bénéficiez de bonus en armes légère et armes à énergie.",
+                                "illustration": "\/images\/6738d25887fa3.png"
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_50",
+                            "text": "Veinard",
+                            "data": {
+                                "code": "PERK_LUCKY",
+                                "modifiers": "${CAR_CRITICAL} += 5",
+                                "description": "Allez savoir pourquoi, vous avez de la chance. Augmente votre score de réussite critique",
+                                "illustration": "\/images\/6738d3376cb30.webp"
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_53",
+                            "text": "Touché par le destin",
+                            "data": {
+                                "code": "PERK_DESTIN",
+                                "modifiers": "${CAR_CRITICAL} += 7\n${CAR_CRITICAL_FAIL} += 9",
+                                "description": "Allez savoir pourquoi, les probabilités semblent fonctionner bizarrement lorsque vous agissez. Augmente les chances de réussite critique, mais aussi les (mal) chances d'échecs critiques",
+                                "illustration": "\/images\/6738fa089d1ea.png"
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_54",
+                            "text": "Gringalet",
+                            "data": {
+                                "code": "PERK_WIMPY",
+                                "modifiers": "${A} += 2\n${S} -=1\n${E} -=1",
+                                "description": "Vous n'êtes pas bien costaud, mais tels le ouistiti, vous êtes doté d'une extrême agilité.\nAugmente l'agilité au détriment de la force et de la constitution",
+                                "illustration": "\/images\/6738ff275ecde.webp"
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_66",
+                            "text": "Brute",
+                            "data": {
+                                "code": "PERK_BULLY",
+                                "modifiers": "${CAR_CAC_DAMAGE} += 10\n${CAR_PHYSICAL_RESIST} +=5",
+                                "description": "Vous êtes une brute ! Vous avez des bonus sur les dégât au corps à corps, et bénéficiez d'une meilleure résistance physique",
+                                "illustration": "\/images\/6738d29fa0519.webp"
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_68",
+                            "text": "Ninja",
+                            "data": {
+                                "code": "PERK_NINJA",
+                                "modifiers": "${CAR_INITIATIVE} += 5\n${CAR_DODGE} += 5\n${SKILL_FIGHT} += 15\n${SKILL_SILENT_WALK} += 10\n${SKILL_THROWING} += 10",
+                                "description": "Atom no jutsu ! Vous êtes un ninja. Vous bénéficiez de bonus en initiative, esquive, combat à mains nues, armes de jet et déplacement silencieux.",
+                                "illustration": "\/images\/6738d2b45b7aa.webp"
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_69",
+                            "text": "Avec une cuillère en argent",
+                            "data": {
+                                "code": "PERK_SILVER_SPOON",
+                                "modifiers": "${C} += 1\n${I} += 1\n${E} -=1\n${S} -=1",
+                                "description": "On ne choisit pas sa parents, sa famille... Il se trouve que vous êtes bien tombé. Vous bénéficiez de bonus en charisme et intelligence. Par contre niveau force et endurance, ce n'est pas trop ça...",
+                                "illustration": "\/images\/6738ffe4004d9.webp"
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_74",
+                            "text": "Démineur",
+                            "data": {
+                                "code": "PERK_MINE_SWEEPER",
+                                "modifiers": "${SKILL_DIY} += 10\n${SKILL_URBAN_KNOWLEDGE} += 10\n${SKILL_EXPLOSIVES} += 30",
+                                "illustration": "\/images\/67477855a58e8.webp",
+                                "description": "Votre talent pour repérer et désamorcer les pièges vous place parmi les meilleurs experts en explosifs des Wastelands. Qu'il s'agisse de mines enterrées, de bombes artisanales ou de pièges urbains, aucun dispositif ne peut vous surprendre."
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_75",
+                            "text": "Mains en or",
+                            "data": {
+                                "code": "PERK_MINE_GOLDEN_HANDS",
+                                "modifiers": "${SKILL_DIY} += 20\n${SKILL_REPARATION} += 20\n",
+                                "illustration": "\/images\/67477948968ef.webp",
+                                "description": "Vous êtes un véritable artisan post-apocalyptique, capable de réparer, améliorer, et même réinventer tout ce qui vous tombe sous la main. Des armes aux systèmes mécaniques complexes, rien ne résiste à votre ingéniosité."
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_80",
+                            "text": "Technophile",
+                            "data": {
+                                "code": "PERK_TECHNOPHILE",
+                                "modifiers": "${SKILL_SOCIAL_READING} -= 10\n${SKILL_BULLSHIT} -= 10\n${SKILL_COMPUTERS} += 20\n${SKILL_ROBOTIC} += 20",
+                                "value": "",
+                                "illustration": "\/images\/67484baf44c4d.png",
+                                "description": "Vous êtes adorez les vieilles technologies d'avant guerre. Les ordinateurs et les robots sont vos amis. Par contre pour parler avec de vrais personnes, ce n'est pas trop votre truc."
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_84",
+                            "text": "Baratineur",
+                            "data": {
+                                "code": "PERK_BULLSHITTER",
+                                "modifiers": "${SKILL_BULLSHIT} += 10\n${SKILL_NEGOCIATION} += 10\n${SKILL_SOCIAL_READING} += 10",
+                                "value": "",
+                                "illustration": "\/images\/67489da3d907d.png",
+                                "description": "Il n'y a pas votre pareil pour dire de la merde mais captiver votre auditoire !"
+                            },
+                            "children": [],
+                            "type": "perk"
+                        },
+                        {
+                            "id": "j1_86",
+                            "text": "Chaud bouillant",
+                            "data": {
+                                "code": "PERK_PIPING_HOT",
+                                "value": "",
+                                "modifiers": "${SKILL_ENERGY_WEAPONS} += 10\n${SKILL_EXPLOSIVES} += 10\n${SKILL_HEAVY_WEAPONS} += 20",
+                                "description": "Les situations de combat c'est votre truc !",
+                                "illustration": "\/images\/6748bb77d4d23.png"
+                            },
+                            "children": [],
+                            "type": "perk"
+                        }
+                    ],
+                    "type": "category-perks"
+                },
+                {
+                    "id": "category-characteristics",
+                    "text": "Caractéristiques",
+                    "data": [],
+                    "children": [
+                        {
+                            "id": "j1_47",
+                            "text": "Points de vie",
+                            "data": {
+                                "code": "CAR_HIT_POINTS",
+                                "value": "${E} * 20 + 20",
+                                "description": "Vos points de vie. S'ils tombent à zéro, et bien comment dire, this is the end",
+                                "illustration": "\/images\/67391cadebfe8.webp"
+                            },
+                            "children": [],
+                            "type": "characteristic"
+                        },
+                        {
+                            "id": "j1_48",
+                            "text": "Chances de coup critique",
+                            "data": {
+                                "code": "CAR_CRITICAL",
+                                "value": "10 + ${L}",
+                                "description": "Parfois vous réussissez au delà de vos espérance.",
+                                "illustration": "\/images\/67391d30098bb.png"
+                            },
+                            "children": [],
+                            "type": "characteristic"
+                        },
+                        {
+                            "id": "j1_49",
+                            "text": "Chance d'échec critique",
+                            "data": {
+                                "code": "CAR_CRITICAL_FAIL",
+                                "value": "10",
+                                "illustration": "\/images\/67391d92c8feb.webp",
+                                "description": "Parfois tout part \"en couille\". Pas de Bol !"
+                            },
+                            "children": [],
+                            "type": "characteristic"
+                        },
+                        {
+                            "id": "j1_56",
+                            "text": "Esquive",
+                            "data": {
+                                "code": "CAR_DODGE",
+                                "value": "10 + ${A} * 2",
+                                "description": "Esquiver les coups, et parfois aussi les balles !",
+                                "illustration": "\/images\/6739231e6583d.webp"
+                            },
+                            "children": [],
+                            "type": "characteristic"
+                        },
+                        {
+                            "id": "j1_58",
+                            "text": "Résistance physique",
+                            "data": {
+                                "code": "CAR_PHYSICAL_RESIST",
+                                "value": "${E} \/ 2",
+                                "illustration": "\/images\/6739222be2469.png",
+                                "description": "Capacité à absorber les coups et impacts."
+                            },
+                            "children": [],
+                            "type": "characteristic"
+                        },
+                        {
+                            "id": "j1_60",
+                            "text": "Initiative",
+                            "data": {
+                                "code": "CAR_INITIATIVE",
+                                "value": "${A} + ${P}",
+                                "illustration": "\/images\/673922c75902d.webp",
+                                "description": "Capacité a agir plus rapidement que les autres."
+                            },
+                            "children": [],
+                            "type": "characteristic"
+                        },
+                        {
+                            "id": "j1_62",
+                            "text": "Dégâts corps à corps",
+                            "data": {
+                                "code": "CAR_CAC_DAMAGE",
+                                "value": "${S} *2 + 2",
+                                "illustration": "\/images\/6739243832e3a.png",
+                                "description": "Vos dégats lorsque vous vous battez au corps à corps. Et oui parfois vous n'avez pas de flingues !"
+                            },
+                            "children": [],
+                            "type": "characteristic"
+                        },
+                        {
+                            "id": "j1_63",
+                            "text": "Dégâts armes à distance",
+                            "data": {
+                                "code": "CAR_RANGE_DAMAGE",
+                                "value": "${P} *2 + 2",
+                                "description": "Vos dégâts lorsque vous manipulez des armes à distance.",
+                                "illustration": "\/images\/67392496aca98.webp"
+                            },
+                            "children": [],
+                            "type": "characteristic"
+                        },
+                        {
+                            "id": "j1_88",
+                            "text": "Charge utile",
+                            "data": {
+                                "code": "CAR_AVAILABLE_WEIGTH",
+                                "value": "10 + (${S} * 0.6) * ${S} ",
+                                "description": "Le poids que vous pouvez porter"
+                            },
+                            "children": [],
+                            "type": "characteristic"
+                        }
+                    ],
+                    "type": "category-characteristics"
+                },
+                {
+                    "id": "category-skills",
+                    "text": "Skills",
+                    "data": {
+                        "code": ""
+                    },
+                    "children": [
+                        {
+                            "id": "j1_12",
+                            "text": "Combat",
+                            "data": {
+                                "code": ""
+                            },
+                            "children": [
+                                {
+                                    "id": "j1_17",
+                                    "text": "Mains nues",
+                                    "data": {
+                                        "code": "SKILL_FIGHT",
+                                        "value": "${__VALUE} + ${S} + ${A} + ${P}",
+                                        "description": "Le combat avec les poings, les jambes, et bien sûr les coups de boule !",
+                                        "illustration": "\/images\/673921941ebc4.png"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_18",
+                                    "text": "Armes blanches",
+                                    "data": {
+                                        "code": "SKILL_KNIFES",
+                                        "value": "${__VALUE} + ${S} + ${A} * 2 + ${P}",
+                                        "description": "Les couteaux, les machettes, lances, et même les armes contendantes ! Bref tout ce qui fait mal !",
+                                        "illustration": "\/images\/6739259d220ce.webp"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_19",
+                                    "text": "Armes de jet",
+                                    "data": {
+                                        "code": "SKILL_THROWING",
+                                        "value": "${__VALUE} + ${S} + ${A} + ${P}"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_20",
+                                    "text": "Armes légères",
+                                    "data": {
+                                        "code": "SKILL_LIGHT_WEAPONS",
+                                        "value": "${__VALUE} + ${P} * 2",
+                                        "illustration": "\/images\/673921078904a.webp",
+                                        "description": "La maitrise des flingues et de fusils."
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_21",
+                                    "text": "Armes lourdes",
+                                    "data": {
+                                        "code": "SKILL_HEAVY_WEAPONS",
+                                        "value": "${__VALUE} + ${S} + ${P}"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_22",
+                                    "text": "Armes à énergie",
+                                    "data": {
+                                        "code": "SKILL_ENERGY_WEAPONS",
+                                        "value": "${__VALUE} + ${P} * 2"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                }
+                            ],
+                            "type": "cluster"
+                        },
+                        {
+                            "id": "j1_14",
+                            "text": "Ingénierie",
+                            "data": {
+                                "code": ""
+                            },
+                            "children": [
+                                {
+                                    "id": "j1_27",
+                                    "text": "Bricolage",
+                                    "data": {
+                                        "code": "SKILL_DIY",
+                                        "value": "${__VALUE} + ( ${A} + ${P} ) * 1.5"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_28",
+                                    "text": "Réparation",
+                                    "data": {
+                                        "code": "SKILL_REPARATION",
+                                        "value": "${__VALUE} + ( ${I} + ${P} ) * 1.5"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_29",
+                                    "text": "Science",
+                                    "data": {
+                                        "code": "SKILL_SCIENCE",
+                                        "value": "${__VALUE} + ${I} * 2"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_72",
+                                    "text": "Explosifs",
+                                    "data": {
+                                        "code": "SKILL_EXPLOSIVES",
+                                        "value": "${__VALUE} + ${I} + ${P}"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_78",
+                                    "text": "Robotique",
+                                    "data": {
+                                        "code": "SKILL_ROBOTIC"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_79",
+                                    "text": "Informatique",
+                                    "data": {
+                                        "code": "SKILL_COMPUTERS"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                }
+                            ],
+                            "type": "cluster"
+                        },
+                        {
+                            "id": "j1_15",
+                            "text": "Discrétion",
+                            "data": {
+                                "code": ""
+                            },
+                            "children": [
+                                {
+                                    "id": "j1_30",
+                                    "text": "Vol à la tire",
+                                    "data": {
+                                        "code": "SKILL_STEAL",
+                                        "modifiers": "",
+                                        "value": "${__VALUE} + ${A} * 2 + ${P}"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_31",
+                                    "text": "Crochetage",
+                                    "data": {
+                                        "code": "SKILL_LOCK_PICKING",
+                                        "value": "${__VALUE} + ${A} + ${P} * 2"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_32",
+                                    "text": "Déplacement silencieux",
+                                    "data": {
+                                        "code": "SKILL_SILENT_WALK",
+                                        "value": "${__VALUE} + 5 + ${A} "
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_44",
+                                    "text": "Infiltration",
+                                    "data": {
+                                        "code": "SKILL_INFILTRATION",
+                                        "value": "${__VALUE} + ${A} + ${P} + ${I}"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                }
+                            ],
+                            "type": "cluster"
+                        },
+                        {
+                            "id": "j1_16",
+                            "text": "Survie",
+                            "data": {
+                                "code": ""
+                            },
+                            "children": [
+                                {
+                                    "id": "j1_34",
+                                    "text": "Premiers soins",
+                                    "data": {
+                                        "code": "SKILL_FIRST_AID",
+                                        "value": "${__VALUE} + ${I} + ${P} +10"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_35",
+                                    "text": "Médecine",
+                                    "data": {
+                                        "code": "SKILL_MEDICINE",
+                                        "value": "${__VALUE} + ${I} * 2 + ${P}"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_36",
+                                    "text": "Cuisine",
+                                    "data": {
+                                        "code": "SKILL_COOKING",
+                                        "value": "${__VALUE} + ${A} + ${P}"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_37",
+                                    "text": "Survie en milieu sauvage",
+                                    "data": {
+                                        "code": "SKILL_WILD_LIFE_KNOWLEDGE",
+                                        "value": "${__VALUE} + ${I} + ${P} * 2"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_38",
+                                    "text": "Survie en milieu urbain",
+                                    "data": {
+                                        "code": "SKILL_URBAN_KNOWLEDGE",
+                                        "value": "${__VALUE} + ${I} + ${P} * 2"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                }
+                            ],
+                            "type": "cluster"
+                        },
+                        {
+                            "id": "j1_33",
+                            "text": "Communication",
+                            "data": {
+                                "code": ""
+                            },
+                            "children": [
+                                {
+                                    "id": "j1_39",
+                                    "text": "Négociation",
+                                    "data": {
+                                        "code": "SKILL_NEGOCIATION",
+                                        "value": "${__VALUE} + ${C} + ${I}",
+                                        "modifiers": ""
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_42",
+                                    "text": "Baratin",
+                                    "data": {
+                                        "code": "SKILL_BULLSHIT",
+                                        "value": "${__VALUE} + ${C} * 2+ ${I}"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_43",
+                                    "text": "Décryptage Social",
+                                    "data": {
+                                        "code": "SKILL_SOCIAL_READING",
+                                        "value": "${__VALUE} + ${P} + ${I}"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                },
+                                {
+                                    "id": "j1_73",
+                                    "text": "Intimidation",
+                                    "data": {
+                                        "code": "SKILL_INTIMIDATION",
+                                        "value": "${__VALUE} + ${C} + ${S}"
+                                    },
+                                    "children": [],
+                                    "type": "skill"
+                                }
+                            ],
+                            "type": "cluster"
+                        }
+                    ],
+                    "type": "category-skills"
+                }
+            ],
+            "type": "root"
+        }
+    ]
+}

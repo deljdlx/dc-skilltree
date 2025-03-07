@@ -1,0 +1,32 @@
+.jstree-icon::before {
+  font-style: normal;
+}
+.node--tree::before {
+  content: "🌳";
+}
+.node--folder::before {
+  content: "📁";
+}
+
+.node--star::before {
+  content: "⭐";
+}
+.node--gear::before {
+  content: "⚙️";
+}
+
+.node--joystick::before {
+  content: "🕹️";
+}
+
+.node--package::before {
+  content: "📦";
+}
+
+.node--dot::before {
+  content: "🔵";
+}
+
+.node--eye::before {
+  content: "👁️";
+}

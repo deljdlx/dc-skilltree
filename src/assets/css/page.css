@@ -1,0 +1,32 @@
+html, body {
+  min-height: 100vh;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+body {
+  --color-darkest: #171717;
+  --color-dark: #212121;
+  --color-lightest: #ddd;
+  --color-focused: #FCDBC9;
+  --header-height: 3rem;
+
+
+  overflow: hidden;
+  font-family: arial, verdana, tahoma, sans-serif;
+  background-color: var(--color-darkest);
+  color: var(--color-lightest);
+}
+
+a {
+  color: var(--color-lightest);
+}
+
+#editor-header {
+  height: var(--header-height);
+  background-color: var(--color-dark);
+}

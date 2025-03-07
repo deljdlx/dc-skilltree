@@ -1,0 +1,152 @@
+.skill-tree-viewer {
+  max-width: 21cm;
+  min-height: 29.7cm;
+  margin: auto;
+  padding: 0.5cm;
+  background-color: #fff;
+  color: var(--color-dark);
+}
+
+
+.skill-tree-viewer .container {
+  border: solid 1px var(--color-dark);
+  background-color: #fff;
+  padding: 4px;
+}
+
+
+.skill-tree-viewer .value-container button {
+  background-color: var(--color-dark);
+  color: var(--color-lightest);
+}
+
+.skill-tree-viewer h2 {
+  font-size: 1rem;
+}
+
+.skill-tree-viewer .dropdown .dropdown-content {
+  z-index: 1000;
+}
+.skill-tree-viewer .tooltip-content {
+  min-width: 200px;
+  background-color: #ccc;
+  border: solid 1px var(--color-dark);
+  padding: 4px;
+  border-radius: 4px;
+}
+.skill-tree-viewer .attribute-container,
+.skill-tree-viewer .perk-container,
+.skill-tree-viewer .characteristic-container,
+.skill-tree-viewer .skill-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: solid 1px oklch(var(--primary-color));
+  border-radius: 4px;
+  margin-bottom: 4px;
+  padding: 2px 4px;
+  background-color: #ddd;
+}
+.skill-tree-viewer .skills-container {
+  margin-top: 1rem;
+}
+.skill-tree-viewer .with-tooltip {
+  display: flex;
+  gap: 4px;
+}
+.skill-tree-viewer .value-container {
+  display: flex;
+  gap: 4px;
+  border: solid 1px oklch(var(--primary-color));
+  border-radius: 16px;
+  margin: 4px;
+  padding: 2px 4px;
+  background-color: #aaa;
+}
+.skill-tree-viewer .value-container .value-modifier {
+  border-radius: 50%;
+  width: 24px;
+}
+.skill-tree-viewer .value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  min-height: 24px;
+  border: solid 1px oklch(var(--primary-color));
+  border-radius: 50%;
+  background-color: #fff;
+  font-size: 11px;
+}
+.skill-tree-viewer .available-points-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.skill-tree-viewer .available-points-container .available-points {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  border: solid 1px #171717;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 12px;
+  padding: 2px 16px;
+  font-weight: bold;
+}
+@media print {
+  .skill-tree-viewer {
+    padding: 0;
+    border: none;
+    background-color: #fff;
+    max-width: 20cm;
+    min-height: 27cm;
+  }
+  .skill-tree-viewer .no-print {
+    display: none;
+  }
+  .skill-tree-viewer .dropdown {
+    display: none;
+  }
+  .skill-tree-viewer .btn {
+    display: none;
+  }
+  .skill-tree-viewer .value-container {
+    border: none;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+  }
+  .skill-tree-viewer .available-points-container {
+    display: none;
+  }
+  .skill-tree-viewer input[type=checkbox] {
+    border: none;
+  }
+  .skill-tree-viewer input:checked:after {
+    content: "✅";
+    position: absolute;
+    margin-left: -4px;
+    margin-top: -7px;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+}
+
+
+/* =================================================== */
+
+.button-decrement::before {
+  content: "➖";
+  filter: brightness(2);
+  font-style: normal;
+}
+
+.button-increment::before {
+  content: "➕";
+  filter: brightness(2);
+  font-style: normal;
+
+}

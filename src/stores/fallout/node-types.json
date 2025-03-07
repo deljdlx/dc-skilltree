@@ -1,0 +1,67 @@
+{
+  "root": {
+    "icon": "node--tree",
+    "noDelete": true,
+    "noRename": true
+  },
+
+  "category-attributes": {
+    "icon": "node--gear",
+    "childType": "attribute",
+    "noDelete": true,
+    "noRename": true,
+    "fields": {
+      "name": {
+        "type": "text",
+        "default": "",
+        "placeholder": "placeholder"
+      }
+    }
+  },
+
+  "category-characteristics": {
+    "icon": "node--eye",
+    "childType": "characteristic",
+    "noDelete": true,
+    "noRename": true
+  },
+
+  "category-perks": {
+    "icon": "node--star",
+    "noDelete": true,
+    "noRename": true
+  },
+
+  "category-skills": {
+    "icon": "node--joystick",
+    "noDelete": true,
+    "noRename": true
+  },
+
+  "perk": {
+    "icon": "node--dot",
+    "noChildren": true
+  },
+
+  "attribute": {
+    "icon": "node--dot",
+    "noChildren": true
+  },
+
+  "characteristic": {
+    "icon": "node--dot",
+    "noChildren": true
+  },
+
+  "cluster": {
+    "icon": "node--package"
+  },
+  "skill": {
+    "icon": "node--dot",
+    "noChildren": true
+  },
+
+  "default": {
+    "icon": "node--dot"
+  }
+}
