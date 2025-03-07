@@ -10,7 +10,7 @@ class ImageRenderer extends FieldRenderer
     } = this.prepareAttributes();
 
     return `
-        <template x-if="selectedNode.${this._descriptor.model}">
+        <template x-if="selectedNode">
             <fieldset>
                 <img :src="selectedNode.${this._descriptor.model}"/>
             </fieldset>

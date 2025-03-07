@@ -16,13 +16,17 @@ class FileRenderer extends FieldRenderer
                 <input
                   ${name}
                   ${placeholder}
-                  ${model}
                   ${extra}
                   type="file"
-                  class="grow"
+                  data-model="${this._descriptor.model}"
+                  class="grow file-input"
                 />
             </label>
-            <div id="imagePreview" style="display: nonee"></div>
+            <div
+              id="imagePreview"
+              data-model="${this._descriptor.model}"
+              style="display: nonee"
+            ></div>
         </fieldset>
     `;
   }

@@ -1,10 +1,10 @@
 class TreeEditor {
 
 
-    storage = null;
+    _storage = null;
 
-    store = null;
-    tree = null;
+    _store = null;
+    _tree = null;
 
     importEditor = null;
     importTreeAceContainer = null;
@@ -21,37 +21,24 @@ class TreeEditor {
     }
 
     constructor(store, tree, options) {
-        this.store = store;
-        this.tree = tree;
+        this._store = store;
+        this._tree = tree;
         this.options = Object.assign(this.options, options);
 
-        this.tree.getData().updateSelectedNode = async (event) => {
+        this._tree.getData().updateSelectedNode = async (event) => {
             return await this.handleNodeUpdate(event);
 
         };
 
-        // KEPT FOR EXEMPLE
-        // this.tree.getData().handleNodeSelection = () => {
-        //     console.log('%ceditor.js :: 17 =============================', 'color: #f00; font-size: 2rem');
-        //     console.log("handleNodeSelection");
-
-        //     const codeContainers = document.querySelectorAll('.code');
-        //     codeContainers.forEach((container) => {
-        //         console.log('%ceditor.js :: 87 =============================', 'color: #f0f; font-size: 1rem');
-        //         console.log(container.value)
-        //         console.log(container.innerHTML)
-        //     });
-        // }
-
-
-        this.tree.addEventListener('select_node.jstree', async (event, data) => {
+        this._tree.addEventListener('select_node.jstree', async (event, data) => {
             setTimeout(() => {
                 this.handleNodeSelection();
-            }, 100);
+            }, 10);
         });
 
 
-        this.handleIllustrationPaste();
+        const imagePasteHandler = new ImagePasteHandler(this._tree, this.options);
+        imagePasteHandler.handle();
     }
 
     addEventListener(name, callback) {
@@ -100,47 +87,20 @@ class TreeEditor {
         const data = JSON.parse(json);
         console.log(data);
 
-        this.store.treeData = data;
-        this.tree.destroy();
-        this.tree.render();
+        this._store.treeData = data;
+        this._tree.destroy();
+        this._tree.render();
     }
 
     async handleNodeSelection() {
-        const selectedNode = this.tree.getData().selectedNode;
-        // ===========================
-        const imageUploader = document.querySelector('#imageUploader');
-        if (imageUploader) {
-            imageUploader.value = '';
-            if (!imageUploader.dataset.initialized) {
-                imageUploader.dataset.initialized = 'true'
-                imageUploader.addEventListener('click', async (e) => {
-                    e.target.value = null;
-                });
+        const fileHandler = new FileHandler(this._tree, this.options);
+        fileHandler.handle();
 
-                imageUploader.addEventListener('change', async (e) => {
-                    const file = e.target.files[0];
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.style.width = '100%';
-                        img.style.height = 'auto';
-                    }
-                    reader.readAsDataURL(file);
-                    let json = await this.uploadImage(file);
-                    this.tree.getData().selectedNode.data.illustration = json['image_url'];
-                });
-            }
-        }
+        const codeHandler = new CodeHandler(this._tree, this.options);
+        codeHandler.handle();
 
-        //destroy all previous editors
-        // const previousEditors = document.querySelectorAll('.wp-editor-wrap');
-        // previousEditors.forEach((editor) => {
-        //     editor.remove();
-        // });
-
-
-
+        const wysiwygHandler = new WysiwygHandler(this._tree, this.options);
+        wysiwygHandler.handle();
 
         // ===========================
 
@@ -158,12 +118,12 @@ class TreeEditor {
         // ===========================
 
 
-        this.handleWysiwygEditors();
-        this.handleAceEditor();
+        // this.handleWysiwygEditors();
+        // this.handleAceEditor();
     }
 
     handleWysiwygEditors() {
-        const selectedNode = this.tree.getData().selectedNode;
+        const selectedNode = this._tree.getData().selectedNode;
         const editors = document.querySelectorAll('.wysiwyg');
 
         // // get all tinymce instances
@@ -198,13 +158,13 @@ class TreeEditor {
                                 const content = editor.getContent();
                                 console.log('%cTreeEditor.js :: 116 =============================', 'color: #f00; font-size: 1rem');
                                 console.log(content);
-                                this.tree.getData().selectedNode.data.description = content;
+                                this._tree.getData().selectedNode.data.description = content;
                             });
                             editor.on('change', () => {
                                 const content = editor.getContent();
                                 console.log('%cTreeEditor.js :: 116 =============================', 'color: #f00; font-size: 1rem');
                                 console.log(content);
-                                this.tree.getData().selectedNode.data.description = content;
+                                this._tree.getData().selectedNode.data.description = content;
                             });
                         }
                     },
@@ -222,105 +182,9 @@ class TreeEditor {
         });
     }
 
-    handleAceEditor() {
-
-
-        const codeContainers = document.querySelectorAll('.code');
-
-        codeContainers.forEach(async (container) => {
-            const selectedNode = this.tree.getData().selectedNode;
-
-            // destroy previous ace editor
-            if (container.querySelector('.ace_editor')) {
-                container.querySelector('.ace_editor').remove();
-            }
-
-            const langTools = ace.require("ace/ext/language_tools");
-            const editor = ace.edit();
-
-            editor.setOptions({
-                theme: "ace/theme/dracula",
-                mode: "ace/mode/taverne",
-                maxLines: 30,
-                minLines: container.dataset.lines,
-                autoScrollEditorIntoView: true,
-                enableBasicAutocompletion: true,
-                enableSnippets: true,
-                enableLiveAutocompletion: true, // Si tu veux la complétion en temps réel
-            });
-
-
-            var taverneCompleter = {
-                getCompletions: (editor, session, pos, prefix, callback) => {
-                    if (prefix.length === 0) { callback(null, []); return }
-
-
-                    const autocompletions = [];
-                    const nodes = this.tree.getNodes();
-                    nodes.forEach((node) => {
-                        if (node.data.code) {
-                            autocompletions.push({
-                                name: node.text,
-                                value: '${' + node.data.code + '}',
-                                score: 1,
-                                meta: node.data.code
-                            });
-                        }
-                    });
-
-                    callback(null, autocompletions);
-
-                    // harcoded autocompletions, kept for exemple
-                    // callback(null, [
-                    //     {name: "test", value: "test", score: 1, meta: "test"},
-                    //     {name: "foo", value: "foo", score: 1, meta: "test"},
-                    // ]);
-
-                }
-            }
-            langTools.addCompleter(taverneCompleter);
-            const keys = container.dataset.model.split('.');
-
-            let value = selectedNode;
-            keys.forEach((key) => {
-                value = value[key];
-            });
-
-            editor.session.setValue(value ?? '');
-
-            // listen changes in editor
-            editor.on('change', (e) => {
-                selectedNode.data[container.dataset.fieldName] = editor.getValue();
-            });
-
-            // JDLX_TODO tooltips
-            // editor.on("mousemove", function (e) {
-            //     const renderer = editor.renderer;
-            //     const session = editor.getSession();
-            //     const docPos = renderer.screenToTextCoordinates(e.clientX, e.clientY);
-            //     const token = session.getTokenAt(docPos.row, docPos.column);
-
-            //     console.log(token);
-
-            //     if (token && token.type === "variable.language") {
-            //         tooltip.textContent = `Information sur : ${token.value}`; // Ton contenu d'aide
-            //         tooltip.style.left = e.clientX + 10 + "px";
-            //         tooltip.style.top = e.clientY + 10 + "px";
-            //         tooltip.style.display = "block";
-            //     } else {
-            //         tooltip.style.display = "none";
-            //     }
-            // });
-
-
-            container.appendChild(editor.container);
-
-        });
-    }
-
     async handleNodeUpdate(event) {
-        const selectedNode = this.tree.getData().selectedNode;
-        this.tree.updateNode(selectedNode);
+        const selectedNode = this._tree.getData().selectedNode;
+        this._tree.updateNode(selectedNode);
     }
 
     async load() {
@@ -333,21 +197,21 @@ class TreeEditor {
             return;
         }
 
-        this.store.ready = false;
-        this.store.setValues(data.values);
-        this.store.setAvailabilities(data.availabilities);
-        this.store.setTreeData(data.tree);
-        this.tree.destroy();
-        this.tree.render();
+        this._store.ready = false;
+        this._store.setValues(data.values);
+        this._store.setAvailabilities(data.availabilities);
+        this._store.setTreeData(data.tree);
+        this._tree.destroy();
+        this._tree.render();
     }
 
     async save(e) {
 
         this.handleEvent('beforeSave', e, this);
         const data = {
-            values: this.store.getValues(),
-            availabilities: this.store.getAvailabilities(),
-            tree: this.tree.getJson(),
+            values: this._store.getValues(),
+            availabilities: this._store.getAvailabilities(),
+            tree: this._tree.getJson(),
         }
 
 
@@ -377,52 +241,7 @@ class TreeEditor {
     }
 
     async handleIllustrationPaste() {
-        document.addEventListener('paste', async (e) => {
-            const items = e.clipboardData.items;
-            if (items.length === 0) {
-                return;
-            }
 
-            const file = items[0].getAsFile();
-            if (!file) {
-                return;
-            }
-
-            const previewElement = document.querySelector('#imagePreview');
-            if (previewElement) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    previewElement.innerHTML = '';
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.width = '100%';
-                    img.style.height = 'auto';
-                    previewElement.appendChild(img);
-                }
-                reader.readAsDataURL(file);
-
-
-                let json = await this.uploadImage(file);
-                this.tree.getData().selectedNode.data.illustration = json['image_url'];
-            }
-        });
-    }
-
-    async uploadImage(file) {
-
-        if (!this.options.uploadUrl) {
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('file', file);
-        const options = {
-            method: 'POST',
-            body: formData
-        }
-        const response = await fetch(this.options.uploadUrl, options);
-        const json = await response.json();
-        return json;
     }
 }
 

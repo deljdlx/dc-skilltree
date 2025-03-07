@@ -2,10 +2,9 @@
 
 $css = [
     'https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css?ver=6.6.2',
+    'https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css',
 
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css',
-
-    './assets/vendor/jquery-ui/jquery-ui.css?ver=6.6.2',
+    // './assets/vendor/jquery-ui/jquery-ui.css?ver=6.6.2',
     './assets/vendor/jstree/jstree.min.css',
 
     './assets/css/page.css',
@@ -18,9 +17,9 @@ $css = [
 
 $js = [
     'https://cdn.tailwindcss.com',
-
+    'https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js',
     './assets/vendor/jquery/jquery.js',
-    './assets/vendor/jquery-ui/jquery-ui.min.js',
+    // './assets/vendor/jquery-ui/jquery-ui.min.js',
 
     './assets/vendor/jstree/jstree.min.js',
     './assets/vendor/ace-editor/src/ace.js',
@@ -30,12 +29,19 @@ $js = [
     './assets/js/src/storages/LocalStorage.js',
 
 
+    './assets/js/src/fieldHandlers/FieldHandler.js',
+    './assets/js/src/fieldHandlers/FileHandler.js',
+    './assets/js/src/fieldHandlers/CodeHandler.js',
+    './assets/js/src/fieldHandlers/ImagePasteHandler.js',
+    './assets/js/src/fieldHandlers/WysiwygHandler.js',
+
     './assets/js/src/fieldRenderers/FieldRenderer.js',
     './assets/js/src/fieldRenderers/TextRenderer.js',
     './assets/js/src/fieldRenderers/FileRenderer.js',
     './assets/js/src/fieldRenderers/ImageRenderer.js',
     './assets/js/src/fieldRenderers/TextareaRenderer.js',
     './assets/js/src/fieldRenderers/CodeRenderer.js',
+    './assets/js/src/fieldRenderers/WysiwygRenderer.js',
 
 
 
@@ -44,7 +50,7 @@ $js = [
     './assets/js/src/TreeEditor.js',
 
 
-    './assets/js/bootstrap.js',
+    './assets/js/editor-bootstrap.js',
     '//unpkg.com/alpinejs',
 ];
 ?>

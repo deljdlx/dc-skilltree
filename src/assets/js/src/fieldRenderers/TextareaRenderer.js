@@ -21,7 +21,7 @@ class TextareaRenderer extends FieldRenderer
                   ${placeholder}
                   ${model}
                   ${extra}
-                  class="quill textarea textarea-bordered w-full grow"
+                  class="textarea textarea-bordered w-full grow"
                 >
                 </textarea>
             <div>

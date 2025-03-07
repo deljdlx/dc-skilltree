@@ -46,8 +46,6 @@ class Tree {
         const fieldDescriptorName = this.types[key].fieldsDescriptor;
         if (fieldDescriptorName) {
           this.types[key].fields = this.fieldDescriptors[fieldDescriptorName];
-          console.log('%cTree.js :: 49 =============================', 'color: #f00; font-size: 1rem');
-          console.log(key, this.types[key]);
         }
       });
     }

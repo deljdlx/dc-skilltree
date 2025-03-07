@@ -136,6 +136,10 @@ class RpgStore {
         renderer = new CodeRenderer(fieldName, descriptor, node);
         break;
       }
+      case 'wysiwyg': {
+        renderer = new WysiwygRenderer(fieldName, descriptor, node);
+        break;
+      }
     }
 
     return renderer.render();

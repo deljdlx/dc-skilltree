@@ -15,6 +15,7 @@
       "illustration": {
         "type": "file",
         "caption": "Illustration",
+        "model": "data.illustration",
         "inputName": "image",
         "extra": {
           "id": "imageUploader"
@@ -28,7 +29,7 @@
         }
       },
       "description": {
-        "type": "textarea",
+        "type": "wysiwyg",
         "caption": "Description",
         "model": "data.description",
         "inputName": "description"
