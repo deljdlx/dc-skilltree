@@ -9,7 +9,7 @@
         "default": "",
         "placeholder": "placeholder",
         "extra": {
-          "x-on:input": "updateSelectedNode"
+          "x-on:change": "updateSelectedNode"
         }
       },
       "illustration": {
