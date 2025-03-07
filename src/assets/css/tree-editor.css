@@ -77,5 +77,23 @@
   border-bottom: 4px solid var(--color-focused);
 }
 
+
+.skill-tree-editor .wysiwyg-container .ql-toolbar .ql-stroke {
+  stroke: var(--color-lightest);
+}
+.skill-tree-editor .wysiwyg-container .ql-toolbar .ql-picker {
+  color: var(--color-lightest);
+}
+.skill-tree-editor .wysiwyg-container .ql-toolbar .ql-picker .ql-picker-item{
+  color: var(--color-darkest);
+}
+
+.skill-tree-editor .wysiwyg {
+  border-radius: 0;
+}
+.skill-tree-editor .wysiwyg .ql-editor {
+  padding: 0;
+}
+
 /* ================================================ */
 

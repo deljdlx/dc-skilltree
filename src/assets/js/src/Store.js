@@ -1,4 +1,4 @@
-class RpgStore {
+class Store {
   constructor() {
     this.checksum = this.generateChecksum();
     this.values = {};

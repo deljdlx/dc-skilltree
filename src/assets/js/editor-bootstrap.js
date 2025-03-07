@@ -21,14 +21,14 @@ initializeTree = async function (
 
 document.addEventListener('alpine:init', async () => {
 
-  const store = new RpgStore();
+  const store = new Store();
 
   const reactiveStore = await initializeTree(
     store,
-    'stores/fallout/schema.json',
-    'fallout-exemple.json'
+    'data/stores/fallout/schema.json',
+    'data/fallout-exemple.json'
   );
-  const nodeTypes = await fetch('stores/fallout/node-types.json').then(response => response.json());
+  const nodeTypes = await fetch('data/stores/fallout/node-types.json').then(response => response.json());
 
   const tree = new Tree(reactiveStore, nodeTypes);
   tree.addEventListener('ready', () => {
