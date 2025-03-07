@@ -1,6 +1,5 @@
 <div
-    class="col-span-4 p-2 tree-container container attributes-container"
->
+    class="col-span-4 p-2 tree-container container attributes-container">
     <div class="available-points-container">
         <h2>Attributs</h2>
         <span class="available-points" x-text="availabilities.attributes"></span>
@@ -8,8 +7,7 @@
     <div>
         <template
             x-for="childId in getNodeById('category-attributes').children"
-            :key="childId + '-' + checksum"
-        >
+            :key="childId + '-' + checksum">
             <div class="attribute-container" x-data="{node: getNodeById(childId)}">
                 <div class="with-tooltip">
                     <span x-text="node.text"></span>

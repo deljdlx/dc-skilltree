@@ -2,11 +2,11 @@
     "templates": [
         {
             "selector": "#header-container",
-            "url": "./templates/editor/partials/header.php"
+            "url": "./templates/editor/partials/header.html"
         },
         {
             "selector": "#node-informations-container",
-            "url": "./templates/editor/partials/node-informations.php"
+            "url": "./templates/editor/partials/node-informations.html"
         },
         {
             "selector": "#sheet-container",

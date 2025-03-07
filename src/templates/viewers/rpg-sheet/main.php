@@ -4,6 +4,7 @@
         <div>
             <template x-if="ready">
                 <div class="grid grid-cols-12 gap-2">
+                    <div id="attributes-container"></div>
                     <?php require __DIR__ . '/partials/attributes.php'; ?>
                     <?php require __DIR__ . '/partials/perks.php'; ?>
                     <?php require __DIR__ . '/partials/characteristics.php'; ?>
