@@ -13,7 +13,7 @@ body {
   --color-dark: #212121;
   --color-lightest: #ddd;
   --color-focused: #FCDBC9;
-  --header-height: 3rem;
+  --header-height: 32px;
 
 
   overflow: hidden;

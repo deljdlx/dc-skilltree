@@ -8,7 +8,7 @@ $file = $_FILES['file'];
 $fileName = $file['name'];
 $fileTmpName = $file['tmp_name'];
 
-move_uploaded_file($fileTmpName, __DIR__ . '/images/' . $fileName);
+move_uploaded_file($fileTmpName, __DIR__ . '/../images/' . $fileName);
 
 
 header('Content-Type: application/json');

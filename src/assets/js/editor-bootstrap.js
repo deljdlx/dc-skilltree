@@ -41,8 +41,8 @@ document.addEventListener('alpine:init', async () => {
 
   const editor = new TreeEditor(reactiveStore, tree, {
     storage: new LocalStorage('skill-tree'),
-    uploadUrl: 'upload.php',
-    saveUrl: 'save.php',
+    uploadUrl: 'backend/upload.php',
+    saveUrl: 'backend/save.php',
   });
 
 
