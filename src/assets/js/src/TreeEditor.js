@@ -106,34 +106,28 @@ class TreeEditor {
     }
 
     async handleNodeSelection() {
-
         const selectedNode = this.tree.getData().selectedNode;
         // ===========================
         const imageUploader = document.querySelector('#imageUploader');
-        const imagePreview = document.querySelector('#imagePreview');
-        // root node has no image uploader
         if (imageUploader) {
             imageUploader.value = '';
-            imagePreview.innerHTML = '';
-
             if (!imageUploader.dataset.initialized) {
                 imageUploader.dataset.initialized = 'true'
+                imageUploader.addEventListener('click', async (e) => {
+                    e.target.value = null;
+                });
+
                 imageUploader.addEventListener('change', async (e) => {
                     const file = e.target.files[0];
                     const reader = new FileReader();
                     reader.onload = function (e) {
-                        imagePreview.innerHTML = '';
                         const img = document.createElement('img');
                         img.src = e.target.result;
                         img.style.width = '100%';
                         img.style.height = 'auto';
-                        imagePreview.appendChild(img);
                     }
                     reader.readAsDataURL(file);
-
                     let json = await this.uploadImage(file);
-                    console.log('%ceditor.js :: 50 =============================', 'color: #f00; font-size: 1rem');
-                    console.log(json);
                     this.tree.getData().selectedNode.data.illustration = json['image_url'];
                 });
             }
@@ -234,8 +228,6 @@ class TreeEditor {
         const codeContainers = document.querySelectorAll('.code');
 
         codeContainers.forEach(async (container) => {
-
-
             const selectedNode = this.tree.getData().selectedNode;
 
             // destroy previous ace editor
@@ -243,9 +235,7 @@ class TreeEditor {
                 container.querySelector('.ace_editor').remove();
             }
 
-
             const langTools = ace.require("ace/ext/language_tools");
-
             const editor = ace.edit();
 
             editor.setOptions({
@@ -289,7 +279,14 @@ class TreeEditor {
                 }
             }
             langTools.addCompleter(taverneCompleter);
-            editor.session.setValue(selectedNode.data[container.dataset.fieldName] ?? '');
+            const keys = container.dataset.model.split('.');
+
+            let value = selectedNode;
+            keys.forEach((key) => {
+                value = value[key];
+            });
+
+            editor.session.setValue(value ?? '');
 
             // listen changes in editor
             editor.on('change', (e) => {

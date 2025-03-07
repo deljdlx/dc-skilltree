@@ -1,67 +1,127 @@
 {
-  "root": {
-    "icon": "node--tree",
-    "noDelete": true,
-    "noRename": true
-  },
-
-  "category-attributes": {
-    "icon": "node--gear",
-    "childType": "attribute",
-    "noDelete": true,
-    "noRename": true,
-    "fields": {
+  "fields": {
+    "default": {
       "name": {
         "type": "text",
+        "caption": "Name",
+        "model": "text",
+        "inputName": "name",
         "default": "",
-        "placeholder": "placeholder"
+        "placeholder": "placeholder",
+        "extra": {
+          "x-on:input": "updateSelectedNode"
+        }
+      },
+      "illustration": {
+        "type": "file",
+        "caption": "Illustration",
+        "inputName": "image",
+        "extra": {
+          "id": "imageUploader"
+        }
+      },
+      "previewIllustration": {
+        "type": "image",
+        "model": "data.illustration",
+        "extra": {
+          "id": "imagePreview"
+        }
+      },
+      "description": {
+        "type": "textarea",
+        "caption": "Description",
+        "model": "data.description",
+        "inputName": "description"
+      },
+      "code": {
+        "type": "text",
+        "caption": "Code",
+        "model": "data.code",
+        "inputName": "code",
+        "placeholder": "variable_name"
+      },
+      "value": {
+        "type": "code",
+        "caption": "Value",
+        "model": "data.value",
+        "inputName": "value",
+        "lines": 1
+      },
+      "modifiers": {
+        "type": "code",
+        "caption": "Modifiers",
+        "model": "data.modifiers",
+        "inputName": "modifiers",
+        "lines": 10
       }
     }
   },
+  "types": {
+    "root": {
+      "icon": "node--tree",
+      "noDelete": true,
+      "noRename": true
+    },
 
-  "category-characteristics": {
-    "icon": "node--eye",
-    "childType": "characteristic",
-    "noDelete": true,
-    "noRename": true
-  },
+    "category-attributes": {
+      "icon": "node--gear",
+      "childType": "attribute",
+      "noDelete": true,
+      "noRename": true,
+      "fieldsDescriptor": "default"
+    },
 
-  "category-perks": {
-    "icon": "node--star",
-    "noDelete": true,
-    "noRename": true
-  },
+    "category-characteristics": {
+      "icon": "node--eye",
+      "childType": "characteristic",
+      "noDelete": true,
+      "noRename": true,
+      "fieldsDescriptor": "default"
+    },
 
-  "category-skills": {
-    "icon": "node--joystick",
-    "noDelete": true,
-    "noRename": true
-  },
+    "category-perks": {
+      "icon": "node--star",
+      "noDelete": true,
+      "noRename": true,
+      "fieldsDescriptor": "default"
+    },
 
-  "perk": {
-    "icon": "node--dot",
-    "noChildren": true
-  },
+    "category-skills": {
+      "icon": "node--joystick",
+      "noDelete": true,
+      "noRename": true,
+      "fieldsDescriptor": "default"
+    },
 
-  "attribute": {
-    "icon": "node--dot",
-    "noChildren": true
-  },
+    "perk": {
+      "icon": "node--dot",
+      "noChildren": true,
+      "fieldsDescriptor": "default"
+    },
 
-  "characteristic": {
-    "icon": "node--dot",
-    "noChildren": true
-  },
+    "attribute": {
+      "icon": "node--dot",
+      "noChildren": true,
+      "fieldsDescriptor": "default"
+    },
 
-  "cluster": {
-    "icon": "node--package"
-  },
-  "skill": {
-    "icon": "node--dot",
-    "noChildren": true
-  },
+    "characteristic": {
+      "icon": "node--dot",
+      "noChildren": true,
+      "fieldsDescriptor": "default"
+    },
 
-  "default": {
-    "icon": "node--dot"
+    "cluster": {
+      "icon": "node--package"
+    },
+    "skill": {
+      "icon": "node--dot",
+      "noChildren": true,
+      "fieldsDescriptor": "default"
+    },
+
+    "default": {
+      "icon": "node--dot"
+    }
   }
 }

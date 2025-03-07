@@ -32,7 +32,8 @@
                     "id": "category-attributes",
                     "text": "Attributes",
                     "data": {
-                        "code": ""
+                        "code": "category-attributes",
+                        "value": "10"
                     },
                     "children": [
                         {

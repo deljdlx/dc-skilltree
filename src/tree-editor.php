@@ -29,6 +29,16 @@ $js = [
 
     './assets/js/src/storages/LocalStorage.js',
 
+
+    './assets/js/src/fieldRenderers/FieldRenderer.js',
+    './assets/js/src/fieldRenderers/TextRenderer.js',
+    './assets/js/src/fieldRenderers/FileRenderer.js',
+    './assets/js/src/fieldRenderers/ImageRenderer.js',
+    './assets/js/src/fieldRenderers/TextareaRenderer.js',
+    './assets/js/src/fieldRenderers/CodeRenderer.js',
+
+
+
     './assets/js/src/RpgStore.js',
     './assets/js/src/Tree.js',
     './assets/js/src/TreeEditor.js',
@@ -69,7 +79,7 @@ $js = [
                         <div id="skill-tree"></div>
                     </div>
 
-                    <div class="col-span-3 p-2 tree-editor-panel tree-editor-panel--middle">
+                    <div class="col-span-9 p-2 tree-editor-panel tree-editor-panel--middle">
                         <template x-if="selectedNode">
                             <?php
                             require __DIR__ . '/templates/partials/editor/node-informations.php';
@@ -77,7 +87,7 @@ $js = [
                         </template>
                     </div>
 
-                    <div class="col-span-6 p-2 tree-editor-panel tree-editor-panel--right">
+                    <!-- <div class="col-span-6 p-2 tree-editor-panel tree-editor-panel--right">
                         <h2>Preview</h2>
                         <div style="position: relative">
                             <?php
@@ -92,9 +102,8 @@ $js = [
                                 bottom: 0;
                             ">
                             </div>
-
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </template>

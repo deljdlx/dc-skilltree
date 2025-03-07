@@ -1,7 +1,6 @@
 
 .skill-tree-editor {
   max-height: 100vh;
-  height: 100vh;
   width: 100vw;
   max-width: 100vw;
   overflow: hidden;
@@ -12,18 +11,18 @@
 /* =================================================== */
 
 .tree-editor-panel {
-  min-height: 300px;
+  overflow: auto;
+  height: calc(100vh - var(--header-height));
 }
 
 .tree-editor-panel--left {
   border-right: solid 1px var(--color-lightest);
-  overflow-y: auto;
-  height: 500px;
 }
 
 .tree-editor-panel--middle {
   background-color: var(--color-dark);
   border-right: solid 1px var(--color-lightest);
+
 }
 
 /* =================================================== */

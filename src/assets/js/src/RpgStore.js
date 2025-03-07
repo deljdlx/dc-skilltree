@@ -101,26 +101,48 @@ class RpgStore {
   }
 
   getNodeById(id) {
-    //search recursively in the this.treeData
-    // const search = (data, id) => {
-    //   for (const node of data) {
-    //     if (node.id === id) {
-    //       return node;
-    //     }
-
-    //     if (node.children) {
-    //       const result = search(node.children, id);
-    //       if (result) {
-    //         return result;
-    //       }
-    //     }
-    //   }
-    // }
-    // const node0 = search(this.treeData, id);
-
     const node = this.tree.getNodeById(id);
     return node;
   }
+
+  getNodeTypeByNode(node) {
+    return  this.tree.getTypeByNode(node);
+  }
+
+  // ============================================
+
+  renderField(fieldName, descriptor, node) {
+
+    let renderer = null;
+
+    switch (descriptor.type) {
+      case 'text': {
+        renderer = new TextRenderer(fieldName, descriptor, node);
+        break;
+      }
+      case 'file': {
+        renderer = new FileRenderer(fieldName, descriptor, node);
+        break;
+      }
+      case 'image': {
+        renderer = new ImageRenderer(fieldName, descriptor, node);
+        break;
+      }
+      case 'textarea': {
+        renderer = new TextareaRenderer(fieldName, descriptor, node);
+        break;
+      }
+      case 'code': {
+        renderer = new CodeRenderer(fieldName, descriptor, node);
+        break;
+      }
+    }
+
+    return renderer.render();
+  }
+
+
+
 
   // ============================================
 

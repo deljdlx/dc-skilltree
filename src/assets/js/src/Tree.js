@@ -23,6 +23,8 @@ class Tree {
     // "conditionalselect"
   ];
 
+  typeDescriptor = {};
+  fieldDescriptors = {};
   types = {};
 
   eventListeners = {
@@ -34,9 +36,20 @@ class Tree {
   }
 
 
-  constructor(store, types) {
-    if (types) {
-      this.types = types;
+  constructor(store, typeDescriptor) {
+    if (typeDescriptor) {
+      this.typeDescriptor = typeDescriptor;
+      this.types = this.typeDescriptor.types;
+      this.fieldDescriptors = this.typeDescriptor.fields;
+
+      Object.keys(this.types).forEach(key => {
+        const fieldDescriptorName = this.types[key].fieldsDescriptor;
+        if (fieldDescriptorName) {
+          this.types[key].fields = this.fieldDescriptors[fieldDescriptorName];
+          console.log('%cTree.js :: 49 =============================', 'color: #f00; font-size: 1rem');
+          console.log(key, this.types[key]);
+        }
+      });
     }
     this.store = store;
   }
@@ -70,10 +83,6 @@ class Tree {
   }
 
   render() {
-
-    console.log('%cTree.js :: 74 =============================', 'color: #f00; font-size: 1rem');
-    console.log(this.store.treeData);
-
     this.tree = $('#skill-tree').jstree({
       'core': {
         'data': this.store.treeData,
@@ -95,8 +104,7 @@ class Tree {
             }
           }
 
-
-          return true; // Autorise toutes les autres opérations
+          return true; // all other operations are allowed
         }
       },
       plugins: this.plugins,
