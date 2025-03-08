@@ -2,19 +2,19 @@
     "templates": [
         {
             "selector": "#header-container",
-            "url": "./templates/viewers/rpg-sheet/partials/header.html"
+            "url": "./modules/rpg-sheet/templates/partials/header.html"
         },
         {
             "selector": "#sheet-container",
-            "url": "./templates/viewers/rpg-sheet/main.php"
+            "url": "./modules/rpg-sheet/templates/main.php"
         }
     ],
     "css": [
         "https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css",
         "./assets/vendor/jstree/jstree.min.css",
         "./assets/css/page.css",
-        "./assets/css/viewers/rpg-sheet/tree-viewer.css",
-        "./assets/css/viewers/rpg-sheet/sheet-editor.css"
+        "./modules/rpg-sheet/assets/css/rpg-sheet.css",
+        "./modules/rpg-sheet/assets/css/sheet-editor.css"
     ],
     "js": [
         "https://cdn.tailwindcss.com",

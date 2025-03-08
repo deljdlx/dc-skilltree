@@ -5,6 +5,7 @@
     <title>Skill tree editor</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
 </head>
 
 <body>
@@ -55,7 +56,7 @@
 
     <script src="assets/js/src/PageLoader.js"></script>
     <script>
-        const pageLoader = new PageLoader('data/tree-editor.page.json');
+        const pageLoader = new PageLoader('assets/js/tree-editor.page.json');
         document.addEventListener('DOMContentLoaded', () => {
             pageLoader.init();
         });

@@ -1,17 +1,12 @@
 initializeTree = async function (
   store,
   schemaUrl,
-  dataUrl
 ) {
   let reactiveData = Alpine.reactive(store);
   Alpine.data('application', () => (reactiveData))
 
   let defaultStore = await fetch(schemaUrl).then(response => response.json());
   reactiveData = Object.assign(reactiveData, defaultStore);
-
-  await fetch(dataUrl).then(response => response.json()).then(response => {
-      reactiveData = Object.assign(reactiveData, response);
-  });
 
   return reactiveData
 };
@@ -22,8 +17,7 @@ document.addEventListener('alpine:init', async () => {
 
   const reactiveStore = await initializeTree(
     store,
-    'data/stores/fallout/schema.json',
-    'data/fallout-exemple.json'
+    'data/stores/fallout/schema.json'
   );
   const nodeTypes = await fetch('data/stores/fallout/node-types.json').then(response => response.json());
 

@@ -10,7 +10,7 @@
         },
         {
             "selector": "#sheet-container",
-            "url": "./templates/viewers/rpg-sheet/main.php"
+            "url": "./modules/rpg-sheet/templates/main.php"
         }
     ],
     "css": [
@@ -20,7 +20,7 @@
         "./assets/css/page.css",
         "./assets/css/node-types.css",
         "./assets/css/tree-editor.css",
-        "./assets/css/viewers/rpg-sheet/tree-viewer.css"
+        "./modules/rpg-sheet/assets/css/rpg-sheet.css"
     ],
     "js": [
         "https://cdn.tailwindcss.com",
