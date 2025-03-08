@@ -1,7 +1,7 @@
 <div class="col-span-4 p-2 tree-container container characteristics-container">
     <h2>Caractéristiques</h2>
-    <template x-for="childId in getNodeById('category-characteristics').children" :key="childId + '-' + checksum">
-        <div class="characteristic-container" x-data="{node: getNodeById(childId)}">
+    <template x-for="child in getNodeById('category-characteristics').children" :key="child.id + '-' + checksum">
+        <div class="characteristic-container" x-data="{node: child}">
             <div class="with-tooltip">
                 <span x-text="node.text"></span>
                 <template x-if="node.data.description">

@@ -52,18 +52,23 @@
 .skill-tree-editor fieldset {
   border: solid 1px var(--color-lightest);
   margin-bottom: 8px;
-  padding: 4px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #fff3;
 }
+
 
 .skill-tree-editor input[type=text],
 .skill-tree-editor input[type=number],
+.skill-tree-editor input[type=file],
 .skill-tree-editor input[type=email] {
-  height: 2rem;
+  /* height: 2rem; */
   padding: 4px 8px;
   background-color: var(--color-lightest);
   color: var(--color-darkest);
   border: none;
-  border-bottom: 1px solid var(--color-lightest);
+  border-bottom: 4px solid var(--color-lightest);
+  border-radius: 4px;
 }
 
 .skill-tree-editor input[type=checkbox] {
@@ -98,4 +103,6 @@
 }
 
 /* ================================================ */
+
+
 

@@ -11,20 +11,19 @@
     ],
     "css": [
         "https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css",
-        "./assets/vendor/jstree/jstree.min.css",
-        "./assets/css/page.css",
+        "./tree-editor/vendor/jstree/jstree.min.css",
+        "./tree-editor/css/page.css",
         "./modules/rpg-sheet/assets/css/rpg-sheet.css",
         "./modules/rpg-sheet/assets/css/sheet-editor.css"
     ],
     "js": [
         "https://cdn.tailwindcss.com",
-        "https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js",
-        "./assets/vendor/jquery/jquery.js",
-        "./assets/vendor/jstree/jstree.min.js",
-        "./assets/js/src/storages/LocalStorage.js",
-        "./assets/js/src/Store.js",
-        "./assets/js/src/Tree.js",
+        "./tree-editor/vendor/jquery/jquery.js",
+        "./tree-editor/vendor/jstree/jstree.min.js",
+        "./tree-editor/js/src/storages/LocalStorage.js",
+        "./tree-editor/js/src/Store.js",
+        "./tree-editor/js/src/Tree.js",
         "./modules/rpg-sheet/assets/js/rpg-sheet-editor-bootstrap.js",
-        "./assets/vendor/alpine.js"
+        "./tree-editor/vendor/alpine.js"
     ]
 }

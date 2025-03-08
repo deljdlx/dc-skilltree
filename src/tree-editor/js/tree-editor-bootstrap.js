@@ -19,7 +19,13 @@ document.addEventListener('alpine:init', async () => {
     store,
     'data/stores/fallout/schema.json'
   );
+
   const nodeTypes = await fetch('data/stores/fallout/node-types.json').then(response => response.json());
+  reactiveStore.setNodeTypes(nodeTypes);
+  // reactiveStore.getData().nodeTypes = nodeTypes;
+
+  console.log('%ctree-editor-bootstrap.js :: 26 =============================', 'color: #f00; font-size: 1rem');
+  console.log(reactiveStore);
 
   const tree = new Tree(reactiveStore, nodeTypes);
   tree.addEventListener('ready', () => {

@@ -1,6 +1,6 @@
 class FileHandler extends FieldHandler {
   handle() {
-    const imageUploaders = document.querySelectorAll('.file-input');
+    const imageUploaders = document.querySelectorAll('input[type="file"]');
 
 
     if (imageUploaders) {
@@ -11,7 +11,6 @@ class FileHandler extends FieldHandler {
           imageUploader.addEventListener('click', async (e) => {
             e.target.value = '';
           });
-
           imageUploader.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             const reader = new FileReader();

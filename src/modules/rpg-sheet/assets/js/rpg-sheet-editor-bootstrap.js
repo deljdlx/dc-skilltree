@@ -30,14 +30,22 @@ document.addEventListener('alpine:init', async () => {
     reactiveStore.ready = true;
   });
 
+  const storage = new LocalStorage('rpg-sheet');
+  let savedData = storage.get();
+
+  if (savedData) {
+    store.setData(savedData);
+  }
   reactiveStore.tree = tree;
   tree.render();
 
-  const storage = new LocalStorage('rpg-sheet');
+
+
+  console.log('%crpg-sheet-editor-bootstrap.js :: 38 =============================', 'color: #f00; font-size: 1rem');
+  console.log(savedData);
+
   store.addEventListener('change', (data) => {
-    console.log('%crpg-sheet-editor-bootstrap.js :: 34 =============================', 'color: #f00; font-size: 1rem');
-    console.log(store.serialize());
-    // storage.save(tree.serialize());
+    storage.set(store.getData());
   });
 
 

@@ -1,16 +1,19 @@
 class Store {
 
-  _data = {};
+  _data = {
+    values: {},
+    availabilities: {},
+    treeData: [],
+    nodeTypes: {},
+  };
+
   _listeners = {
     change: [],
   };
 
   constructor() {
     this.checksum = this.generateChecksum();
-    this.values = {};
-    this.availabilities = {};
     this.selectedNode = null;
-    this.treeData = null;
     this.ready = false;
 
     this.tree = null;
@@ -32,19 +35,6 @@ class Store {
   getTreeData() {
     return this._data.treeData;
   }
-
-  serialize() {
-    const serialized = {}
-
-    Object.keys(this).forEach((key) => {
-      if (key === 'tree' || key === 'editor') {
-        return;
-      }
-      serialized[key] = this[key];
-    });
-
-    return serialized;
-  };
 
   addEventListener(event, callback) {
     if (!this._listeners[event]) {
@@ -85,6 +75,13 @@ class Store {
     return false;
   }
 
+  setValue(code, value) {
+    this._data.values[code] = value;
+    this.dispatchEvent('change', { code, value });
+  }
+
+
+
   computeValue(node) {
     let formula = node.data.value;
     let value = this.getValueByCode(node.data.code);
@@ -96,7 +93,7 @@ class Store {
       if (matches) {
         matches.forEach((match) => {
           const key = match.replace('${', '').replace('}', '');
-          const linkedNode = this.tree.getNodeByCode(key);
+          const linkedNode = this.getNodeByCode(key);
           formula = formula.replace(match, this.computeValue(linkedNode));
         });
       }
@@ -104,9 +101,7 @@ class Store {
     }
 
     const perks = this.getNodeById('category-perks').children;
-    for (const perkId of perks) {
-      const perk = this.getNodeById(perkId);
-
+    for (const perk of perks) {
       if (!this._data.values[perk.data.code]) {
         continue;
       }
@@ -132,6 +127,7 @@ class Store {
     return parseInt(value);
   }
 
+
   getValueByCode(code) {
     if (typeof this._data.values[code] !== 'undefined') {
       const returnValue = parseInt(this._data.values[code]);
@@ -152,13 +148,92 @@ class Store {
     return this._data.availabilities;
   }
 
-  getNodeById(id) {
-    const node = this.tree.getNodeById(id);
-    return node;
+  // ===========================
+
+  searchNodeById(nodes, id) {
+    for (const node of nodes) {
+      if (node.id === id) {
+        return node;
+      }
+      if (node.children) {
+        const child = this.searchNodeById(node.children, id);
+        if (child) {
+          return child;
+        }
+      }
+    }
+    return null;
   }
 
+  getNodeById(id) {
+    for (const node of this._data.treeData) {
+      if (node.id === id) {
+        return node;
+      }
+      if (node.children) {
+        const child = this.searchNodeById(node.children, id);
+        if (child) {
+          return child;
+        }
+      }
+    }
+    console.error('Node not found:' + id);
+    return null;
+  }
+
+  // ===========================
+  searchNodeByCode(nodes, code) {
+    for (const node of nodes) {
+      if (node.data.code === code) {
+        return node;
+      }
+      if (node.children) {
+        const child = this.searchNodeByCode(node.children, code);
+        if (child) {
+          return child;
+        }
+      }
+    }
+    return null;
+  }
+
+  getNodeByCode(code) {
+    for (const node of this._data.treeData) {
+      if (node.data.code === code) {
+        return node;
+      }
+      if (node.children) {
+        const child = this.searchNodeByCode(node.children, code);
+        if (child) {
+          return child;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  // ===========================
+
   getNodeTypeByNode(node) {
-    return  this.tree.getTypeByNode(node);
+    // return  this.tree.getTypeByNode(node);
+    const type = node.type;
+    return this._data.nodeTypes[type];
+  }
+
+  setNodeTypes(nodeTypes) {
+
+    this._data.nodeTypes = nodeTypes.types;
+    this._data.fieldDescriptors = nodeTypes.fields;
+
+    Object.keys(this._data.nodeTypes).forEach(key => {
+      const fieldDescriptorName = this._data.nodeTypes[key].fieldsDescriptor;
+      if (fieldDescriptorName) {
+        this._data.nodeTypes[key].fields = this._data.fieldDescriptors[fieldDescriptorName];
+      }
+    });
+
+
   }
 
   // ============================================

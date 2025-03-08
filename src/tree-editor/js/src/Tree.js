@@ -122,7 +122,9 @@ class Tree {
       // handle node selection, fill the form with node data
       .on('select_node.jstree', (e, data) => {
         this.store.previousSelectedNode = this.store.selectedNode;
-        this.store.selectedNode = data.node;
+
+        let node = this.store.getNodeById(data.node.id);
+        this.store.selectedNode = node;
 
         this.eventListeners['select_node.jstree'].forEach(callback => {
           callback(e, data);

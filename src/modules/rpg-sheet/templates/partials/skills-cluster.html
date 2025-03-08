@@ -1,7 +1,7 @@
-<div class="col-span-4 cluster-container container" x-data="{cluster: getNodeById(clusterId)}">
+<div class="col-span-4 cluster-container container" x-data="{cluster: cluster}">
     <h2 x-text="cluster.text"></h2>
-    <template x-for="skillId in cluster.children":key="skillId + '-' + checksum">
-        <div x-data="{skill: getNodeById(skillId)}" class="skill-container">
+    <template x-for="skill in cluster.children":key="skill.id + '-' + checksum">
+        <div x-data="{skill: getNodeById(skill.id)}" class="skill-container">
             <div class="with-tooltip">
                 <span x-text="skill.text"></span>
                 <template x-if="skill.data.description || skill.data.value">

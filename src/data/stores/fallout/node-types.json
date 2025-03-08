@@ -64,8 +64,27 @@
       "noRename": true
     },
 
+    "section-system":{
+      "icon": "node--hammer-wrench",
+      "noDelete": true,
+      "noRename": true,
+      "fieldsDescriptor": "default"
+    },
+    "section-sheet-variables":{
+      "icon": "node--picture",
+      "noDelete": true,
+      "noRename": true,
+      "childType": "sheet-variable",
+      "fieldsDescriptor": "default"
+    },
+    "sheet-variable":{
+      "icon": "node--diamond",
+      "noChildren": true,
+      "fieldsDescriptor": "default"
+    },
+
     "category-attributes": {
-      "icon": "node--gear",
+      "icon": "node--biceps",
       "childType": "attribute",
       "noDelete": true,
       "noRename": true,

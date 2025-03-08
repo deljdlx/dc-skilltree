@@ -30,3 +30,23 @@
 .node--eye::before {
   content: "👁️";
 }
+
+.node--toolbox::before {
+  content: "🧰";
+}
+.node--hammer-wrench::before {
+  content: "🛠️";
+}
+
+.node--biceps::before {
+  content: "💪";
+}
+
+.node--picture::before {
+  content: "🖼️";
+}
+
+.node--diamond::before {
+  content: "🔶";
+}
+

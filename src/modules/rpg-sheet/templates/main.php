@@ -22,7 +22,7 @@
 
 
                 <div class="grid grid-cols-12 gap-2 skills-container">
-                    <template x-for="clusterId in getNodeById('category-skills').children">
+                    <template x-for="cluster in getNodeById('category-skills').children">
                         <?php require __DIR__ . '/partials/skills-cluster.html'; ?>
                     </template>
                 </div>

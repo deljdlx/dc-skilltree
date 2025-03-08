@@ -6,9 +6,9 @@
     </div>
     <div>
         <template
-            x-for="childId in getNodeById('category-attributes').children"
-            :key="childId + '-' + checksum">
-            <div class="attribute-container" x-data="{node: getNodeById(childId)}">
+            x-for="child in getNodeById('category-attributes').children"
+            :key="child.id + '-' + checksum">
+            <div class="attribute-container" x-data="{node:child}">
                 <div class="with-tooltip">
                     <span x-text="node.text"></span>
                     <template x-if="node.data.description">
