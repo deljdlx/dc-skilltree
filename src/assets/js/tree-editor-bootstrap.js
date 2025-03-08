@@ -11,9 +11,6 @@ initializeTree = async function (
 
   await fetch(dataUrl).then(response => response.json()).then(response => {
       reactiveData = Object.assign(reactiveData, response);
-
-      console.log('%cbootstrap.js :: 15 =============================', 'color: #f00; font-size: 1rem');
-      console.log(reactiveData);
   });
 
   return reactiveData

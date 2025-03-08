@@ -78,6 +78,8 @@
 }
 
 
+/* quill override */
+
 .skill-tree-editor .wysiwyg-container .ql-toolbar .ql-stroke {
   stroke: var(--color-lightest);
 }

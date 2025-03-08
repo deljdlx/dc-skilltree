@@ -15,16 +15,16 @@
     ],
     "css": [
         "https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css",
-        "https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css",
+        "./assets/vendor/quill/quill.snow.css",
         "./assets/vendor/jstree/jstree.min.css",
         "./assets/css/page.css",
         "./assets/css/node-types.css",
         "./assets/css/tree-editor.css",
-        "./assets/css/tree-viewer.css"
+        "./assets/css/viewers/rpg-sheet/tree-viewer.css"
     ],
     "js": [
         "https://cdn.tailwindcss.com",
-        "https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js",
+        "./assets/vendor/quill/quill.js",
         "./assets/vendor/jquery/jquery.js",
         "./assets/vendor/jstree/jstree.min.js",
         "./assets/vendor/ace-editor/src/ace.js",
@@ -45,7 +45,7 @@
         "./assets/js/src/Store.js",
         "./assets/js/src/Tree.js",
         "./assets/js/src/TreeEditor.js",
-        "./assets/js/editor-bootstrap.js",
-        "//unpkg.com/alpinejs"
+        "./assets/js/tree-editor-bootstrap.js",
+        "./assets/vendor/alpine.js"
     ]
 }

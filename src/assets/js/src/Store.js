@@ -145,9 +145,6 @@ class Store {
     return renderer.render();
   }
 
-
-
-
   // ============================================
 
   setValues(values) {
@@ -159,12 +156,8 @@ class Store {
   }
 
   setTreeData(treeData) {
-    console.log('%cRpgStore.js :: 119 =============================', 'color: #f00; font-size: 1rem');
-    console.log(treeData);
     this.treeData = treeData;
     this.generateChecksum();
-    console.log('%cRpgStore.js :: 123 =============================', 'color: #f00; font-size: 1rem');
-    console.log(this);
   }
 
   setTree(tree) {
