@@ -1,4 +1,10 @@
 class Store {
+
+  _data;
+  _listeners = {
+    change: [],
+  };
+
   constructor() {
     this.checksum = this.generateChecksum();
     this.values = {};
@@ -9,6 +15,38 @@ class Store {
 
     this.tree = null;
     this.editor = null;
+  }
+
+  setData(data) {
+    this._data = data;
+  }
+
+  serialize() {
+    const serialized = {}
+
+    Object.keys(this).forEach((key) => {
+      if (key === 'tree' || key === 'editor') {
+        return;
+      }
+      serialized[key] = this[key];
+    });
+
+    return serialized;
+  };
+
+  addEventListener(event, callback) {
+    if (!this._listeners[event]) {
+      this._listeners[event] = [];
+    }
+    this._listeners[event].push(callback);
+  }
+
+  dispatchEvent(event, data) {
+    if (this._listeners[event]) {
+      this._listeners[event].forEach((callback) => {
+        callback(data);
+      });
+    }
   }
 
   generateChecksum() {
@@ -22,11 +60,13 @@ class Store {
 
     if (increment > 0 && this.values[code] < max) {
       this.values[code] += increment;
+      this.dispatchEvent('change', { code, value: this.values[code] });
       return true;
     }
 
     if (increment < 0 && this.values[code] > min) {
       this.values[code] += increment;
+      this.dispatchEvent('change', { code, value: this.values[code] });
       return true;
     }
 

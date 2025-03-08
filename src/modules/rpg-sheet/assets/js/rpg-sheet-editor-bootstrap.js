@@ -1,22 +1,17 @@
 initializeTree = async function (
   store,
   schemaUrl,
-  dataUrl
 ) {
-  let reactiveData = Alpine.reactive(store);
-  Alpine.data('application', () => (reactiveData))
+  let reactiveStore = Alpine.reactive(store);
+  Alpine.data('application', () => (reactiveStore))
 
-  let defaultStore = await fetch(schemaUrl).then(response => response.json());
-  reactiveData = Object.assign(reactiveData, defaultStore);
+  let storeData = await fetch(schemaUrl).then(response => response.json());
 
-  await fetch(dataUrl).then(response => response.json()).then(response => {
-      reactiveData = Object.assign(reactiveData, response);
+  reactiveStore = Object.assign(reactiveStore, storeData);
 
-      console.log('%cbootstrap.js :: 15 =============================', 'color: #f00; font-size: 1rem');
-      console.log(reactiveData);
-  });
+  reactiveStore.setData(storeData);
 
-  return reactiveData
+  return reactiveStore
 };
 
 document.addEventListener('alpine:init', async () => {
@@ -25,9 +20,9 @@ document.addEventListener('alpine:init', async () => {
 
   const reactiveStore = await initializeTree(
     store,
-    'data/stores/fallout/schema.json',
-    'data/fallout-exemple.json'
+    'data/stores/fallout/schema.json'
   );
+
   const nodeTypes = await fetch('data/stores/fallout/node-types.json').then(response => response.json());
 
   const tree = new Tree(reactiveStore, nodeTypes);
@@ -37,6 +32,14 @@ document.addEventListener('alpine:init', async () => {
 
   reactiveStore.tree = tree;
   tree.render();
+
+  const storage = new LocalStorage('rpg-sheet');
+  store.addEventListener('change', (data) => {
+    console.log('%crpg-sheet-editor-bootstrap.js :: 34 =============================', 'color: #f00; font-size: 1rem');
+    console.log(store.serialize());
+    // storage.save(tree.serialize());
+  });
+
 
 
 });
