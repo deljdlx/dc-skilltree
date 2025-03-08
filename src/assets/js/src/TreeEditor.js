@@ -198,9 +198,7 @@ class TreeEditor {
         }
 
         this._store.ready = false;
-        this._store.setValues(data.values);
-        this._store.setAvailabilities(data.availabilities);
-        this._store.setTreeData(data.tree);
+        this._store.setData(data);
         this._tree.destroy();
         this._tree.render();
     }
@@ -208,12 +206,11 @@ class TreeEditor {
     async save(e) {
 
         this.handleEvent('beforeSave', e, this);
-        const data = {
-            values: this._store.getValues(),
-            availabilities: this._store.getAvailabilities(),
-            tree: this._tree.getJson(),
-        }
+        const data = this._store.getData();
 
+
+        console.log('%cTreeEditor.js :: 212 =============================', 'color: #f00; font-size: 1rem');
+        console.log(data);
 
         if(!this.options.storage) {
             return;

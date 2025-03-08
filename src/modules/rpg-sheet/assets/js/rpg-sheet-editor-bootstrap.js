@@ -7,7 +7,7 @@ initializeTree = async function (
 
   let storeData = await fetch(schemaUrl).then(response => response.json());
 
-  reactiveStore = Object.assign(reactiveStore, storeData);
+  // reactiveStore = Object.assign(reactiveStore, storeData);
 
   reactiveStore.setData(storeData);
 

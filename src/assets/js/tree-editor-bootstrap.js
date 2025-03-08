@@ -2,13 +2,13 @@ initializeTree = async function (
   store,
   schemaUrl,
 ) {
-  let reactiveData = Alpine.reactive(store);
-  Alpine.data('application', () => (reactiveData))
+  let reactiveStore = Alpine.reactive(store);
+  Alpine.data('application', () => (reactiveStore))
 
-  let defaultStore = await fetch(schemaUrl).then(response => response.json());
-  reactiveData = Object.assign(reactiveData, defaultStore);
+  let storeData = await fetch(schemaUrl).then(response => response.json());
+  reactiveStore.setData(storeData);
 
-  return reactiveData
+  return reactiveStore
 };
 
 document.addEventListener('alpine:init', async () => {

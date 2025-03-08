@@ -1,7 +1,7 @@
 <div class="col-span-4 p-2 tree-container container perks-container">
     <div class="available-points-container">
         <h2>Perks</h2>
-        <span class="available-points" x-text="availabilities.perks"></span>
+        <span class="available-points" x-text="_data.availabilities.perks"></span>
     </div>
     <template x-for="childId in getNodeById('category-perks').children" :key="childId + '-' + checksum">
         <div class="perk-container" x-data="{node: getNodeById(childId)}">
@@ -31,15 +31,15 @@
             </div>
             <input
                 @click="
-                    if(!values[node.data.code]) {
-                        if(!availabilities.perks) {
-                            values[node.data.code] = false;
+                    if(!_data.values[node.data.code]) {
+                        if(!_data.availabilities.perks) {
+                            _data.values[node.data.code] = false;
                         }
                         else {
-                            availabilities.perks--;
+                            _data.availabilities.perks--;
                         }
                     } else {
-                        availabilities.perks++;
+                        _data.availabilities.perks++;
                     };
 
                     if(typeof(save) === 'function') {
@@ -47,9 +47,9 @@
                     }
                 "
                 type="checkbox"
-                x-model="values[node.data.code]"
-                :checked="values[node.data.code]"
-                :disabled="!values[node.data.code] && !availabilities.perks"
+                x-model="_data.values[node.data.code]"
+                :checked="_data.values[node.data.code]"
+                :disabled="!_data.values[node.data.code] && !_data.availabilities.perks"
                 class="checkbox checkbox-primary"
             />
         </div>

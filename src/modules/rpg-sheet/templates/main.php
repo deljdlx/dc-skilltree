@@ -17,7 +17,7 @@
             <div style="margin-top: 1rem">
                 <div class="available-points-container">
                     <h2>Compétences</h2>
-                    <span class="available-points" x-text="availabilities.skills"></span>
+                    <span class="available-points" x-text="_data.availabilities.skills"></span>
                 </div>
 
 

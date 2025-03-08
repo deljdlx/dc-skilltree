@@ -1,6 +1,6 @@
 class Store {
 
-  _data;
+  _data = {};
   _listeners = {
     change: [],
   };
@@ -19,6 +19,18 @@ class Store {
 
   setData(data) {
     this._data = data;
+  }
+
+  getData() {
+    return this._data;
+  }
+
+  setTreeData(treeData) {
+    this._data.treeData = treeData;
+  }
+
+  getTreeData() {
+    return this._data.treeData;
   }
 
   serialize() {
@@ -54,19 +66,19 @@ class Store {
   }
 
   incrementValue(code, increment = 1, min = 0, max = 100) {
-    if (typeof this.values[code] === 'undefined') {
-      this.values[code] = 0;
+    if (typeof this._data.values[code] === 'undefined') {
+      this._data.values[code] = 0;
     }
 
-    if (increment > 0 && this.values[code] < max) {
-      this.values[code] += increment;
-      this.dispatchEvent('change', { code, value: this.values[code] });
+    if (increment > 0 && this._data.values[code] < max) {
+      this._data.values[code] += increment;
+      this.dispatchEvent('change', { code, value: this._data.values[code] });
       return true;
     }
 
-    if (increment < 0 && this.values[code] > min) {
-      this.values[code] += increment;
-      this.dispatchEvent('change', { code, value: this.values[code] });
+    if (increment < 0 && this._data.values[code] > min) {
+      this._data.values[code] += increment;
+      this.dispatchEvent('change', { code, value: this._data.values[code] });
       return true;
     }
 
@@ -95,7 +107,7 @@ class Store {
     for (const perkId of perks) {
       const perk = this.getNodeById(perkId);
 
-      if (!this.values[perk.data.code]) {
+      if (!this._data.values[perk.data.code]) {
         continue;
       }
 
@@ -121,10 +133,10 @@ class Store {
   }
 
   getValueByCode(code) {
-    if (typeof this.values[code] !== 'undefined') {
-      const returnValue = parseInt(this.values[code]);
+    if (typeof this._data.values[code] !== 'undefined') {
+      const returnValue = parseInt(this._data.values[code]);
       if (isNaN(returnValue)) {
-        this.values[code] = 0;
+        this._data.values[code] = 0;
         return 0;
       }
       return returnValue;
@@ -133,11 +145,11 @@ class Store {
   }
 
   getValues() {
-    return this.values;
+    return this._data.values;
   }
 
   getAvailabilities() {
-    return this.availabilities;
+    return this._data.availabilities;
   }
 
   getNodeById(id) {
@@ -188,15 +200,15 @@ class Store {
   // ============================================
 
   setValues(values) {
-    this.values = values;
+    this._data.values = values;
   }
 
   setAvailabilities(availabilities) {
-    this.availabilities = availabilities;
+    this._data.availabilities = availabilities;
   }
 
   setTreeData(treeData) {
-    this.treeData = treeData;
+    this._data.treeData = treeData;
     this.generateChecksum();
   }
 

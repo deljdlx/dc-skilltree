@@ -2,7 +2,7 @@
     class="col-span-4 p-2 tree-container container attributes-container">
     <div class="available-points-container">
         <h2>Attributs</h2>
-        <span class="available-points" x-text="availabilities.attributes"></span>
+        <span class="available-points" x-text="_data.availabilities.attributes"></span>
     </div>
     <div>
         <template
@@ -30,16 +30,16 @@
                 <div class="value-container">
                     <span class="value" x-text="computeValue(node)"></span>
                     <button x-on:click="
-                        if(availabilities.attributes > 0) {
+                        if(_data.availabilities.attributes > 0) {
                             if(incrementValue(node.data.code, 1, 0, 10)) {
-                                availabilities.attributes--;
+                                _data.availabilities.attributes--;
                             }
                         }" class="btn btn-xs btn-primary value-modifier">
                         <i class="button-increment" style="font-size: 10px;"></i>
                     </button>
                     <button x-on:click="
                         if(incrementValue(node.data.code, -1, 0, 10)) {
-                            availabilities.attributes++;
+                            _data.availabilities.attributes++;
                         }
                     " class="btn btn-xs btn-primary value-modifier">
                         <i class="button-decrement"></i>

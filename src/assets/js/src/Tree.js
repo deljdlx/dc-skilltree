@@ -83,7 +83,7 @@ class Tree {
   render() {
     this.tree = $('#skill-tree').jstree({
       'core': {
-        'data': this.store.treeData,
+        'data': this.store.getTreeData(),
         'multiple': false,
         "check_callback": (operation, node, parent, position, more) => {
 
@@ -147,8 +147,7 @@ class Tree {
       .on('rename_node.jstree', (e, data) => {
         this.selectNodeById('root');
         this.selectNode(data.node);
-        console.log('%cTree.js :: 186 =============================', 'color: #f00; font-size: 1rem');
-        console.log("RENAME NODE");
+        this.store.setTreeData(data.instance.get_json());
         this.handleEvent('rename', e, data);
         this.handleEvent('change', e, data);
       })
@@ -158,10 +157,12 @@ class Tree {
         this.handleEvent('change', e, data);
       })
       .on('move_node.jstree', (e, data) => {
+        this.store.setTreeData(data.instance.get_json());
         this.handleEvent('move', e, data);
         this.handleEvent('change', e, data);
       })
       .on('delete_node.jstree', (e, data) => {
+        this.store.setTreeData(data.instance.get_json());
         this.handleEvent('delete', e, data);
         this.handleEvent('change', e, data);
       })
@@ -270,7 +271,7 @@ class Tree {
       code: '',
     };
 
-    this.store.treeData = data.instance.get_json();
+    this.store.setTreeData(data.instance.get_json());
     this.selectNode(data.node);
   }
 

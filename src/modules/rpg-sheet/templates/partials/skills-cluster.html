@@ -32,9 +32,9 @@
             <div class="value-container">
                 <span class="value" x-text="computeValue(skill)"></span>
                 <button x-on:click="
-                    if(availabilities.skills > 0) {
+                    if(_data.availabilities.skills > 0) {
                         if(incrementValue(skill.data.code)) {
-                            availabilities.skills--;
+                            _data.availabilities.skills--;
                         }
                     }" class="btn btn-xs btn-primary value-modifier">
                     <i class="button-increment"></i>
@@ -42,7 +42,7 @@
 
                 <button x-on:click="
                     if(incrementValue(skill.data.code, -1)) {
-                        availabilities.skills++;
+                        _data.availabilities.skills++;
                     }" class="btn btn-xs btn-primary value-modifier">
                     <i class="button-decrement"></i>
                 </button>
