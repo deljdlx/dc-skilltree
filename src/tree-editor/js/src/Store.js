@@ -210,6 +210,8 @@ class Store {
       }
     }
 
+    console.error('Node not found:' + code);
+
     return null;
   }
 

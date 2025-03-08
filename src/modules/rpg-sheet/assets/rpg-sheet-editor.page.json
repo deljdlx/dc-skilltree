@@ -1,10 +1,6 @@
 {
     "templates": [
         {
-            "selector": "#header-container",
-            "url": "./modules/rpg-sheet/templates/partials/header.html"
-        },
-        {
             "selector": "#sheet-container",
             "url": "./modules/rpg-sheet/templates/main.php"
         }
@@ -14,7 +10,7 @@
         "./tree-editor/vendor/jstree/jstree.min.css",
         "./tree-editor/css/page.css",
         "./modules/rpg-sheet/assets/css/rpg-sheet.css",
-        "./modules/rpg-sheet/assets/css/sheet-editor.css"
+        "./modules/rpg-sheet/assets/css/page.css"
     ],
     "js": [
         "https://cdn.tailwindcss.com",

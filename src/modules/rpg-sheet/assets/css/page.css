@@ -1,0 +1,8 @@
+body {
+  overflow: auto;
+  background-color: var(--color-darkest);
+  background-image: url(../image/background-page.webp);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

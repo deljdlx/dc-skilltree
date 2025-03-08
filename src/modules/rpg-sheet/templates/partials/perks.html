@@ -1,7 +1,9 @@
 <div class="col-span-4 p-2 tree-container container perks-container">
     <div class="available-points-container">
-        <h2>Perks</h2>
-        <span class="available-points" x-text="_data.availabilities.perks"></span>
+        <h2>
+            <span>Perks</span>
+            <span class="available-points" x-text="_data.availabilities.perks"></span>
+        </h2>
     </div>
     <template x-for="child in getNodeById('category-perks').children" :key="child.id + '-' + checksum">
         <div class="perk-container" x-data="{node: child}">
@@ -9,7 +11,7 @@
                 <span x-text="node.text"></span>
                 <template x-if="node.data.description">
                     <div class="dropdown ">
-                        <div tabindex="0"><i class="fas fa-question-circle"></i></div>
+                        <div tabindex="0"><span class="tooltip-trigger"></span></div>
                         <div
                             tabindex="0"
                             class="dropdown-content shadow">
@@ -19,10 +21,9 @@
                                 </template>
                                 <div x-html="node.data.description"></div>
 
-                                <div x-show="node.data.modifiers">
-                                    <hr />
-                                    <div>Modificateurs</div>
-                                    <pre x-html="node.data.modifiers"></pre>
+                                <div class="modifiers-container" x-show="node.data.modifiers">
+                                    <h3>Modificateurs</h3>
+                                    <pre class="modfiers modifiers--perks" x-html="node.data.modifiers"></pre>
                                 </div>
                             </div>
                         </div>

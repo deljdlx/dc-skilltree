@@ -12,6 +12,9 @@ body {
   font-size: 1rem;
   line-height: 1.6;
 }
+p {
+  margin-bottom: 1rem;
+}
 
 /* Section Hero avec effet tonique */
 .hero {

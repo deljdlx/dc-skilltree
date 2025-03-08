@@ -16,6 +16,8 @@ initializeTree = async function (
 
 document.addEventListener('alpine:init', async () => {
 
+  const sheetStorage = new LocalStorage('rpg-sheet');
+  const treeStorage = new LocalStorage('skill-tree');
   const store = new Store();
 
   const reactiveStore = await initializeTree(
@@ -23,31 +25,24 @@ document.addEventListener('alpine:init', async () => {
     'data/stores/fallout/schema.json'
   );
 
-  const nodeTypes = await fetch('data/stores/fallout/node-types.json').then(response => response.json());
 
-  const tree = new Tree(reactiveStore, nodeTypes);
-  tree.addEventListener('ready', () => {
-    reactiveStore.ready = true;
-  });
+  if(treeStorage.get()) {
+    console.log('%crpg-sheet-editor-bootstrap.js :: 28 =============================', 'color: #f00; font-size: 1rem');
+    console.log(treeStorage.get());
+    store.setData(treeStorage.get());
+    console.log('%crpg-sheet-editor-bootstrap.js :: 33 =============================', 'color: #f00; font-size: 1rem');
+    console.log(store.getNodeByCode('THEME_COLOR'));
+  }
 
-  const storage = new LocalStorage('rpg-sheet');
-  let savedData = storage.get();
-
+  let savedData = sheetStorage.get();
   if (savedData) {
     store.setData(savedData);
   }
-  reactiveStore.tree = tree;
-  tree.render();
-
-
-
-  console.log('%crpg-sheet-editor-bootstrap.js :: 38 =============================', 'color: #f00; font-size: 1rem');
-  console.log(savedData);
 
   store.addEventListener('change', (data) => {
-    storage.set(store.getData());
+    sheetStorage.set(store.getData());
   });
 
-
+  reactiveStore.ready = true;
 
 });
