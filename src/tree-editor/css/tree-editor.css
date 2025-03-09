@@ -25,6 +25,8 @@
 }
 .tree-editor-panel--right #sheet-container {
   font-size: 10px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* =================================================== */
