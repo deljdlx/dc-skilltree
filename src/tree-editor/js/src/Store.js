@@ -245,9 +245,6 @@ class Store {
   // ============================================
 
   renderField(fieldName, descriptor, node) {
-    console.log('%cStore.js :: 248 =============================', 'color: #f00; font-size: 1rem');
-    console.log(descriptor);
-
     let renderer = null;
 
     switch (descriptor.type) {

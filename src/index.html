@@ -17,8 +17,30 @@
             background-position: 50% 100%;
         "
     >
-        <div class="overlay">
+        <div class="overlay" style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        ">
             <h1>RPG character sheet maker</h1>
+            <!-- github link with logo -->
+            <a href="https://github.com/deljdlx/dc-skilltree"
+                style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    background-color: #fffd;
+                    border-radius: 8px;
+                    color: #000;
+                    padding: 0.5rem 1rem;
+                    width: 200px;
+                "
+            >
+                <img src="assets/images/github.png" alt="Github logo" style="height: 1.5rem;">
+                <span>View on Github</span>
+            </a>
         </div>
     </section>
 
@@ -30,8 +52,10 @@
                 </div>
                 <div class="text">
                     <h2>Créateur de fiches personnages</h2>
-                    <p>Ce projet est un Proof of Concept proposant une approche modulaire de modèles de données,
-                        notemment la conception de fiche de personnage pour un de jeu de rôle.
+                    <p>Ce projet est un Proof of Concept proposant une gestion/conception de système de données de façon modulaire.</p>
+                    <p>
+                        Dans le cadre de cet exemple, l'outil est décline dans une version "Créateur de fiche de personnage".
+                        Le système de données de cette démo est basé sur l'univers de Fallout.
                     </p>
                     <p>
                         Le système repose sur une architecture évolutive, avec la possibilité d’ajouter des types,

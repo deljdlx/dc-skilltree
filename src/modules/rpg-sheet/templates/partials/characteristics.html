@@ -1,4 +1,4 @@
-<div class="col-span-4 p-2 tree-container container characteristics-container">
+<div>
     <h2>Caractéristiques</h2>
     <template x-for="child in getNodeById('category-characteristics').children" :key="child.id + '-' + checksum">
         <div class="characteristic-container" x-data="{node: child}">
@@ -22,9 +22,6 @@
                                         <pre class="formula" x-html="node.data.value"></pre>
                                     </div>
                                 </template>
-
-
-
                             </div>
                         </div>
                     </div>

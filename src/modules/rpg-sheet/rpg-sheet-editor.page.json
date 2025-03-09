@@ -2,7 +2,23 @@
     "templates": [
         {
             "selector": "#sheet-container",
-            "url": "./modules/rpg-sheet/templates/main.php"
+            "url": "./modules/rpg-sheet/templates/main.html"
+        },
+        {
+            "selector": "#skill-tree-viewer__attributes-container",
+            "url": "./modules/rpg-sheet/templates/partials/attributes.html"
+        },
+        {
+            "selector": "#skill-tree-viewer__perks-container",
+            "url": "./modules/rpg-sheet/templates/partials/perks.html"
+        },
+        {
+            "selector": "#skill-tree-viewer__characteristics-container",
+            "url": "./modules/rpg-sheet/templates/partials/characteristics.html"
+        },
+        {
+            "selector": "#skill-tree-viewer__skills-container",
+            "url": "./modules/rpg-sheet/templates/partials/skills.html"
         }
     ],
     "css": [

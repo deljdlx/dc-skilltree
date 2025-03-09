@@ -14,9 +14,12 @@
             -->
 
             <div class="grid grid-cols-12 gap-2">
-                <?php require __DIR__ . '/partials/attributes.html'; ?>
-                <?php require __DIR__ . '/partials/perks.html'; ?>
-                <?php require __DIR__ . '/partials/characteristics.html'; ?>
+                <div id="skill-tree-viewer__attributes-container" class="col-span-4 p-2 tree-container container attributes-container"></div>
+                <div id="skill-tree-viewer__perks-container" class="col-span-4 p-2 tree-container container attributes-container"></div>
+                <div id="skill-tree-viewer__characteristics-container" class="col-span-4 p-2 tree-container container attributes-container"></div>
+                <?php //require __DIR__ . '/partials/attributes.html'; ?>
+                <?php // require __DIR__ . '/partials/perks.html'; ?>
+                <?php //require __DIR__ . '/partials/characteristics.html'; ?>
             </div>
         </template>
     </div>
@@ -33,10 +36,10 @@
             </div>
 
 
-            <div class="grid grid-cols-12 gap-2 skills-container">
-                <template x-for="cluster in getNodeById('category-skills').children">
+            <div class="grid grid-cols-12 gap-2 skills-container" id="skill-tree-viewer__skills-container">
+                <!-- <template x-for="cluster in getNodeById('category-skills').children">
                     <?php require __DIR__ . '/partials/skills-cluster.html'; ?>
-                </template>
+                </template> -->
             </div>
         </div>
     </template>

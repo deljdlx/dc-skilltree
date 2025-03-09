@@ -1,4 +1,5 @@
 class PageLoader {
+
     constructor(configUrl) {
         this.configUrl = configUrl;
         this.config = null;
@@ -14,8 +15,16 @@ class PageLoader {
             const response = await fetch(template.url);
             const html = await response.text();
             const container = document.querySelector(template.selector);
-            container.innerHTML = html;
+            if (!container) {
+                setTimeout(() => {
+                    console.log('Container not found, retrying in 100ms', template);
+                    this.loadTemplate(template).then(resolve);
+                }, 100);
+                resolve();
+                return;
+            }
 
+            container.innerHTML = html;
             resolve();
         });
     }
