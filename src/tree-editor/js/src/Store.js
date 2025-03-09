@@ -134,6 +134,7 @@ class Store {
       }
       return returnValue;
     }
+
     return 0;
   }
 
@@ -175,6 +176,7 @@ class Store {
       }
     }
     console.error('Node not found:' + id);
+
     return null;
   }
 
@@ -206,7 +208,6 @@ class Store {
         }
       }
     }
-
     console.error('Node not found:' + code);
 
     return null;
@@ -238,8 +239,6 @@ class Store {
         this._data.nodeTypes[key].fields = this._data.fieldDescriptors[fieldDescriptorName];
       }
     });
-
-
   }
 
   // ============================================

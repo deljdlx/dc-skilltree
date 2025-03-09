@@ -1,0 +1,4 @@
+class SkillTreeStore extends Store
+{
+
+}

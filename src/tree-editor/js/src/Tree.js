@@ -211,7 +211,6 @@ class Tree {
 
 
   renameCurrentNode(text) {
-    // get current selected node in jstree
     const node = this._renderer.jstree('get_selected', true)[0];
     if (node) {
       return;
@@ -225,29 +224,13 @@ class Tree {
 
 
   updateNode(node) {
-    // if (node.type !== 'skill' && node.type !== 'perk' && node.type !== 'attribute' && node.type !== 'cluster'
-    //   && node.type // type is null for new nodes
-    // ) {
-    //   console.log('%cRETURN PARENT ROOT :: 64 =============================', 'color: #f00; font-size: 1rem');
-    //   return;
-    // }
-
-
-    // JDLX_TODO it works also on data attribute, but it seems buggy
-    this._renderer.jstree('rename_node', node, node.text);
-    // this.store.treeData = data.instance.get_json();
-    // select node
-    // this.selectNodeById('root');
-    // this.selectNode(node);
-
+        this._renderer.jstree('rename_node', node, node.text);
   }
 
 
   handleCreate(e, data) {
     const parentNodeId = data.node.parent;
     const parentNode = data.instance.get_node(parentNodeId);
-    const parentType = parentNode.type;
-
     const parentTypeInfo = this.getTypeByNode(parentNode);
 
     if (parentTypeInfo.childType) {
@@ -296,7 +279,6 @@ class Tree {
   }
 
   getNodeByCode(code) {
-    // search in tree node with data.code === code
     const nodes = this._renderer.jstree('get_json', 'root', {
       flat: true
     });

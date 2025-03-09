@@ -2,7 +2,7 @@ initializeTree = async function (
   schemaUrl,
   nodeTypesUrl = 'data/stores/fallout/node-types.json'
 ) {
-  const store = new Store();
+  const store = new SkillTreeStore();
   let reactiveStore = Alpine.reactive(store);
   Alpine.data('application', () => (reactiveStore))
 

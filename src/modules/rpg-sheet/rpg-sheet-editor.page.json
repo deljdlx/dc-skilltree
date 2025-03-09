@@ -32,7 +32,10 @@
         "./tree-editor/vendor/jquery/jquery.js",
         "./tree-editor/vendor/jstree/jstree.min.js",
         "./tree-editor/js/src/storages/LocalStorage.js",
+
         "./tree-editor/js/src/Store.js",
+        "./tree-editor/js/src/SkillTreeStore.js",
+
         "./tree-editor/js/src/Tree.js",
         "./modules/rpg-sheet/assets/js/rpg-sheet-editor-bootstrap.js",
         "./tree-editor/vendor/alpine.js"

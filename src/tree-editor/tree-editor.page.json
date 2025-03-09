@@ -63,6 +63,8 @@
 
 
         "./tree-editor/js/src/Store.js",
+        "./tree-editor/js/src/SkillTreeStore.js",
+
         "./tree-editor/js/src/Tree.js",
         "./tree-editor/js/src/TreeEditor.js",
         "./tree-editor/js/tree-editor-bootstrap.js",

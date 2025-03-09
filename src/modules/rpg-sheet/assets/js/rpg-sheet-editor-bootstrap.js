@@ -1,7 +1,7 @@
 initializeTree = async function (
-  store,
   schemaUrl,
 ) {
+  const store = new SkillTreeStore();
   let reactiveStore = Alpine.reactive(store);
   Alpine.data('application', () => (reactiveStore))
 
@@ -15,20 +15,18 @@ document.addEventListener('alpine:init', async () => {
 
   const sheetStorage = new LocalStorage('rpg-sheet');
   const treeStorage = new LocalStorage('skill-tree');
-  const store = new Store();
 
   const reactiveStore = await initializeTree(
-    store,
     'data/stores/fallout/schema.json'
   );
+  reactiveStore.ready = true;
 
 
   if(treeStorage.get()) {
-    console.log('%crpg-sheet-editor-bootstrap.js :: 28 =============================', 'color: #f00; font-size: 1rem');
-    console.log(treeStorage.get());
-    console.log('%crpg-sheet-editor-bootstrap.js :: 33 =============================', 'color: #f00; font-size: 1rem');
-    console.log(store.getNodeByCode('THEME_COLOR'));
-
+    // console.log('%crpg-sheet-editor-bootstrap.js :: 28 =============================', 'color: #f00; font-size: 1rem');
+    // console.log(treeStorage.get());
+    // console.log('%crpg-sheet-editor-bootstrap.js :: 33 =============================', 'color: #f00; font-size: 1rem');
+    // console.log(store.getNodeByCode('THEME_COLOR'));
     store.setData(treeStorage.get());
   }
 
@@ -47,7 +45,4 @@ document.addEventListener('alpine:init', async () => {
     };
     sheetStorage.set(data);
   });
-
-  reactiveStore.ready = true;
-
 });
