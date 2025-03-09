@@ -28,6 +28,7 @@ document.addEventListener('alpine:init', async () => {
   const tree = new Tree(reactiveStore);
   tree.addEventListener('ready', () => {
     reactiveStore.ready = true;
+    tree.selectNodeById('root');
   });
 
   tree.addEventListener('change', () => {
@@ -42,21 +43,12 @@ document.addEventListener('alpine:init', async () => {
   });
 
   editor.load();
+  tree.render();
 
   // ======================================================
-
   const clearTrigger = document.querySelector('#clear-trigger');
   clearTrigger.addEventListener('click', async (e) => {
     storage.remove();
     document.location.reload();
   });
-
-
-
-  // reactiveStore.tree = tree;
-  reactiveStore.editor = editor;
-
-  tree.render();
-
-
 });

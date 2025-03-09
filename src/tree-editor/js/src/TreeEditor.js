@@ -6,10 +6,6 @@ class TreeEditor {
     _store = null;
     _tree = null;
 
-    importEditor = null;
-    importTreeAceContainer = null;
-    importTreeTextarea = null;
-
 
     options = {
         storage: null,
@@ -59,39 +55,6 @@ class TreeEditor {
         });
     }
 
-    initializeImportPanel() {
-        this.importTreeAceContainer = document.querySelector('.import-tree-container');
-        this.importTreeTextarea = document.querySelector('.import-tree-value');
-        this.importEditor = ace.edit(this.importTreeAceContainer);
-        this.importEditor.setOptions({
-            theme: "ace/theme/dracula",
-            mode: "ace/mode/json",
-            maxLines: 40,
-            minLines: 40,
-            autoScrollEditorIntoView: true,
-        });
-        this.importEditor.session.setValue(this.importTreeTextarea.value);
-        this.importEditor.on('change', (e) => {
-            this.importTreeTextarea.value = this.importEditor.getValue();
-        });
-
-        document.querySelector('.import-tree-trigger').addEventListener('click', () => {
-            this.importTree();
-        });
-    }
-
-    importTree() {
-        const json = this.importEditor.getValue();
-
-        console.log('%cTreeEditor.js :: 73 =============================', 'color: #f00; font-size: 1rem');
-        const data = JSON.parse(json);
-        console.log(data);
-
-        this._store.treeData = data;
-        this._tree.destroy();
-        this._tree.render();
-    }
-
     async handleNodeSelection() {
         const fileHandler = new FileHandler(this._tree, this.options);
         fileHandler.handle();
@@ -102,84 +65,8 @@ class TreeEditor {
         const wysiwygHandler = new WysiwygHandler(this._tree, this.options);
         wysiwygHandler.handle();
 
-        // ===========================
-
-        // JDLX_TODO does not work
-        // const containers = document.querySelectorAll('.quill');
-        // containers.forEach((container) => {
-        //     if(!container.dataset.initialized) {
-        //         container.dataset.initialized = 'true';
-        //         const quill = new Quill(container, {
-        //             theme: "snow"
-        //         });
-        //     }
-        // });
-
-        // ===========================
-
-
-        // this.handleWysiwygEditors();
-        // this.handleAceEditor();
-    }
-
-    handleWysiwygEditors() {
-        const selectedNode = this._tree.getData().selectedNode;
-        const editors = document.querySelectorAll('.wysiwyg');
-
-        // // get all tinymce instances
-        // const tinymceInstances = tinymce.editors;
-        // // destroy all tinymce instances
-        // tinymceInstances.forEach((instance) => {
-        //     instance.remove();
-        // });
-
-        editors.forEach((editorNode, index) => {
-
-            // if(editorNode.id) {
-            //     const tinyMceInstance = tinymce.get(editorNode.id);
-            //     if (tinyMceInstance) {
-            //         tinyMceInstance.remove();
-            //         editorNode.initialized = false;
-            //     }
-            // }
-
-            // if (!editorNode.id) {
-            //     const id = Math.random().toString(36).substring(7);
-            //     editorNode.id = `dynamic-editor-${id}`;
-            // }
-            if (!editorNode.initialized) {
-                wp.editor.initialize(editorNode.id, {
-                    tinymce: {
-                        wpautop: true,
-                        plugins: 'link',
-                        toolbar1: 'bold italic underline | link',
-                        setup: (editor) => {
-                            editor.on('input', () => {
-                                const content = editor.getContent();
-                                console.log('%cTreeEditor.js :: 116 =============================', 'color: #f00; font-size: 1rem');
-                                console.log(content);
-                                this._tree.getData().selectedNode.data.description = content;
-                            });
-                            editor.on('change', () => {
-                                const content = editor.getContent();
-                                console.log('%cTreeEditor.js :: 116 =============================', 'color: #f00; font-size: 1rem');
-                                console.log(content);
-                                this._tree.getData().selectedNode.data.description = content;
-                            });
-                        }
-                    },
-                    quicktags: true,
-                });
-
-                editorNode.initialized = true;
-            }
-
-            const editor = tinymce.get(editorNode.id);
-            editor.setContent(selectedNode.data.description ?? '');
-            // set editor content with
-            // wp.editor.setContent(editorNode.id, selectedNode.data[editorNode.dataset.fieldName] ?? '');
-
-        });
+        const contentTemplateHandler = new ContentTemplateHandler(this._tree, this.options);
+        contentTemplateHandler.handle();
     }
 
     async handleNodeUpdate(event) {

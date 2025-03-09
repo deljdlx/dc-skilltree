@@ -1,5 +1,12 @@
 {
   "fields": {
+    "root": {
+      "content": {
+        "type": "content-template",
+        "url": "data/stores/fallout/content/node-root.html"
+      }
+    },
+
     "default": {
       "name": {
         "type": "text",
@@ -61,14 +68,20 @@
     "root": {
       "icon": "node--tree",
       "noDelete": true,
-      "noRename": true
+      "noRename": true,
+      "fieldsDescriptor": "root"
     },
 
     "section-system":{
       "icon": "node--hammer-wrench",
       "noDelete": true,
       "noRename": true,
-      "fieldsDescriptor": "default"
+      "fields": {
+        "default": {
+          "type": "content",
+          "content": "<h1>System</h1> <p>Here you can define the entities of your system.</p>"
+        }
+      }
     },
     "section-sheet-variables":{
       "icon": "node--picture",
@@ -87,8 +100,7 @@
       "icon": "node--biceps",
       "childType": "attribute",
       "noDelete": true,
-      "noRename": true,
-      "fieldsDescriptor": "default"
+      "noRename": true
     },
 
     "category-characteristics": {
@@ -96,21 +108,30 @@
       "childType": "characteristic",
       "noDelete": true,
       "noRename": true,
-      "fieldsDescriptor": "default"
+      "fields": {
+        "default": {
+          "type": "content-template",
+          "url": "data/stores/fallout/content/node-category-characteristics.html"
+        }
+      }
     },
 
     "category-perks": {
       "icon": "node--star",
       "noDelete": true,
       "noRename": true,
-      "fieldsDescriptor": "default"
+      "fields": {
+        "default": {
+          "type": "content-template",
+          "url": "data/stores/fallout/content/node-category-perks.html"
+        }
+      }
     },
 
     "category-skills": {
       "icon": "node--joystick",
       "noDelete": true,
-      "noRename": true,
-      "fieldsDescriptor": "default"
+      "noRename": true
     },
 
     "perk": {

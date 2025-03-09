@@ -1,0 +1,31 @@
+<style>
+code {
+    background-color: var(--color-lightest);
+    color: var(--color-dark);
+    border-radius: 0.5rem;
+    padding: 2px 4px;
+}
+</style>
+
+<h1>Perks</h1>
+<p>With perks, you can modify almost everything in a character.</p>
+<h2>Exemple: "Ninja perk"</h2>
+<pre style="background-color: var(--color-dark); color: var(--color-light); padding: 1rem;">
+    ${CAR_INITIATIVE} += 5
+    ${CAR_DODGE} += 5
+    ${SKILL_FIGHT} += 15
+    ${SKILL_SILENT_WALK} += 10
+    ${SKILL_THROWING} += 10
+</pre>
+<p>What does it mean</p>
+<ul>
+    <li><code>${CAR_INITIATIVE} += 5</code> : The character will have 5 more points in the initiative characteristic.</li>
+    <li><code>${CAR_DODGE} += 5</code> : The character will have 5 more points in the dodge characteristic.</li>
+    <li><code>${SKILL_FIGHT} += 15</code> : The character will have 15 more points in the fight skill.</li>
+    <li><code>${SKILL_SILENT_WALK} += 10</code> : The character will have 10 more points in the silent walk skill.</li>
+    <li><code>${SKILL_THROWING} += 10</code> : The character will have 10 more points in the throwing skill.</li>
+</ul>
+
+<p>
+    As you can see, with a single perk, you can tune a character in many ways.
+</p>

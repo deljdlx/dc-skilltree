@@ -22,9 +22,24 @@ body {
   color: var(--color-lightest);
 }
 
-a {
+.application a {
   color: var(--color-lightest);
 }
+
+.application h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.application h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.application p {
+  margin-bottom: 1rem;
+}
+
 
 #editor-header {
   height: var(--header-height);

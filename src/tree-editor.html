@@ -8,19 +8,30 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
 </head>
 
-<body>
+<body class="application">
     <div
         x-data="application"
         class="skill-tree-editor"
     >
         <div>
-            <div id="header-container"></div>
-
             <div class="grid grid-cols-12 gap-2">
 
                 <!-- =========================================================== -->
 
                 <section class="col-span-3 p-2 tree-editor-panel tree-editor-panel--left">
+                    <div class="flex space-between gap-1" style="margin-bottom: 1rem">
+                        <a
+                            href="sheet-editor.html"
+                            target="_blank"
+                            class="btn btn-warning btn-sm"
+                            style="color: var(--color-dark)"
+                        >View sheet</a>
+                        <button
+                            id="clear-trigger"
+                            class="btn btn-warning btn-sm"
+                        >Reset and load default sheet</button>
+                    </div>
+
                     <div id="skill-tree"></div>
                 </section>
 
@@ -33,18 +44,17 @@
                 <!-- =========================================================== -->
 
                 <section class="col-span-5 p-2 tree-editor-panel tree-editor-panel--right">
-                    <h2>Preview</h2>
                     <div style="position: relative">
                         <div id="sheet-container"></div>
-                        <!-- <div style="
+                        <div style="
                                 position: absolute;
-                                background-color: #0008;
+                                background-color: #0003;
                                 top: 0;
                                 left: 0;
                                 right: 0;
                                 bottom: 0;
                             ">
-                        </div> -->
+                        </div>
                     </div>
                 </section>
 

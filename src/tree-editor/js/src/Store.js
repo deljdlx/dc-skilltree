@@ -245,6 +245,8 @@ class Store {
   // ============================================
 
   renderField(fieldName, descriptor, node) {
+    console.log('%cStore.js :: 248 =============================', 'color: #f00; font-size: 1rem');
+    console.log(descriptor);
 
     let renderer = null;
 
@@ -271,6 +273,14 @@ class Store {
       }
       case 'wysiwyg': {
         renderer = new WysiwygRenderer(fieldName, descriptor, node);
+        break;
+      }
+      case 'content': {
+        renderer = new ContentRenderer(fieldName, descriptor, node);
+        break;
+      }
+      case 'content-template': {
+        renderer = new ContentTemplateRenderer(fieldName, descriptor, node);
         break;
       }
     }

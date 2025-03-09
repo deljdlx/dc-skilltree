@@ -1,0 +1,32 @@
+<style>
+    code {
+        background-color: var(--color-lightest);
+        color: var(--color-dark);
+        border-radius: 0.5rem;
+        padding: 2px 4px;
+    }
+    </style>
+<h1>Characteristics</h1>
+<p>Here you can define the characteristics of your system.</p>
+<p>Characteristics are mostly computed values based on attributes.</p>
+
+<h2>Example: "Hit points"</h2>
+<p>
+    <pre style="background-color: var(--color-dark); color: var(--color-light); padding: 1rem;">${E} * 20 + 20</pre>
+</p>
+
+<h2>What does it mean</h2>
+
+<p>
+    <code>${E} * 20 + 20</code> : Hit points are equal to the value of the attribute Endurance <code>${E}</code>, multiplied by 20, plus 20.
+</p>
+
+<p>
+    So if the character has an Endurance of 5, the hit points will be 120.
+</p>
+<p>
+    Note that if the character has an Endurance of 0, the hit points will be 20.
+</p>
+
+
+</p>

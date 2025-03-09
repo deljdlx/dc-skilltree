@@ -108,7 +108,6 @@ class Tree {
       .on('ready.jstree', function () {
         $(this).jstree('open_all');
       })
-      // handle node selection, fill the form with node data
       .on('select_node.jstree', (e, data) => {
         this.store.previousSelectedNode = this.store.selectedNode;
 

@@ -1,10 +1,6 @@
 {
     "templates": [
         {
-            "selector": "#header-container",
-            "url": "./tree-editor/templates/editor/partials/header.html"
-        },
-        {
             "selector": "#node-informations-container",
             "url": "./tree-editor/templates/editor/partials/node-informations.html"
         },
@@ -29,12 +25,16 @@
         "./tree-editor/vendor/jstree/jstree.min.js",
         "./tree-editor/vendor/ace-editor/src/ace.js",
         "./tree-editor/vendor/ace-editor/src/ext-language_tools.js",
+
         "./tree-editor/js/src/storages/LocalStorage.js",
+
         "./tree-editor/js/src/fieldHandlers/FieldHandler.js",
         "./tree-editor/js/src/fieldHandlers/FileHandler.js",
         "./tree-editor/js/src/fieldHandlers/CodeHandler.js",
         "./tree-editor/js/src/fieldHandlers/ImagePasteHandler.js",
         "./tree-editor/js/src/fieldHandlers/WysiwygHandler.js",
+        "./tree-editor/js/src/fieldHandlers/ContentTemplateHandler.js",
+
         "./tree-editor/js/src/fieldRenderers/FieldRenderer.js",
         "./tree-editor/js/src/fieldRenderers/TextRenderer.js",
         "./tree-editor/js/src/fieldRenderers/FileRenderer.js",
@@ -42,6 +42,10 @@
         "./tree-editor/js/src/fieldRenderers/TextareaRenderer.js",
         "./tree-editor/js/src/fieldRenderers/CodeRenderer.js",
         "./tree-editor/js/src/fieldRenderers/WysiwygRenderer.js",
+        "./tree-editor/js/src/fieldRenderers/ContentRenderer.js",
+        "./tree-editor/js/src/fieldRenderers/ContentTemplateRenderer.js",
+
+
         "./tree-editor/js/src/Store.js",
         "./tree-editor/js/src/Tree.js",
         "./tree-editor/js/src/TreeEditor.js",

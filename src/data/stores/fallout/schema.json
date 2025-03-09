@@ -18,7 +18,7 @@
     "treeData": [
         {
             "id": "root",
-            "text": "Root node",
+            "text": "RPG Sheet Maker",
             "data": {
                 "code": "ROOT"
             },

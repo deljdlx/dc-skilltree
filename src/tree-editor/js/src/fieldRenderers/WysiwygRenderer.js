@@ -18,7 +18,7 @@ class WysiwygRenderer extends FieldRenderer
             <div class="wysiwyg-container">
                 <div
                   class="wysiwyg-content hidden"
-                  x-html="selectedNode.${this._descriptor.model}"
+                  x-html="selectedNode.${this._descriptor.model ?? ''} ?? ''"
                 ></div>
 
                 <div
