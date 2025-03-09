@@ -12,6 +12,8 @@ initializeTree = async function (
   const nodeTypes = await fetch(nodeTypesUrl).then(response => response.json());
   reactiveStore.setNodeTypes(nodeTypes);
 
+  const renderer = new TreeNodeFieldRenderer();
+  reactiveStore.setFieldRenderer(renderer);
 
   return reactiveStore
 };
@@ -37,10 +39,10 @@ document.addEventListener('alpine:init', async () => {
   });
 
   const editor = new TreeEditor(reactiveStore, tree, {
-    storage: storage,
     uploadUrl: 'backend/stub.json',
     // uploadUrl: 'backend/upload.php',
   });
+  editor.setStorage(storage);
 
   editor.load();
   tree.render();

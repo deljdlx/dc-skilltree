@@ -27,6 +27,11 @@ class Tree {
   fieldDescriptors = {};
   types = {};
 
+  /**
+   * @type {Store}
+   */
+  _store = null;
+
   eventListeners = {
     'select_node.jstree': [],
     'rename_node.jstree': [],
@@ -36,9 +41,12 @@ class Tree {
   }
 
 
+  /**
+   * @param {Store} store
+   */
   constructor(store) {
-    this.store = store;
-    this.types = this.store.getNodeTypes();
+    this._store = store;
+    this.types = this._store.getNodeTypes();
   }
 
   addEventListener(name, callback) {
@@ -61,7 +69,7 @@ class Tree {
 
 
   getData() {
-    return this.store;
+    return this._store;
   }
 
 
@@ -72,7 +80,7 @@ class Tree {
   render() {
     this._renderer = $('#skill-tree').jstree({
       'core': {
-        'data': this.store.getTreeData(),
+        'data': this._store.getTreeData(),
         'multiple': false,
         "check_callback": (operation, node, parent, position, more) => {
 
@@ -109,10 +117,10 @@ class Tree {
         $(this).jstree('open_all');
       })
       .on('select_node.jstree', (e, data) => {
-        this.store.previousSelectedNode = this.store.selectedNode;
+        this._store.previousSelectedNode = this._store.selectedNode;
 
-        let node = this.store.getNodeById(data.node.id);
-        this.store.selectedNode = node;
+        let node = this._store.getNodeById(data.node.id);
+        this._store.selectedNode = node;
 
         this.eventListeners['select_node.jstree'].forEach(callback => {
           callback(e, data);
@@ -137,7 +145,7 @@ class Tree {
       .on('rename_node.jstree', (e, data) => {
         this.selectNodeById('root');
         this.selectNode(data.node);
-        this.store.setTreeData(data.instance.get_json());
+        this._store.setTreeData(data.instance.get_json());
         this.handleEvent('rename', e, data);
         this.handleEvent('change', e, data);
       })
@@ -147,12 +155,12 @@ class Tree {
         this.handleEvent('change', e, data);
       })
       .on('move_node.jstree', (e, data) => {
-        this.store.setTreeData(data.instance.get_json());
+        this._store.setTreeData(data.instance.get_json());
         this.handleEvent('move', e, data);
         this.handleEvent('change', e, data);
       })
       .on('delete_node.jstree', (e, data) => {
-        this.store.setTreeData(data.instance.get_json());
+        this._store.setTreeData(data.instance.get_json());
         this.handleEvent('delete', e, data);
         this.handleEvent('change', e, data);
       })
@@ -244,7 +252,7 @@ class Tree {
       code: '',
     };
 
-    this.store.setTreeData(data.instance.get_json());
+    this._store.setTreeData(data.instance.get_json());
     this.selectNode(data.node);
   }
 
@@ -255,7 +263,7 @@ class Tree {
     this._renderer.jstree('deselect_all');
 
     this._renderer.jstree('select_node', node);
-    this.store.selectedNode = node;
+    this._store.selectedNode = node;
   }
 
   getTypeByNode(node) {

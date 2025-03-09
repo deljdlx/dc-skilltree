@@ -42,6 +42,7 @@
         "./tree-editor/vendor/ace-editor/src/ace.js",
         "./tree-editor/vendor/ace-editor/src/ext-language_tools.js",
 
+        "./tree-editor/js/src/storages/Storage.js",
         "./tree-editor/js/src/storages/LocalStorage.js",
 
         "./tree-editor/js/src/fieldHandlers/FieldHandler.js",
@@ -61,6 +62,8 @@
         "./tree-editor/js/src/fieldRenderers/ContentRenderer.js",
         "./tree-editor/js/src/fieldRenderers/ContentTemplateRenderer.js",
 
+
+        "./tree-editor/js/src/TreeNodeFieldRenderer.js",
 
         "./tree-editor/js/src/Store.js",
         "./tree-editor/js/src/SkillTreeStore.js",

@@ -1,8 +1,5 @@
-class LocalStorage {
-  constructor(key) {
-    this.key = key;
-  }
-
+class LocalStorage extends Storage
+{
   get() {
     const data = localStorage.getItem(this.key);
     if (data) {

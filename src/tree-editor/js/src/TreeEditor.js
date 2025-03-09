@@ -1,13 +1,23 @@
 class TreeEditor {
 
 
+    /**
+     * @type {Storage}
+     */
     _storage = null;
 
+    /**
+     * @type {Store}
+     */
     _store = null;
+
+    /**
+     * @type {Tree}
+     */
     _tree = null;
 
 
-    options = {
+    _options = {
         storage: null,
         saveUrl: null,
         uploadUrl: null,
@@ -19,7 +29,7 @@ class TreeEditor {
     constructor(store, tree, options) {
         this._store = store;
         this._tree = tree;
-        this.options = Object.assign(this.options, options);
+        this._options = Object.assign(this._options, options);
 
         this._tree.getData().updateSelectedNode = async (event) => {
             return await this.handleNodeUpdate(event);
@@ -32,9 +42,16 @@ class TreeEditor {
             }, 10);
         });
 
-
-        const imagePasteHandler = new ImagePasteHandler(this._tree, this.options);
+        const imagePasteHandler = new ImagePasteHandler(this._tree, this._options);
         imagePasteHandler.handle();
+    }
+
+    /**
+     * @param {Storage} storage
+     */
+    setStorage(storage) {
+        this._storage = storage;
+        return this;
     }
 
     addEventListener(name, callback) {
@@ -56,16 +73,16 @@ class TreeEditor {
     }
 
     async handleNodeSelection() {
-        const fileHandler = new FileHandler(this._tree, this.options);
+        const fileHandler = new FileHandler(this._tree, this._options);
         fileHandler.handle();
 
-        const codeHandler = new CodeHandler(this._tree, this.options);
+        const codeHandler = new CodeHandler(this._tree, this._options);
         codeHandler.handle();
 
-        const wysiwygHandler = new WysiwygHandler(this._tree, this.options);
+        const wysiwygHandler = new WysiwygHandler(this._tree, this._options);
         wysiwygHandler.handle();
 
-        const contentTemplateHandler = new ContentTemplateHandler(this._tree, this.options);
+        const contentTemplateHandler = new ContentTemplateHandler(this._tree, this._options);
         contentTemplateHandler.handle();
     }
 
@@ -75,11 +92,11 @@ class TreeEditor {
     }
 
     async load() {
-        if (!this.options.storage) {
+        if (!this._options.storage) {
             return;
         }
 
-        const data = await this.options.storage.get();
+        const data = await this._options.storage.get();
         if (!data) {
             return;
         }
@@ -99,14 +116,14 @@ class TreeEditor {
         console.log('%cTreeEditor.js :: 212 =============================', 'color: #f00; font-size: 1rem');
         console.log(data);
 
-        if(!this.options.storage) {
+        if(!this._storage) {
             return;
         }
 
-        const response = this.options.storage.set(data);
+        const response = this._storage.set(data);
         this.handleEvent('afterSave', e, response);
 
-        // if (!this.options.saveUrl) {
+        // if (!this._options.saveUrl) {
         //     return;
         // }
 
@@ -118,7 +135,7 @@ class TreeEditor {
         //     body: JSON.stringify(data)
         // }
 
-        // const response = await fetch(this.options.saveUrl, options);
+        // const response = await fetch(this._options.saveUrl, options);
         // const json = await response.json();
 
         // this.handleEvent('afterSave', e, json);

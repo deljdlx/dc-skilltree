@@ -31,6 +31,8 @@
         "https://cdn.tailwindcss.com",
         "./tree-editor/vendor/jquery/jquery.js",
         "./tree-editor/vendor/jstree/jstree.min.js",
+
+        "./tree-editor/js/src/storages/Storage.js",
         "./tree-editor/js/src/storages/LocalStorage.js",
 
         "./tree-editor/js/src/Store.js",
