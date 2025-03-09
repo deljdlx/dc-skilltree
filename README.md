@@ -35,3 +35,5 @@ Go to http://YOUR_HOST/PATH_TO_SKILL_TREE/src/index.html
 ## Next steps
 - [ ] Technical documentation
 - [ ] "Form builder" module
+- [ ] Building a lighter docker image
+- [ ] Maybe someday convert this to react and/or vuejs
