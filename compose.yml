@@ -1,6 +1,6 @@
 services:
-  thevault:
-    container_name: thevault
+  skilltree:
+    container_name: skilltree
     build: ./compose
     restart: always
     ports:
@@ -12,9 +12,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.routers.thevault.rule=Host(\"${DOMAIN}\")"
-      - "traefik.http.routers.thevault.entrypoints=websecure"
-      - "traefik.http.routers.thevault.tls.certresolver=myresolver"
+      - "traefik.http.routers.skilltree.rule=Host(\"${DOMAIN}\")"
+      - "traefik.http.routers.skilltree.entrypoints=websecure"
+      - "traefik.http.routers.skilltree.tls.certresolver=myresolver"
 #     networks:
 #       web:
 #       mariadb:
