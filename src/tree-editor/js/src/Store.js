@@ -11,6 +11,11 @@ class Store {
     change: [],
   };
 
+  /**
+   * @type {TreeNodeFieldRenderer}
+   */
+  _fieldRenderer = null;
+
   constructor() {
     this.checksum = this.generateChecksum();
     this.selectedNode = null;
@@ -243,45 +248,21 @@ class Store {
 
   // ============================================
 
-  renderField(fieldName, descriptor, node) {
-    let renderer = null;
+  setFieldRenderer(renderer) {
+    this._fieldRenderer = renderer;
+  }
 
-    switch (descriptor.type) {
-      case 'text': {
-        renderer = new TextRenderer(fieldName, descriptor, node);
-        break;
-      }
-      case 'file': {
-        renderer = new FileRenderer(fieldName, descriptor, node);
-        break;
-      }
-      case 'image': {
-        renderer = new ImageRenderer(fieldName, descriptor, node);
-        break;
-      }
-      case 'textarea': {
-        renderer = new TextareaRenderer(fieldName, descriptor, node);
-        break;
-      }
-      case 'code': {
-        renderer = new CodeRenderer(fieldName, descriptor, node);
-        break;
-      }
-      case 'wysiwyg': {
-        renderer = new WysiwygRenderer(fieldName, descriptor, node);
-        break;
-      }
-      case 'content': {
-        renderer = new ContentRenderer(fieldName, descriptor, node);
-        break;
-      }
-      case 'content-template': {
-        renderer = new ContentTemplateRenderer(fieldName, descriptor, node);
-        break;
-      }
+  getFieldRenderer() {
+    return this._fieldRenderer;
+  }
+
+  renderField(fieldName, descriptor, node) {
+    if(!this._fieldRenderer) {
+      console.error('Field renderer not set');
+      return '';
     }
 
-    return renderer.render();
+    return this._fieldRenderer.renderField(fieldName, descriptor, node);
   }
 
   // ============================================

@@ -43,6 +43,7 @@
         "./tree-editor/vendor/ace-editor/src/ext-language_tools.js",
         "./tree-editor/vendor/js-yaml.js",
 
+        "./tree-editor/js/src/storages/Storage.js",
         "./tree-editor/js/src/storages/LocalStorage.js",
 
         "./tree-editor/js/src/fieldHandlers/FieldHandler.js",
@@ -63,14 +64,9 @@
         "./tree-editor/js/src/fieldRenderers/ContentTemplateRenderer.js",
 
 
-<<<<<<< Updated upstream
-=======
         "./tree-editor/js/src/parsers/DockerComposeParser.js",
-
-
         "./tree-editor/js/src/TreeNodeFieldRenderer.js",
 
->>>>>>> Stashed changes
         "./tree-editor/js/src/Store.js",
         "./tree-editor/js/src/SkillTreeStore.js",
 
