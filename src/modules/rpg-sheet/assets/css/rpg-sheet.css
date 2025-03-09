@@ -31,6 +31,7 @@
   font-weight: bold;
   margin-bottom: 0.5em;
   display: flex;
+  align-items: center;
   gap: 1em;
   color: var(--color-focused);
 }

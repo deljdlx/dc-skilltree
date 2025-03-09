@@ -23,7 +23,7 @@ class PageLoader {
                 resolve();
                 return;
             }
-
+            console.clear();
             container.innerHTML = html;
             resolve();
         });
@@ -37,6 +37,8 @@ class PageLoader {
         } catch (error) {
             console.error('Failed to load template', error);
         }
+
+        console.clear();
     }
 
     loadCss(cssFiles) {

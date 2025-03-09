@@ -38,6 +38,7 @@
 
 .skill-tree-editor .jstree-default .jstree-clicked {
   background-color: var(--color-focused);
+  border-radius: 8px;
   color: var(--color-dark);
 }
 
@@ -108,5 +109,9 @@
 
 /* ================================================ */
 
+
+.skill-tree-viewer {
+  --color-focused: #00A6ED;
+}
 
 

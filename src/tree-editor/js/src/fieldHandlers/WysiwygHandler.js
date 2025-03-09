@@ -13,8 +13,6 @@ class WysiwygHandler extends FieldHandler {
         quill.on('text-change', () => {
           const model = editor.dataset.model;
           this.setModelValue(model, quill.root.innerHTML);
-          console.log('%cWysiwygHandler.js :: 14 =============================', 'color: #f00; font-size: 1rem');
-          console.log(quill.root.innerHTML);
         });
       });
     }
