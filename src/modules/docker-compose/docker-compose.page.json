@@ -3,26 +3,6 @@
         {
             "selector": "#node-informations-container",
             "url": "./tree-editor/templates/editor/partials/node-informations.html"
-        },
-        {
-            "selector": "#sheet-container",
-            "url": "./modules/rpg-sheet/templates/main.html"
-        },
-        {
-            "selector": "#skill-tree-viewer__attributes-container",
-            "url": "./modules/rpg-sheet/templates/partials/attributes.html"
-        },
-        {
-            "selector": "#skill-tree-viewer__perks-container",
-            "url": "./modules/rpg-sheet/templates/partials/perks.html"
-        },
-        {
-            "selector": "#skill-tree-viewer__characteristics-container",
-            "url": "./modules/rpg-sheet/templates/partials/characteristics.html"
-        },
-        {
-            "selector": "#skill-tree-viewer__skills-container",
-            "url": "./modules/rpg-sheet/templates/partials/skills.html"
         }
     ],
     "css": [
@@ -43,6 +23,7 @@
         "./tree-editor/vendor/ace-editor/src/ext-language_tools.js",
         "./tree-editor/vendor/js-yaml.js",
 
+        "./tree-editor/js/src/storages/Storage.js",
         "./tree-editor/js/src/storages/LocalStorage.js",
 
         "./tree-editor/js/src/fieldHandlers/FieldHandler.js",
@@ -61,22 +42,21 @@
         "./tree-editor/js/src/fieldRenderers/WysiwygRenderer.js",
         "./tree-editor/js/src/fieldRenderers/ContentRenderer.js",
         "./tree-editor/js/src/fieldRenderers/ContentTemplateRenderer.js",
+        "./tree-editor/js/src/fieldRenderers/ListRenderer.js",
+        "./tree-editor/js/src/fieldRenderers/KeyValueListRenderer.js",
 
 
-<<<<<<< Updated upstream
-=======
-        "./tree-editor/js/src/parsers/DockerComposeParser.js",
+        "./modules/docker-compose/assets/js/parsers/DockerComposeParser.js",
 
 
         "./tree-editor/js/src/TreeNodeFieldRenderer.js",
 
->>>>>>> Stashed changes
         "./tree-editor/js/src/Store.js",
         "./tree-editor/js/src/SkillTreeStore.js",
 
         "./tree-editor/js/src/Tree.js",
         "./tree-editor/js/src/TreeEditor.js",
-        "./tree-editor/js/tree-editor-bootstrap.js",
+        "./modules/docker-compose/assets/js/bootstrap.js",
         "./tree-editor/vendor/alpine.js"
     ]
 }

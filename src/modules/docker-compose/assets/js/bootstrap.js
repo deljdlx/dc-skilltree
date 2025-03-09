@@ -6,12 +6,18 @@ initializeTree = async function (
   let reactiveStore = Alpine.reactive(store);
   Alpine.data('application', () => (reactiveStore))
 
-  let storeData = await fetch(schemaUrl).then(response => response.json());
-  reactiveStore.setData(storeData);
+  if(schemaUrl) {
+    let storeData = await fetch(schemaUrl).then(response => response.json());
+    reactiveStore.setData(storeData);
+  }
 
-  const nodeTypes = await fetch(nodeTypesUrl).then(response => response.json());
-  reactiveStore.setNodeTypes(nodeTypes);
+  if(nodeTypesUrl) {
+    let nodeTypes = await fetch(nodeTypesUrl).then(response => response.json());
+    reactiveStore.setNodeTypes(nodeTypes);
+  }
 
+  const renderer = new TreeNodeFieldRenderer();
+  reactiveStore.setFieldRenderer(renderer);
 
   return reactiveStore
 };
@@ -20,8 +26,8 @@ document.addEventListener('alpine:init', async () => {
 
   const storage = new LocalStorage('skill-tree');
   const reactiveStore = await initializeTree(
-    'data/stores/fallout/schema.json',
-    'data/stores/fallout/node-types.json',
+    null,
+    'data/stores/docker-compose/node-types.json',
   );
 
   const tree = new Tree(reactiveStore);
@@ -36,10 +42,10 @@ document.addEventListener('alpine:init', async () => {
   });
 
   const editor = new TreeEditor(reactiveStore, tree, {
-    storage: storage,
     uploadUrl: 'backend/stub.json',
     // uploadUrl: 'backend/upload.php',
   });
+  editor.setStorage(storage);
 
   editor.load();
   tree.render();
@@ -51,4 +57,29 @@ document.addEventListener('alpine:init', async () => {
     storage.remove();
     document.location.reload();
   });
+
+  setTimeout(() => {
+    const yamlUrl = "data/demo/compose.yml";
+
+    async function testDockerComposeParser() {
+      const parser = new DockerComposeParser();
+      const treeData = await parser.loadAndParseFromUrl(yamlUrl);
+
+      console.log('%ctree-editor-bootstrap.js :: 63 =============================', 'color: #f00; font-size: 1rem');
+      console.log(treeData);
+
+      reactiveStore.setTreeData(treeData);
+      // this._store.ready = false;
+      // this._store.setData(data);
+      tree.destroy();
+      tree.render();
+
+
+    }
+    testDockerComposeParser();
+
+  }, 100);
+
+
 });
+

@@ -1,13 +1,23 @@
 class TreeEditor {
+<<<<<<< Updated upstream
 
 
+=======
+    /**
+     * @type {Storage}
+     */
+>>>>>>> Stashed changes
     _storage = null;
 
     _store = null;
     _tree = null;
 
+<<<<<<< Updated upstream
 
     options = {
+=======
+    _options = {
+>>>>>>> Stashed changes
         storage: null,
         saveUrl: null,
         uploadUrl: null,

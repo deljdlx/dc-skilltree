@@ -50,3 +50,7 @@
   content: "🔶";
 }
 
+.node--dvd::before {
+  content: "📀";
+}
+

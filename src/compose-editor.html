@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Skill tree editor</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎲</text></svg>">
+</head>
+
+<body class="application">
+    <div
+        x-data="application"
+        class="skill-tree-editor"
+    >
+        <div>
+            <div class="grid grid-cols-12 gap-2">
+
+                <!-- =========================================================== -->
+
+                <section class="col-span-3 p-2 tree-editor-panel tree-editor-panel--left">
+                    <div class="flex space-between gap-1" style="margin-bottom: 1rem">
+                        <a
+                            href="sheet-editor.html"
+                            target="_blank"
+                            class="btn btn-warning btn-sm"
+                            style="color: var(--color-dark)"
+                        >View sheet</a>
+                        <button
+                            id="clear-trigger"
+                            class="btn btn-warning btn-sm"
+                        >Reset and load default sheet</button>
+                    </div>
+
+                    <div id="skill-tree"></div>
+                </section>
+
+                <!-- =========================================================== -->
+
+                <section class="col-span-4 p-2 tree-editor-panel tree-editor-panel--middle">
+                    <div id="node-informations-container"></div>
+                </section>
+
+                <!-- =========================================================== -->
+            </div>
+        </div>
+    </div>
+
+
+    <script src="tree-editor/js/src/PageLoader.js"></script>
+    <script>
+        const pageLoader = new PageLoader('modules/docker-compose/docker-compose.page.json');
+        document.addEventListener('DOMContentLoaded', () => {
+            pageLoader.init();
+        });
+    </script>
+
+    <script async defer data-website-id="194094e2-ec19-4da0-ae08-a68b6fcee80a" src="https://metrics.jlb.ninja/metrics.js"></script>
+</body>
+
+</html>
