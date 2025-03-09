@@ -15,6 +15,16 @@
                                     <img :src="node.data.illustration" />
                                 </template>
                                 <div x-html="node.data.description"></div>
+
+                                <template x-if="node.data.value">
+                                    <div>
+                                        <h3>Formule</h3>
+                                        <pre class="formula" x-html="node.data.value"></pre>
+                                    </div>
+                                </template>
+
+
+
                             </div>
                         </div>
                     </div>

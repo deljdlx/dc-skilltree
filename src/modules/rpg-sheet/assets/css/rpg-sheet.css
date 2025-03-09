@@ -160,13 +160,16 @@ input.checkbox--perk {
   margin-top: 0.5rem;
 }
 
-.skill-tree-viewer .tooltip-content .modfiers {
+.skill-tree-viewer .tooltip-content .modfiers,
+.skill-tree-viewer .tooltip-content .formula{
   border: solid 1px var(--color-dark);
   padding: 4px;
   background-color: var(--color-darkest);
   color: var(--color-lightest);
   font-size: 0.8rem;
 }
+
+
 
 /* =================================== */
 

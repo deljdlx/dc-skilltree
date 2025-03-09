@@ -14,15 +14,14 @@
                                 <template x-if="skill.data.illustration">
                                     <img :src="skill.data.illustration" />
                                 </template>
-                                <template x-if="skill.data.value">
-                                    <div>
-                                        Formule
-                                        <div x-html="skill.data.value"></div>
-                                    </div>
-                                </template>
-
                                 <template x-if="skill.data.description">
                                     <div x-html="skill.data.description"></div>
+                                </template>
+                                <template x-if="skill.data.value">
+                                    <div>
+                                        <h3>Formule</h3>
+                                        <pre class="formula" x-html="skill.data.value"></pre>
+                                    </div>
                                 </template>
                             </div>
                         </div>
