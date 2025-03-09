@@ -8,7 +8,6 @@
     "css": [
         "https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css",
         "./tree-editor/vendor/jstree/jstree.min.css",
-        "./tree-editor/css/page.css",
         "./modules/rpg-sheet/assets/css/rpg-sheet.css",
         "./modules/rpg-sheet/assets/css/page.css"
     ],

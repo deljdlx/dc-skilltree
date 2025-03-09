@@ -6,9 +6,6 @@ initializeTree = async function (
   Alpine.data('application', () => (reactiveStore))
 
   let storeData = await fetch(schemaUrl).then(response => response.json());
-
-  // reactiveStore = Object.assign(reactiveStore, storeData);
-
   reactiveStore.setData(storeData);
 
   return reactiveStore
@@ -29,18 +26,26 @@ document.addEventListener('alpine:init', async () => {
   if(treeStorage.get()) {
     console.log('%crpg-sheet-editor-bootstrap.js :: 28 =============================', 'color: #f00; font-size: 1rem');
     console.log(treeStorage.get());
-    store.setData(treeStorage.get());
     console.log('%crpg-sheet-editor-bootstrap.js :: 33 =============================', 'color: #f00; font-size: 1rem');
     console.log(store.getNodeByCode('THEME_COLOR'));
+
+    store.setData(treeStorage.get());
   }
 
   let savedData = sheetStorage.get();
   if (savedData) {
-    store.setData(savedData);
+    const availabilities = savedData.availabilities;
+    const values = savedData.values;
+    store.setValues(values);
+    store.getData().availabilities = availabilities;
   }
 
-  store.addEventListener('change', (data) => {
-    sheetStorage.set(store.getData());
+  store.addEventListener('change', () => {
+    const data = {
+      values: store.getValues(),
+      availabilities: store.getData().availabilities,
+    };
+    sheetStorage.set(data);
   });
 
   reactiveStore.ready = true;

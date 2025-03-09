@@ -1,7 +1,7 @@
 
 class Tree {
   currentSelectedNode = null;
-  tree;
+  _renderer;
 
   formElement;
   skillNameInput;
@@ -36,20 +36,9 @@ class Tree {
   }
 
 
-  constructor(store, typeDescriptor) {
-    if (typeDescriptor) {
-      this.typeDescriptor = typeDescriptor;
-      this.types = this.typeDescriptor.types;
-      this.fieldDescriptors = this.typeDescriptor.fields;
-
-      Object.keys(this.types).forEach(key => {
-        const fieldDescriptorName = this.types[key].fieldsDescriptor;
-        if (fieldDescriptorName) {
-          this.types[key].fields = this.fieldDescriptors[fieldDescriptorName];
-        }
-      });
-    }
+  constructor(store) {
     this.store = store;
+    this.types = this.store.getNodeTypes();
   }
 
   addEventListener(name, callback) {
@@ -77,11 +66,11 @@ class Tree {
 
 
   destroy() {
-    this.tree.jstree('destroy');
+    this._renderer.jstree('destroy');
   }
 
   render() {
-    this.tree = $('#skill-tree').jstree({
+    this._renderer = $('#skill-tree').jstree({
       'core': {
         'data': this.store.getTreeData(),
         'multiple': false,
@@ -173,7 +162,7 @@ class Tree {
   }
 
   getJson() {
-    return this.tree.jstree(true).get_json();
+    return this._renderer.jstree(true).get_json();
   }
 
   getContextMenu(node) {
@@ -224,15 +213,15 @@ class Tree {
 
   renameCurrentNode(text) {
     // get current selected node in jstree
-    const node = this.tree.jstree('get_selected', true)[0];
+    const node = this._renderer.jstree('get_selected', true)[0];
     if (node) {
       return;
     }
-    this.tree.jstree('rename_node', node, text);
+    this._renderer.jstree('rename_node', node, text);
   }
 
   renameNode(node, text) {
-    this.tree.jstree('rename_node', node, text);
+    this._renderer.jstree('rename_node', node, text);
   }
 
 
@@ -246,7 +235,7 @@ class Tree {
 
 
     // JDLX_TODO it works also on data attribute, but it seems buggy
-    this.tree.jstree('rename_node', node, node.text);
+    this._renderer.jstree('rename_node', node, node.text);
     // this.store.treeData = data.instance.get_json();
     // select node
     // this.selectNodeById('root');
@@ -281,9 +270,9 @@ class Tree {
 
 
   selectNode(node) {
-    this.tree.jstree('deselect_all');
+    this._renderer.jstree('deselect_all');
 
-    this.tree.jstree('select_node', node);
+    this._renderer.jstree('select_node', node);
     this.store.selectedNode = node;
   }
 
@@ -293,23 +282,23 @@ class Tree {
   }
 
   selectNodeById(id) {
-    const node = this.tree.jstree('get_node', id);
+    const node = this._renderer.jstree('get_node', id);
     this.selectNode(node);
   }
 
   getNodes() {
-    return this.tree.jstree('get_json', 'root', {
+    return this._renderer.jstree('get_json', 'root', {
       flat: true
     });
   }
 
   getNodeById(id) {
-    return this.tree.jstree('get_node', id);
+    return this._renderer.jstree('get_node', id);
   }
 
   getNodeByCode(code) {
     // search in tree node with data.code === code
-    const nodes = this.tree.jstree('get_json', 'root', {
+    const nodes = this._renderer.jstree('get_json', 'root', {
       flat: true
     });
 

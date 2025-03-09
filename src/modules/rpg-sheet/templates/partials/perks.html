@@ -37,22 +37,18 @@
                             setValue(node.data.code, false);
                         }
                         else {
-                            setValue(node.data.code, true);
                             _data.availabilities.perks--;
+                            setValue(node.data.code, true);
                         }
                     } else {
                         _data.availabilities.perks++;
                     };
-
-                    if(typeof(save) === 'function') {
-                        save();
-                    }
                 "
                 type="checkbox"
                 x-model="_data.values[node.data.code]"
                 :checked="_data.values[node.data.code]"
                 :disabled="!_data.values[node.data.code] && !_data.availabilities.perks"
-                class="checkbox checkbox-primary"
+                class="checkbox checkbox--perk"
             />
         </div>
     </template>

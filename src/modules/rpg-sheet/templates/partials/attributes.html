@@ -30,20 +30,22 @@
                     </template>
                 </div>
                 <div class="value-container">
-                    <span class="value" x-text="computeValue(node)"></span>
+                    <button class="value" x-text="computeValue(node)"></button>
                     <button x-on:click="
                         if(_data.availabilities.attributes > 0) {
                             if(incrementValue(node.data.code, 1, 0, 10)) {
                                 _data.availabilities.attributes--;
+                                dispatchEvent('change');
                             }
-                        }" class="btn btn-xs btn-primary value-modifier">
-                        <i class="button-increment" style="font-size: 10px;"></i>
+                        }" class="value-modifier">
+                        <i class="button-increment"></i>
                     </button>
                     <button x-on:click="
                         if(incrementValue(node.data.code, -1, 0, 10)) {
                             _data.availabilities.attributes++;
+                            dispatchEvent('change');
                         }
-                    " class="btn btn-xs btn-primary value-modifier">
+                    " class="value-modifier">
                         <i class="button-decrement"></i>
                     </button>
                 </div>

@@ -1,8 +1,42 @@
+html, body {
+  min-height: 100vh;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
 body {
+  --color-darkest: #171717;
+  --color-dark: #212121;
+  --color-lightest: #ddd;
+  --color-focused: #2D231F;
+  --header-height: 32px;
+
+
   overflow: auto;
   background-color: var(--color-darkest);
   background-image: url(../image/background-page.webp);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+
+  font-family: arial, verdana, tahoma, sans-serif;
+  color: var(--color-lightest);
+}
+
+a {
+  color: var(--color-lightest);
+}
+
+#editor-header {
+  height: var(--header-height);
+  background-color: var(--color-dark);
+}
+
+.btn-primary {
+  background-color: var(--color-focused);
+  color: var(--color-lightest);
 }

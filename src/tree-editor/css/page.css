@@ -30,3 +30,8 @@ a {
   height: var(--header-height);
   background-color: var(--color-dark);
 }
+
+.btn-primary {
+  background-color: var(--color-focused);
+  color: var(--color-lightest);
+}

@@ -1,65 +1,62 @@
 initializeTree = async function (
-  store,
   schemaUrl,
+  nodeTypesUrl = 'data/stores/fallout/node-types.json'
 ) {
+  const store = new Store();
   let reactiveStore = Alpine.reactive(store);
   Alpine.data('application', () => (reactiveStore))
 
   let storeData = await fetch(schemaUrl).then(response => response.json());
   reactiveStore.setData(storeData);
 
+  const nodeTypes = await fetch(nodeTypesUrl).then(response => response.json());
+  reactiveStore.setNodeTypes(nodeTypes);
+
+
   return reactiveStore
 };
 
 document.addEventListener('alpine:init', async () => {
 
-  const store = new Store();
+  const storage = new LocalStorage('skill-tree');
 
   const reactiveStore = await initializeTree(
-    store,
-    'data/stores/fallout/schema.json'
+    'data/stores/fallout/schema.json',
+    'data/stores/fallout/node-types.json',
   );
 
-  const nodeTypes = await fetch('data/stores/fallout/node-types.json').then(response => response.json());
-  reactiveStore.setNodeTypes(nodeTypes);
-  // reactiveStore.getData().nodeTypes = nodeTypes;
-
-  console.log('%ctree-editor-bootstrap.js :: 26 =============================', 'color: #f00; font-size: 1rem');
-  console.log(reactiveStore);
-
-  const tree = new Tree(reactiveStore, nodeTypes);
+  const tree = new Tree(reactiveStore);
   tree.addEventListener('ready', () => {
     reactiveStore.ready = true;
   });
 
   tree.addEventListener('change', () => {
     reactiveStore.generateChecksum();
+    storage.set(reactiveStore.getData());
   });
 
   const editor = new TreeEditor(reactiveStore, tree, {
-    storage: new LocalStorage('skill-tree'),
-    uploadUrl: 'backend/stub.json',
-    // uploadUrl: 'backend/upload.php',
-    // saveUrl: 'backend/save.php',
+    storage: storage,
+    // uploadUrl: 'backend/stub.json',
+    uploadUrl: 'backend/upload.php',
+  });
+
+  editor.load();
+
+  // ======================================================
+
+  const clearTrigger = document.querySelector('#clear-trigger');
+  clearTrigger.addEventListener('click', async (e) => {
+    storage.remove();
+    document.location.reload();
   });
 
 
-  const saveTrigger = document.querySelector('#save-trigger');
-  saveTrigger.addEventListener('click', async () => {
-    editor.save();
-  });
 
-  const loadTrigger = document.querySelector('#load-trigger');
-  loadTrigger.addEventListener('click', async (e) => {
-    editor.load();
-  });
-
-
-
-  reactiveStore.tree = tree;
+  // reactiveStore.tree = tree;
   reactiveStore.editor = editor;
 
   tree.render();
-  // editor.initializeImportPanel();
+
 
 });

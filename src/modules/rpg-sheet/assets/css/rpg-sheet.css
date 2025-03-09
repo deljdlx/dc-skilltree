@@ -27,11 +27,11 @@
 }
 
 .skill-tree-viewer h2 {
-  font-size: 1.5rem;
+  font-size: 1.2em;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5em;
   display: flex;
-  gap: 1rem;
+  gap: 1em;
   color: var(--color-focused);
 }
 
@@ -46,16 +46,82 @@
 }
 
 
+
+/* ================================ */
+.skill-tree-viewer .value-container {
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
 .skill-tree-viewer .value-container button {
   background-color: var(--color-dark);
   color: var(--color-lightest);
 }
 
-.skill-tree-viewer h2 {
-  font-size: 1rem;
+.skill-tree-viewer .value-container {
+  display: flex;
+  gap: 4px;
+  border: solid 1px var(--color-dark);
+  border-radius: 16px;
+  margin: 4px;
+  padding: 2px 4px;
+  background-color: #aaa;
+}
+.skill-tree-viewer .value-container .value-modifier {
+  border-radius: 50%;
+  height: 1.5em;
+  width: 1.5em;
+}
+
+.skill-tree-viewer .value-container .value {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: calc(1.5em / 0.8);
+  height: calc(1.5em / 0.8);
+  font-size: 0.8em;
+
+  border-radius: 50%;
+  background-color: #fff;
+  color: var(--color-dark);
+
+}
+
+
+.skill-tree-viewer .button-increment,
+.skill-tree-viewer .button-decrement {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.skill-tree-viewer .value-container .button-decrement::before {
+  content: "-";
+  font-style: normal;
+  margin-top: -0.1em;
+}
+
+.skill-tree-viewer .value-container .button-increment::before {
+  content: "+";
+  font-style: normal;
 }
 
 /* ================================ */
+
+input.checkbox--perk {
+  border-color: var(--color-dark);
+  height: 1em;
+  width: 1em;
+}
+
+/* ================================ */
+
+
 .skill-tree-viewer .dropdown .dropdown-content {
   z-index: 1000;
 }
@@ -124,31 +190,9 @@
   display: flex;
   gap: 4px;
 }
-.skill-tree-viewer .value-container {
-  display: flex;
-  gap: 4px;
-  border: solid 1px oklch(var(--primary-color));
-  border-radius: 16px;
-  margin: 4px;
-  padding: 2px 4px;
-  background-color: #aaa;
-}
-.skill-tree-viewer .value-container .value-modifier {
-  border-radius: 50%;
-  width: 24px;
-}
-.skill-tree-viewer .value {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  min-height: 24px;
-  border: solid 1px oklch(var(--primary-color));
-  border-radius: 50%;
-  background-color: #fff;
-  font-size: 11px;
-}
+
+
+
 .skill-tree-viewer .available-points-container {
   display: flex;
   align-items: flex-end;
@@ -167,13 +211,25 @@
   font-weight: bold;
 }
 @media print {
+  body {
+    background-color: #fff !important;
+    background-image: none !important;
+  }
   .skill-tree-viewer {
     padding: 0;
     border: none;
     background-color: #fff;
     max-width: 20cm;
     min-height: 27cm;
+    box-shadow: none;
   }
+
+  .skill-tree-viewer .container {
+    box-shadow: none;
+  }
+
+
+
   .skill-tree-viewer .no-print {
     display: none;
   }
@@ -183,12 +239,7 @@
   .skill-tree-viewer .btn {
     display: none;
   }
-  .skill-tree-viewer .value-container {
-    border: none;
-    margin: 0;
-    padding: 0;
-    background-color: transparent;
-  }
+
   .skill-tree-viewer .available-points-container {
     display: none;
   }
@@ -200,25 +251,16 @@
     position: absolute;
     margin-left: -4px;
     margin-top: -7px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--primary-color);
+    filter: grayscale(1) contrast(1.5);
   }
 }
 
 
 /* =================================================== */
 
-.button-decrement::before {
-  content: "➖";
-  filter: brightness(2);
-  font-style: normal;
-}
 
-.button-increment::before {
-  content: "➕";
-  filter: brightness(2);
-  font-style: normal;
-}
 
 /* ================================================== */
 

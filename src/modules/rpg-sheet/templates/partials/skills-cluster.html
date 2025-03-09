@@ -35,15 +35,17 @@
                     if(_data.availabilities.skills > 0) {
                         if(incrementValue(skill.data.code)) {
                             _data.availabilities.skills--;
+                            dispatchEvent('change');
                         }
-                    }" class="btn btn-xs btn-primary value-modifier">
+                    }" class="value-modifier">
                     <i class="button-increment"></i>
                 </button>
 
                 <button x-on:click="
                     if(incrementValue(skill.data.code, -1)) {
                         _data.availabilities.skills++;
-                    }" class="btn btn-xs btn-primary value-modifier">
+                        dispatchEvent('change');
+                    }" class="value-modifier">
                     <i class="button-decrement"></i>
                 </button>
             </div>

@@ -22,7 +22,9 @@
 .tree-editor-panel--middle {
   background-color: var(--color-dark);
   border-right: solid 1px var(--color-lightest);
-
+}
+.tree-editor-panel--right #sheet-container {
+  font-size: 10px;
 }
 
 /* =================================================== */

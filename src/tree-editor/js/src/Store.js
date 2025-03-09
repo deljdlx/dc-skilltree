@@ -15,9 +15,6 @@ class Store {
     this.checksum = this.generateChecksum();
     this.selectedNode = null;
     this.ready = false;
-
-    this.tree = null;
-    this.editor = null;
   }
 
   setData(data) {
@@ -217,8 +214,15 @@ class Store {
 
   // ===========================
 
+  getNodeTypes() {
+    return this._data.nodeTypes;
+  }
+
+  getFieldDescriptors() {
+    return this._data.fieldDescriptors;
+  }
+
   getNodeTypeByNode(node) {
-    // return  this.tree.getTypeByNode(node);
     const type = node.type;
     return this._data.nodeTypes[type];
   }
@@ -288,16 +292,6 @@ class Store {
     this._data.treeData = treeData;
     this.generateChecksum();
   }
-
-  setTree(tree) {
-    this.tree = tree;
-  }
-
-  setEditor(editor) {
-    this.editor = editor;
-  }
-
-
 
   async init() {
     // Any initialization logic can go here (if needed in the future)
