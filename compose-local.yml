@@ -9,19 +9,4 @@ services:
       - .env
     volumes:
       - "./src:/var/www/html"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.http.routers.thevault.rule=Host(\"${DOMAIN}\")"
-      - "traefik.http.routers.thevault.entrypoints=websecure"
-      - "traefik.http.routers.thevault.tls.certresolver=myresolver"
-#     networks:
-#       web:
-#       mariadb:
-# networks:
-#   web:
-#     name: web
-#     external: true
-#   mariadb:
-#     name: mariadb
-#     external: true
+

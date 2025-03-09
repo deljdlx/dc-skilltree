@@ -15,13 +15,13 @@ services:
       - "traefik.http.routers.skilltree.rule=Host(\"${DOMAIN}\")"
       - "traefik.http.routers.skilltree.entrypoints=websecure"
       - "traefik.http.routers.skilltree.tls.certresolver=myresolver"
-#     networks:
-#       web:
-#       mariadb:
-# networks:
-#   web:
-#     name: web
-#     external: true
-#   mariadb:
-#     name: mariadb
-#     external: true
+    networks:
+      web:
+      mariadb:
+networks:
+  web:
+    name: web
+    external: true
+  mariadb:
+    name: mariadb
+    external: true
