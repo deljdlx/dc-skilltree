@@ -38,8 +38,8 @@ document.addEventListener('alpine:init', async () => {
 
   const editor = new TreeEditor(reactiveStore, tree, {
     storage: storage,
-    // uploadUrl: 'backend/stub.json',
-    uploadUrl: 'backend/upload.php',
+    uploadUrl: 'backend/stub.json',
+    // uploadUrl: 'backend/upload.php',
   });
 
   editor.load();

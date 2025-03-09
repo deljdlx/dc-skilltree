@@ -32,5 +32,6 @@ node server.js
 You must have a http server installed on your machine.
 Go to http://YOUR_HOST/PATH_TO_SKILL_TREE/src/index.html
 
-
-
+## Next steps
+- [ ] Technical documentation
+- [ ] "Form builder" module
