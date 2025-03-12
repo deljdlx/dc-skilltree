@@ -6,15 +6,15 @@ initializeTree = async function (
   let reactiveStore = Alpine.reactive(store);
   Alpine.data('application', () => (reactiveStore))
 
-  if (schemaUrl) {
-    let storeData = await fetch(schemaUrl).then(response => response.json());
-    reactiveStore.setData(storeData);
-  }
+  const [storeData, nodeTypes] = await Promise.all([
+    schemaUrl ? fetch(schemaUrl).then(response => response.json()) : null,
+    nodeTypesUrl ? fetch(nodeTypesUrl).then(response => response.json()) : null
+  ]);
 
-  if (nodeTypesUrl) {
-    let nodeTypes = await fetch(nodeTypesUrl).then(response => response.json());
-    reactiveStore.setNodeTypes(nodeTypes);
-  }
+  if (storeData) reactiveStore.setData(storeData);
+  if (nodeTypes) reactiveStore.setNodeTypes(nodeTypes);
+
+
 
   const renderer = new DockerComposeNodeFieldRenderer();
   reactiveStore.setFieldRenderer(renderer);
