@@ -54,3 +54,27 @@
   content: "📀";
 }
 
+.node--phone::before {
+  content: "📞";
+}
+
+.node--satellite::before {
+  content: "📡";
+}
+
+.node--no-entry::before {
+  content: "⛔";
+}
+
+.node--wireless::before {
+  content: "🛜";
+}
+
+.node--hammer::before {
+  content: "🛠️";
+}
+
+
+
+
+

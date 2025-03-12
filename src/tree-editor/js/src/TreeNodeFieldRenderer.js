@@ -36,6 +36,14 @@ class TreeNodeFieldRenderer
         renderer = new ContentTemplateRenderer(fieldName, descriptor, node);
         break;
       }
+      case 'auto-list': {
+        if(Array.isArray(node.data[fieldName]) && typeof node.data[fieldName][0] === 'object') {
+          renderer = new KeyValueListRenderer(fieldName, descriptor, node);
+        } else {
+          renderer = new ListRenderer(fieldName, descriptor, node);
+        }
+        break;
+      }
       case 'list': {
         renderer = new ListRenderer(fieldName, descriptor, node);
         break;

@@ -137,9 +137,5 @@ class TreeEditor {
 
         // this.handleEvent('afterSave', e, json);
     }
-
-    async handleIllustrationPaste() {
-
-    }
 }
 

@@ -1,0 +1,163 @@
+{
+  "fields": {
+    "service": {
+      "container_name": {
+        "type": "text",
+        "caption": "Container name",
+        "model": "data.container_name"
+      },
+      "image": {
+        "type": "text",
+        "caption": "Image",
+        "model": "data.image"
+      },
+      "ports": {
+        "type": "key-value-list",
+        "caption": "Ports (host:container)",
+        "model": "data.ports",
+        "inputName": "ports",
+        "placeholder": "ex: 8080:80"
+      },
+      "depends_on": {
+        "type": "docker-compose-depends-on",
+        "caption": "Depends On",
+        "model": "data.depends_on",
+        "inputName": "depends_on"
+      },
+      "environment": {
+        "type": "key-value-list",
+        "caption": "Environment Variables",
+        "model": "data.environment",
+        "inputName": "environment"
+      },
+      "labels": {
+        "type": "list",
+        "caption": "Labels",
+        "model": "data.labels",
+        "inputName": "labels"
+      },
+      "command": {
+        "type": "docker-compose-command",
+        "caption": "Command",
+        "model": "data.command",
+        "inputName": "command",
+        "placeholder": "ex: npm start"
+      },
+      "profiles": {
+        "type": "list",
+        "caption": "Profiles",
+        "model": "data.profiles"
+      }
+    }
+  },
+
+  "types": {
+    "root": {
+      "icon": "node--tree",
+      "noDelete": true,
+      "noRename": true,
+      "noMove": true
+    },
+
+    "section-services": {
+      "icon": "node--gear",
+      "noDelete": true,
+      "noRename": true,
+      "childType": "service",
+      "noMove": true
+    },
+
+    "section-disabled-services": {
+      "icon": "node--no-entry",
+      "noDelete": true,
+      "noRename": true,
+      "childType": "service",
+      "noMove": true
+    },
+
+    "section-volumes": {
+      "icon": "node--dvd",
+      "noRename": true,
+      "noDelete": true,
+      "noMove": true
+    },
+
+    "section-networks": {
+      "icon": "node--wireless",
+      "noRename": true,
+      "noDelete": true,
+      "noMove": true
+    },
+
+    "service": {
+      "icon": "node--package",
+      "fieldsDescriptor": "service",
+      "noChildren": true,
+      "allowedParents": ["section-services", "section-disabled-services"]
+    },
+
+    "service-networks": {
+      "icon": "node--wireless",
+      "noChildren": true,
+      "noRename": true,
+      "noMove": true,
+      "fields": {
+        "default": {
+          "type": "docker-compose-networks",
+          "caption": "Networks",
+          "model": "data.networks"
+        }
+      }
+    },
+    "service-build": {
+      "icon": "node--hammer",
+      "noChildren": true,
+      "noRename": true,
+      "noMove": true,
+      "fields": {
+        "default": {
+          "type": "docker-compose-build",
+          "caption": "Build",
+          "model": "data.build"
+        }
+      }
+    },
+
+    "service-volumes": {
+      "icon": "node--dvd",
+      "noChildren": true,
+      "noRename": true,
+      "noMove": true,
+      "fields": {
+        "default": {
+          "type": "key-value-list",
+          "caption": "Volumes (host:container)",
+          "model": "data.volumes"
+        }
+      }
+    },
+
+    "network": {
+      "icon": "node--wireless",
+      "noChildren": true,
+      "fields": {
+        "default": {
+          "type": "text",
+          "caption": "Network",
+          "model": "data.network",
+          "inputName": "network",
+          "placeholder": "ex: custom_network"
+        }
+      }
+    },
+
+    "volume": {
+      "icon": "node--dvd",
+      "noChildren": true
+    },
+
+    "default": {
+      "icon": "node--dot"
+    }
+  }
+}

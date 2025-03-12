@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  php-command-list:
+    image: php:cli
+    command:
+      - php
+      - "-r"
+      - "echo 'Hello from php-command-list';"
+
+  php-command-inline:
+    image: php:cli
+    command: php -r "echo 'Hello from php-command-inline';"
+
+  php-command-multi:
+    image: php:cli
+    command:
+      - php
+      - "-r"
+      - |
+        echo "First line from multi-line command!\n";
+        echo "Second line!";

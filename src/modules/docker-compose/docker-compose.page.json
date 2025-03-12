@@ -10,9 +10,12 @@
         "./tree-editor/vendor/quill/quill.snow.css",
         "./tree-editor/vendor/jstree/jstree.min.css",
         "./tree-editor/css/page.css",
-        "./tree-editor/css/node-types.css",
         "./tree-editor/css/tree-editor.css",
-        "./modules/rpg-sheet/assets/css/rpg-sheet.css"
+        "./tree-editor/css/node-types.css",
+        "./modules/docker-compose/assets/css/main.css"
+    ],
+    "disabled-css": [
+
     ],
     "js": [
         "https://cdn.tailwindcss.com",
@@ -45,18 +48,30 @@
         "./tree-editor/js/src/fieldRenderers/ListRenderer.js",
         "./tree-editor/js/src/fieldRenderers/KeyValueListRenderer.js",
 
+        "./tree-editor/js/src/Tree.js",
+        "./tree-editor/js/src/TreeEditor.js",
 
+
+        "./modules/docker-compose/assets/js/renderers/DockerComposeDependsOnRenderer.js",
+        "./modules/docker-compose/assets/js/renderers/DockerComposeBuildRenderer.js",
+        "./modules/docker-compose/assets/js/renderers/DockerComposeCommandRenderer.js",
+        "./modules/docker-compose/assets/js/renderers/DockerComposeNetworksRenderer.js",
+
+
+        "./modules/docker-compose/assets/js/DockerComposeTreeEditor.js",
+        "./modules/docker-compose/assets/js/DockerComposeNormalizer.js",
         "./modules/docker-compose/assets/js/parsers/DockerComposeParser.js",
+        "./modules/docker-compose/assets/js/DockerComposeCompiler.js",
+        "./modules/docker-compose/assets/js/DockerComposeSourceEditor.js",
 
 
         "./tree-editor/js/src/TreeNodeFieldRenderer.js",
+        "./modules/docker-compose/assets/js/DockerComposeNodeFieldRenderer.js",
 
         "./tree-editor/js/src/Store.js",
-        "./tree-editor/js/src/SkillTreeStore.js",
+        "./modules/docker-compose/assets/js/DockerComposeStore.js",
 
-        "./tree-editor/js/src/Tree.js",
-        "./tree-editor/js/src/TreeEditor.js",
-        "./modules/docker-compose/assets/js/bootstrap.js",
+            "./modules/docker-compose/assets/js/bootstrap.js",
         "./tree-editor/vendor/alpine.js"
     ]
 }

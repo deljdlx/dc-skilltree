@@ -27,6 +27,8 @@ class Tree {
   fieldDescriptors = {};
   types = {};
 
+  _contextMenuItems = {};
+
   /**
    * @type {Store}
    */
@@ -67,6 +69,15 @@ class Tree {
     });
   }
 
+  addContextMenuItem(id, label, action, validator = null) {
+    this._contextMenuItems[id] = {
+      id,
+      label: label,
+      action: action,
+      validator: validator,
+    };
+  }
+
 
   getData() {
     return this._store;
@@ -77,6 +88,11 @@ class Tree {
     this._renderer.jstree('destroy');
   }
 
+  reload() {
+    this.destroy();
+    this.render();
+  }
+
   render() {
     this._renderer = $('#skill-tree').jstree({
       'core': {
@@ -85,7 +101,6 @@ class Tree {
         "check_callback": (operation, node, parent, position, more) => {
 
           if (operation === "move_node") {
-            return true;
             return this.checkMove(operation, node, parent, position, more);
           }
 
@@ -165,6 +180,10 @@ class Tree {
         this.handleEvent('change', e, data);
       })
 
+      .on('move_node.jstree', (e, data) => {
+        this.handleEvent('move', e, data);
+        this.handleEvent('change', e, data);
+      })
     ;
   }
 
@@ -175,46 +194,69 @@ class Tree {
   getContextMenu(node) {
     const typeInfo = this.getTypeByNode(node);
 
+    if(!typeInfo) {
+      return {};
+    }
+
     let items = $.jstree.defaults.contextmenu.items();
 
     if (typeInfo.noChildren) {
       delete items.create;
     }
 
-    if (typeInfo.noDelete) {
-      delete items.remove;
-    }
+    // if (typeInfo.noDelete) {
+    delete items.remove;
+    // }
 
     if (typeInfo.noRename) {
       delete items.rename;
     }
-
     delete items.ccp;
 
+    if(this._contextMenuItems) {
+      Object.keys(this._contextMenuItems).forEach(key => {
+        const item = this._contextMenuItems[key];
+        const validator = item.validator;
+        if(validator(node)) {
+          items[item.id] = {
+            label: item.label,
+            action: (obj) => {
+              console.group('%cTree.js :: 219 ', 'color: #132852; font-size: 1rem');
+              console.log(obj);
+              console.groupEnd();
+
+              item.action(node, obj);
+            }
+          };
+        }
+      });
+    }
+
+    if (!typeInfo.noDelete) {
+      items.remove = {
+        label: "Delete",
+        action: (obj) => {
+          this._renderer.jstree('delete_node', node);
+        }
+      };
+    }
     return items;
   }
 
   checkMove(operation, node, parent, position, more) {
-    let newParent = more.ref;
-    if (!newParent) {
-      newParent = parent;
-    }
+    const typeInfo = this.getTypeByNode(node);
 
-    if (node.type === "skill" && newParent.type !== "cluster") {
+    if(typeInfo.noMove) {
       return false;
     }
 
-    if (node.type === "cluster" && newParent.type !== "category-skills") {
-      return false;
+    if(typeInfo.allowedParents) {
+      if(!typeInfo.allowedParents.includes(parent.id)) {
+        return false;
+      }
     }
 
-    if (node.type === "attribute" && newParent.type !== "category-attributes") {
-      return false;
-    }
-
-    if (node.type === "perk" && newParent.type !== "category-perks") {
-      return false;
-    }
+    return true;
   }
 
 
@@ -272,6 +314,14 @@ class Tree {
   }
 
   selectNodeById(id) {
+    const nodeInStore = this._store.getNodeById(id);
+    if(!nodeInStore) {
+      return;
+    }
+
+    this._store.setSelectedNodeById(id);
+    // this._store.selectedNode = nodeInStore;
+
     const node = this._renderer.jstree('get_node', id);
     this.selectNode(node);
   }

@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  simple-build:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: myapp:simple
+
+

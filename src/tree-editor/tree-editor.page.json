@@ -63,8 +63,6 @@
         "./tree-editor/js/src/fieldRenderers/ContentRenderer.js",
         "./tree-editor/js/src/fieldRenderers/ContentTemplateRenderer.js",
 
-
-        "./tree-editor/js/src/parsers/DockerComposeParser.js",
         "./tree-editor/js/src/TreeNodeFieldRenderer.js",
 
         "./tree-editor/js/src/Store.js",

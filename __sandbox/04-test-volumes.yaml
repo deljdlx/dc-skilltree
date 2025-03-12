@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  volume-test:
+    image: busybox
+    command: >
+      sh -c "echo 'Hello from Docker!' > /data/hello.txt && ls -al /data && cat
+      /data/hello.txt && sleep 60"
+    volumes:
+      - ./04-test-volumes:/data
+volumes: {}
+networks: {}

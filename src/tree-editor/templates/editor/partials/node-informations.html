@@ -1,7 +1,22 @@
-<template x-if="selectedNode">
-    <form id="skill-editor">
+<!-- <pre x-text="JSON.stringify(selectedNode, null, 2)"></pre> -->
+<template x-if="selectedNode !== null && typeof selectedNode === 'object'">
+    <!-- <pre x-text="JSON.stringify(selectedNode, null, 2)"></pre> -->
+    <form
+        id="node-attributes"
+        x-show="selectedNode"
+        x-effect="console.log(selectedNode)"
+        x-init="$watch('selectedNode', (value) => {
+            console.group('%cnode-informations.html :: 9 =============================', 'color: #f00; font-size: 1rem');
+            console.log('Mutation detected on selectedNode');
+            console.log('selectedNode', value);
+            console.groupEnd();
+            notifyWatchers('selectedNode', value);
+        })"
+    >
         <template x-for="(field, fieldName) in getNodeTypeByNode(selectedNode).fields">
             <div x-html="renderField(fieldName, field, selectedNode)"></div>
         </template>
     </form>
+    <pre x-text="JSON.stringify(selectedNode, null, 2)"></pre>
 </template>
+

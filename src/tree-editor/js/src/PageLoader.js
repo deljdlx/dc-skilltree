@@ -17,13 +17,13 @@ class PageLoader {
             const container = document.querySelector(template.selector);
             if (!container) {
                 setTimeout(() => {
-                    console.log('Container not found, retrying in 100ms', template);
+                    // console.log('Container not found, retrying in 100ms', template);
                     this.loadTemplate(template).then(resolve);
                 }, 100);
                 resolve();
                 return;
             }
-            console.clear();
+            // console.clear();
             container.innerHTML = html;
             resolve();
         });
@@ -35,10 +35,10 @@ class PageLoader {
                 await this.loadTemplate(templates[i]);
             }
         } catch (error) {
-            console.error('Failed to load template', error);
+            // console.error('Failed to load template', error);
         }
 
-        console.clear();
+        // console.clear();
     }
 
     loadCss(cssFiles) {

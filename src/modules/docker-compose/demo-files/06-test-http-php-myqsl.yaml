@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  php:
+    image: php:apache
+    command:
+      - /bin/sh
+      - '-c'
+      - >-
+        docker-php-ext-install mysqli && docker-php-ext-enable mysqli &&
+        apache2-foreground
+    ports:
+      - '8081:80'
+    volumes:
+      - ./www:/var/www/html
+    networks:
+      - app-network
+    depends_on:
+      - db
+    environment:
+      - MYSQL_HOST=dbnnn
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+  db:
+    image: mysql:5.7
+    restart: always
+    networks:
+      - app-network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+networks:
+  app-network:
+    driver: bridge
+    name: app-network

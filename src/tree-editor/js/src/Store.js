@@ -1,14 +1,13 @@
 class Store {
-
   _data = {
     values: {},
-    availabilities: {},
     treeData: [],
     nodeTypes: {},
   };
 
   _listeners = {
     change: [],
+    watch: {},
   };
 
   /**
@@ -21,6 +20,28 @@ class Store {
     this.selectedNode = null;
     this.ready = false;
   }
+
+  getProxy(getCallback, setCallback) {
+    const proxy = new Proxy(this, {
+      get(target, prop, receiver) {
+
+        if (getCallback) {
+          getCallback(target, prop, receiver);
+        }
+        return Reflect.get(target, prop, receiver);
+      },
+      set(target, prop, value, receiver) {
+          if (setCallback) {
+            setCallback(target, prop, value, receiver);
+          }
+          return Reflect.set(target, prop, value, receiver);
+      }
+    });
+
+    return proxy;
+  }
+
+  // ===========================
 
   setData(data) {
     this._data = data;
@@ -37,6 +58,26 @@ class Store {
   getTreeData() {
     return this._data.treeData;
   }
+
+    // ===========================
+
+  // 🔥 Ajout de la méthode pour observer une propriété spécifique
+  addWatcher(property, callback) {
+    if (!this._listeners.watch[property]) {
+      this._listeners.watch[property] = [];
+    }
+    this._listeners.watch[property].push(callback);
+  }
+
+  // 🔥 Méthode pour notifier les watchers d'un changement de propriété
+  notifyWatchers(property, value) {
+    if (this._listeners.watch[property]) {
+      this._listeners.watch[property].forEach(callback => callback(value));
+    }
+  }
+
+  // ===========================
+
 
   addEventListener(event, callback) {
     if (!this._listeners[event]) {
@@ -57,76 +98,9 @@ class Store {
     this.checksum = Math.random() + '-' + Math.random();
   }
 
-  incrementValue(code, increment = 1, min = 0, max = 100) {
-    if (typeof this._data.values[code] === 'undefined') {
-      this._data.values[code] = 0;
-    }
-
-    if (increment > 0 && this._data.values[code] < max) {
-      this._data.values[code] += increment;
-      this.dispatchEvent('change', { code, value: this._data.values[code] });
-      return true;
-    }
-
-    if (increment < 0 && this._data.values[code] > min) {
-      this._data.values[code] += increment;
-      this.dispatchEvent('change', { code, value: this._data.values[code] });
-      return true;
-    }
-
-    return false;
-  }
-
   setValue(code, value) {
     this._data.values[code] = value;
     this.dispatchEvent('change', { code, value });
-  }
-
-
-
-  computeValue(node) {
-    let formula = node.data.value;
-    let value = this.getValueByCode(node.data.code);
-
-    if (formula) {
-      formula = formula.replace('${__VALUE}', 'value');
-
-      const matches = formula.match(/\${(.*?)}/g);
-      if (matches) {
-        matches.forEach((match) => {
-          const key = match.replace('${', '').replace('}', '');
-          const linkedNode = this.getNodeByCode(key);
-          formula = formula.replace(match, this.computeValue(linkedNode));
-        });
-      }
-      value = eval(formula);
-    }
-
-    const perks = this.getNodeById('category-perks').children;
-    for (const perk of perks) {
-      if (!this._data.values[perk.data.code]) {
-        continue;
-      }
-
-      const modifiersString = perk.data.modifiers;
-
-      if (modifiersString) {
-        const modifiers = modifiersString.split('\n');
-        for (const modifier of modifiers) {
-          const key = '${' + node.data.code + '}';
-          const hasKey = modifier.includes(key);
-
-          if (hasKey) {
-            let formula = modifier;
-            formula = formula.replace(key, 'value');
-            formula = formula.replace('${__VALUE}', 'value');
-            eval(formula);
-          }
-        }
-      }
-    }
-
-    return parseInt(value);
   }
 
 
@@ -147,19 +121,27 @@ class Store {
     return this._data.values;
   }
 
-  getAvailabilities() {
-    return this._data.availabilities;
+  // ===========================
+
+  setSelectedNodeById(id) {
+    const selectedNode = this.getNodeById(id);
+    if (selectedNode) {
+      this.selectedNode = selectedNode;
+      return selectedNode;
+    }
+    console.error('Node not found: ' + id);
+    return null;
   }
 
   // ===========================
 
-  searchNodeById(nodes, id) {
+  searchNode(nodes, predicate) {
     for (const node of nodes) {
-      if (node.id === id) {
+      if (predicate(node)) {
         return node;
       }
       if (node.children) {
-        const child = this.searchNodeById(node.children, id);
+        const child = this.searchNode(node.children, predicate);
         if (child) {
           return child;
         }
@@ -169,53 +151,19 @@ class Store {
   }
 
   getNodeById(id) {
-    for (const node of this._data.treeData) {
-      if (node.id === id) {
-        return node;
-      }
-      if (node.children) {
-        const child = this.searchNodeById(node.children, id);
-        if (child) {
-          return child;
-        }
-      }
-    }
-    console.error('Node not found:' + id);
-
-    return null;
-  }
-
-  // ===========================
-  searchNodeByCode(nodes, code) {
-    for (const node of nodes) {
-      if (node.data.code === code) {
-        return node;
-      }
-      if (node.children) {
-        const child = this.searchNodeByCode(node.children, code);
-        if (child) {
-          return child;
-        }
-      }
-    }
-    return null;
+    return this.searchNode(this._data.treeData, node => node.id === id);
   }
 
   getNodeByCode(code) {
-    for (const node of this._data.treeData) {
-      if (node.data.code === code) {
-        return node;
-      }
-      if (node.children) {
-        const child = this.searchNodeByCode(node.children, code);
-        if (child) {
-          return child;
-        }
-      }
-    }
-    console.error('Node not found:' + code);
+    return this.searchNode(this._data.treeData, node => node.data.code === code);
+  }
 
-    return null;
+  getNodeByName(name) {
+    return this.searchNode(this._data.treeData, node => node.text === name);
+  }
+
+  getParentNode(node) {
+    return this.searchNode(this._data.treeData, n => n.children && n.children.includes(node));
   }
 
   // ===========================
@@ -267,12 +215,16 @@ class Store {
 
   // ============================================
 
-  setValues(values) {
-    this._data.values = values;
+  setValue(code, value) {
+    this._data.values[code] = value;
+    this.dispatchEvent('change', { code, value });
+    this.notifyWatchers(code, value);
   }
 
-  setAvailabilities(availabilities) {
-    this._data.availabilities = availabilities;
+  setTreeData(treeData) {
+    this._data.treeData = treeData;
+    this.generateChecksum();
+    this.notifyWatchers("treeData", treeData);
   }
 
   setTreeData(treeData) {
