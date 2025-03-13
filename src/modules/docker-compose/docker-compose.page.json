@@ -6,7 +6,7 @@
         }
     ],
     "css": [
-        "https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css",
+        "https://cdn.jsdelivr.net/npm/daisyui@5",
         "./tree-editor/vendor/quill/quill.snow.css",
         "./tree-editor/vendor/jstree/jstree.min.css",
         "./tree-editor/css/page.css",
@@ -18,13 +18,14 @@
 
     ],
     "js": [
-        "https://cdn.tailwindcss.com",
+        "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4",
         "./tree-editor/vendor/quill/quill.js",
         "./tree-editor/vendor/jquery/jquery.js",
         "./tree-editor/vendor/jstree/jstree.min.js",
         "./tree-editor/vendor/ace-editor/src/ace.js",
         "./tree-editor/vendor/ace-editor/src/ext-language_tools.js",
         "./tree-editor/vendor/js-yaml.js",
+        "./tree-editor/vendor/echarts.js",
 
         "./tree-editor/js/src/storages/Storage.js",
         "./tree-editor/js/src/storages/LocalStorage.js",
@@ -48,8 +49,12 @@
         "./tree-editor/js/src/fieldRenderers/ListRenderer.js",
         "./tree-editor/js/src/fieldRenderers/KeyValueListRenderer.js",
 
+        "./tree-editor/js/src/Store.js",
+        "./tree-editor/js/src/Node.js",
+
         "./tree-editor/js/src/Tree.js",
         "./tree-editor/js/src/TreeEditor.js",
+
 
 
         "./modules/docker-compose/assets/js/renderers/DockerComposeDependsOnRenderer.js",
@@ -58,20 +63,27 @@
         "./modules/docker-compose/assets/js/renderers/DockerComposeNetworksRenderer.js",
 
 
+        "./modules/docker-compose/assets/js/DockerComposeTreeEventManager.js",
         "./modules/docker-compose/assets/js/DockerComposeTreeEditor.js",
         "./modules/docker-compose/assets/js/DockerComposeNormalizer.js",
         "./modules/docker-compose/assets/js/parsers/DockerComposeParser.js",
+        "./modules/docker-compose/assets/js/parsers/ServiceParser.js",
         "./modules/docker-compose/assets/js/DockerComposeCompiler.js",
         "./modules/docker-compose/assets/js/DockerComposeSourceEditor.js",
 
 
+        "./modules/docker-compose/assets/js/DockerComposeValidator.js",
+
+
         "./tree-editor/js/src/TreeNodeFieldRenderer.js",
+
+
+        "./modules/docker-compose/assets/js/store/ServiceNode.js",
+        "./modules/docker-compose/assets/js/store/NetworkNode.js",
+        "./modules/docker-compose/assets/js/store/DockerComposeStore.js",
         "./modules/docker-compose/assets/js/DockerComposeNodeFieldRenderer.js",
 
-        "./tree-editor/js/src/Store.js",
-        "./modules/docker-compose/assets/js/DockerComposeStore.js",
-
-            "./modules/docker-compose/assets/js/bootstrap.js",
+        "./modules/docker-compose/assets/js/bootstrap.js",
         "./tree-editor/vendor/alpine.js"
     ]
 }

@@ -140,6 +140,7 @@
     "network": {
       "icon": "node--wireless",
       "noChildren": true,
+      "noMove": true,
       "fields": {
         "default": {
           "type": "text",
@@ -151,9 +152,16 @@
       }
     },
 
+    "network-service": {
+      "icon": "node--package",
+      "noChildren": true,
+      "noMove": true
+    },
+
     "volume": {
       "icon": "node--dvd",
-      "noChildren": true
+      "noChildren": true,
+      "noMove": true
     },
 
     "default": {

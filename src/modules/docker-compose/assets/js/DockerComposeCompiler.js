@@ -9,7 +9,6 @@ class DockerComposeCompiler {
     jsonData = JSON.parse(JSON.stringify(jsonData));
 
     this.dockerCompose = {
-      version: "3.8",
       services: {},
       // commented, to not pollute the output with empty sections
       // volumes: null,
@@ -60,7 +59,7 @@ class DockerComposeCompiler {
       }
 
       if ("environment" in serviceData) {
-        let environment = this.processKeyValuePairs(serviceData.environment);
+        let environment = this.processServiceEnvironment(serviceData.environment);
         if (environment) {
           serviceConfig["environment"] = environment;
         }
@@ -83,7 +82,7 @@ class DockerComposeCompiler {
         serviceConfig["build"] = build;
       }
 
-      let volumes = this.processVolumesList(service);
+      let volumes = this.processServiceVolumesList(service);
       if (volumes) {
         serviceConfig["volumes"] = volumes;
       }
@@ -94,7 +93,44 @@ class DockerComposeCompiler {
     }
   }
 
-  processVolumesList(service) {
+
+  processServiceEnvironment(environment) {
+    console.group('%cDockerComposeCompiler.js :: 98 =============================', 'color: #094797; font-size: 1rem');
+    console.log(environment);
+    console.groupEnd();
+    if (!Array.isArray(environment)) {
+      return null;
+    }
+
+    if (environment.length === 0) {
+      return null;
+    }
+
+    return environment.map(item => {
+      if (typeof item === "string") {
+        return item;
+      }
+      if(item.key && item.value) {
+        return `${item.key}=${item.value}`;
+      }
+      return null;
+    }).filter(item => item !== null);
+
+
+
+    /*
+    if (typeof environment[0] === "string") {
+      return environment;
+    }
+
+    if(Array.isArray(environment)) {
+      return Object.fromEntries(environment.map(item => [item.key, item.value]));
+    }
+    */
+
+  }
+
+  processServiceVolumesList(service) {
 
     if(!Array.isArray(service.children)) {
       return null;
@@ -157,12 +193,13 @@ class DockerComposeCompiler {
       }
 
       if(key === "args") {
+
         const args = item.value.map(arg => {
           if (arg.key && arg.value) {
             return `${arg.key}=${arg.value}`;
           }
-          return arg;
-        });
+          return null;
+        }).filter(arg=> arg !== null);
 
         buildConfig[key] = args;
 
@@ -194,11 +231,20 @@ class DockerComposeCompiler {
   }
 
   processArrayMapping(dataArray) {
-    if (!dataArray) return null;
-    if (!Array.isArray(dataArray)) return null;
-    if (dataArray.length === 0) return null;
+    if(!Array.isArray(dataArray)){
+      return null;
+    }
+    if (dataArray.length === 0) {
+      return null;
+    }
 
-    return dataArray.map(item => item.key ? `${item.key}:${item.value}` : item);
+    return dataArray.map(item => {
+      if(item.key && item.value) {
+        return `${item.key}:${item.value}`;
+      }
+      return null;
+      // item.key ? `${item.key}:${item.value}` : item
+    }).filter(item => item !== null);
   }
 
   processDependsOn(dependsOnData) {
@@ -207,13 +253,18 @@ class DockerComposeCompiler {
 
   processArrayOfStringsOrObjects(dataArray) {
 
-    if (!dataArray) {
+    if (!Array.isArray(dataArray) ) {
       return null;
     }
 
-    if (Array.isArray(dataArray) && dataArray.every(item => typeof item === "string")) {
+    if (dataArray.every(item => typeof item === "string")) {
       return dataArray;
     }
+
+    if (dataArray.every(item => !item.value || (Array.isArray(item.value) && item.value.length === 0))) {
+      return dataArray.map(item => item.key);
+    }
+
 
     const dependsOnConfig = {};
     Object.entries(dataArray).forEach(([key, value]) => {

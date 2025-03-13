@@ -17,6 +17,7 @@ services:
       - ./www:/var/www/html
     networks:
       - app-network
+      - db-network
     depends_on:
       - db
     environment:
@@ -28,7 +29,7 @@ services:
     image: mysql:5.7
     restart: always
     networks:
-      - app-network
+      - db-network
     environment:
       MYSQL_ROOT_PASSWORD: root
   node:
@@ -51,6 +52,7 @@ services:
       - '3000:3000'
     networks:
       - app-network
+      - db-network
     depends_on:
       db:
         condition: service_started
@@ -62,3 +64,6 @@ networks:
   app-network:
     driver: bridge
     name: app-network
+  db-network:
+    driver: bridge
+    name: db-network

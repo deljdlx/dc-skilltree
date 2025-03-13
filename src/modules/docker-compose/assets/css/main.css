@@ -1,9 +1,10 @@
 body {
   --color-darkest: #171717;
   --color-dark: #212121;
+  --color-medium-dark: #282A36;
   --color-lightest: #ddd;
-  --color-focused: #FFBE00;
-  --header-height: 32px;
+  --color-focused: #374151;
+  --footer-height: 32px;
 
 
   overflow: hidden;
@@ -12,7 +13,34 @@ body {
   color: var(--color-lightest);
 }
 
+#application-footer {
+  border-top: 1px solid var(--color-lightest);
+  height: var(--footer-height);
+  background-color: var(--color-dark);
+  display: flex;
+  align-items: center;
+  padding-right: 16px;
+  justify-content: flex-end;
+}
 
+
+
+/* override daisyui=================================================== */
+
+label.tab {
+  color: var(--color-lightest);
+  border: 1px solid var(--color-lightest);
+  border-bottom: none;
+  padding: 4px 16px;
+  height: 32px;
+}
+label.tab:is(.tab-active,[aria-selected=true]):not(.tab-disabled,[disabled]),
+label.tab:is(input:checked,label:has(:checked)) {
+  background-color: var(--color-focused);
+  color: var(--color-lightest);
+}
+
+/* =================================================== */
 
 
 .application h2 {
@@ -46,9 +74,11 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
-
 /* =================================================== */
+
+
+
+/* JSTree=================================================== */
 
 .docker-compose-editor .jstree-contextmenu a {
   color: var(--color-darkest);
@@ -58,7 +88,7 @@ body {
 .docker-compose-editor .jstree-default .jstree-clicked {
   background-color: var(--color-focused);
   border-radius: 8px;
-  color: var(--color-dark);
+  color: var(--color-lightest);
 }
 
 .docker-compose-editor .jstree-anchor.jstree-hovered {
@@ -96,5 +126,37 @@ body {
   border-radius: 4px;
 }
 
+.attribute-container .attribute-subvalue-container {
+  display: flex;
+  gap: 8px;
+  border: 1px solid var(--color-lightest);
+  border-radius: 8px;
+  padding: 8px;
+  flex-direction: column;
+  background-color: var(--color-medium-dark);
+}
+
+
+.attribute-container .depends-on-container {
+  padding: 8px;
+  border: 1px solid var(--color-lightest);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 8px;
+}
+
+.attribute-container .depends-on-container .depends-on-container__options {
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  border: 1px solid var(--color-lightest);
+  border-radius: 8px;
+}
+
+.attribute-container .depends-on-container .deponds-on-option {
+  width: 150px;
+}
 
 

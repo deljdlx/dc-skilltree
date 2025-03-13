@@ -1,6 +1,6 @@
 class DockerComposeNetworksRenderer extends FieldRenderer {
   render() {
-    if (!Array.isArray(this._node.data.networks) || this._node.data.networks === 0) {
+    if (!Array.isArray(this._node.data.networks) || this._node.data.networks.length === 0) {
       return this.renderEmpty();
     }
 
@@ -17,7 +17,10 @@ class DockerComposeNetworksRenderer extends FieldRenderer {
             <label class="">${caption}</label>
             <button type="button"
               class="p-2 mt-2 bg-green-500 hover:bg-green-600 text-white rounded"
-              @click="selectedNode.${this._descriptor.model} = []">
+              @click="selectedNode.${this._descriptor.model} = [{
+                key: '',
+                value: []
+              }]">
               ➕ Network Configuration
             </button>
           </div>
@@ -28,6 +31,7 @@ class DockerComposeNetworksRenderer extends FieldRenderer {
   renderWithOptions() {
     let { caption, model } = this.prepareAttributes();
     return `
+      <template x-if="Array.isArray(selectedNode.${this._descriptor.model})">
         <fieldset class="attribute-container">
           <div class="flex flex-col gap-2">
             <h2 class="attribute-header">
@@ -63,6 +67,7 @@ class DockerComposeNetworksRenderer extends FieldRenderer {
 
           </div>
         </fieldset>
+      </template>
     `;
   }
 
@@ -98,7 +103,7 @@ class DockerComposeNetworksRenderer extends FieldRenderer {
           x-for="(networkDescriptor, index) in selectedNode.${this._descriptor.model}"
           :key="index"
         >
-          <div class="p-2 border rounded-lg text-white bg-gray-800 flex flex-col gap-2">
+          <div class="attribute-subvalue-container">
             <div class="flex items-center gap-2">
               <input type="text"
                 class=""
@@ -126,10 +131,10 @@ class DockerComposeNetworksRenderer extends FieldRenderer {
             <span>Options</span>
             <button
               type="button"
-              class="btn-xs bg-green-500 hover:bg-green-600 text-white rounded"
+              class="btn-xs bg-green-500 text-white rounded"
               @click="networkDescriptor.value.push({ key: '', value: '' })"
             >
-              ➕ Option
+              ➕
             </button>
         </h3>
         <template x-for="(networkDescriptor.value, index) in networkDescriptor.value" :key="index">

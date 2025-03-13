@@ -135,6 +135,13 @@ class Tree {
         this._store.previousSelectedNode = this._store.selectedNode;
 
         let node = this._store.getNodeById(data.node.id);
+        if(!node) {
+          node = this._store.getNodeByText(data.node.text);
+        }
+        console.group('%cTree.js :: 141 =============================', 'color: #966837; font-size: 1rem');
+        console.log(node);
+        console.groupEnd();
+
         this._store.selectedNode = node;
 
         this.eventListeners['select_node.jstree'].forEach(callback => {

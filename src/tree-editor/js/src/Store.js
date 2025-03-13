@@ -158,6 +158,10 @@ class Store {
     return this.searchNode(this._data.treeData, node => node.data.code === code);
   }
 
+  getNodeByText(text) {
+    return this.searchNode(this._data.treeData, node => node.data.text === text);
+  }
+
   getNodeByName(name) {
     return this.searchNode(this._data.treeData, node => node.text === name);
   }

@@ -1,20 +1,10 @@
-initializeTree = async function (
-  schemaUrl,
-  nodeTypesUrl = 'data/stores/fallout/node-types.json'
-) {
+initializeTree = async function () {
   let store = new DockerComposeStore();
   let reactiveStore = Alpine.reactive(store);
   Alpine.data('application', () => (reactiveStore))
 
-  const [storeData, nodeTypes] = await Promise.all([
-    schemaUrl ? fetch(schemaUrl).then(response => response.json()) : null,
-    nodeTypesUrl ? fetch(nodeTypesUrl).then(response => response.json()) : null
-  ]);
-
-  if (storeData) reactiveStore.setData(storeData);
-  if (nodeTypes) reactiveStore.setNodeTypes(nodeTypes);
-
-
+  const nodeTypes = await fetch('modules/docker-compose/node-types.json').then(response => response.json());
+  reactiveStore.setNodeTypes(nodeTypes);
 
   const renderer = new DockerComposeNodeFieldRenderer();
   reactiveStore.setFieldRenderer(renderer);
@@ -23,47 +13,15 @@ initializeTree = async function (
 };
 
 
-function setupTreeEventListeners(tree, reactiveStore, storage) {
-  tree.addEventListener('ready', () => {
-    reactiveStore.ready = true;
-    tree.selectNodeById('root');
-  });
-
-  tree.addEventListener('change', () => {
-    reactiveStore.generateChecksum();
-    storage.set(reactiveStore.getData());
-  });
-
-  tree.addEventListener('delete', (event, data) => {
-    tree.selectNodeById(data.parent);
-  });
-
-  tree.addEventListener('move', (event, data) => {
-    const node = reactiveStore.getNodeById(data.node.id);
-
-    if (data.parent === 'section-services') {
-      node.data.profiles = node.data.profiles?.filter(p => p !== 'disabled') || [];
-    }
-    else if (data.parent === 'section-disabled-services') {
-      if (!node.data.profiles) node.data.profiles = [];
-      if (!node.data.profiles.includes('disabled')) node.data.profiles.push('disabled');
-    }
-
-    tree.selectNodeById(data.parent);
-  });
-}
-
 
 document.addEventListener('alpine:init', async () => {
   const normalizer = new DockerComposeNormalizer();
   const parser = new DockerComposeParser(normalizer);
   const compiler = new DockerComposeCompiler();
+  const validator = new DockerComposeValidator('http://localhost:3003/validate');
 
   const storage = new LocalStorage('skill-tree');
-  const reactiveStore = await initializeTree(
-    null,
-    'modules/docker-compose/node-types.json',
-  );
+  const reactiveStore = await initializeTree();
 
   const tree = new Tree(reactiveStore);
   // =========================== Code Editor ===========================
@@ -75,21 +33,7 @@ document.addEventListener('alpine:init', async () => {
   const editor = new DockerComposeTreeEditor(reactiveStore, tree, {}, compiler, codeEditor);
   editor.setStorage(storage);
 
-
-  tree.addEventListener('ready', () => {
-    reactiveStore.ready = true;
-    tree.selectNodeById('root');
-  });
-
-  tree.addEventListener('change', () => {
-    reactiveStore.generateChecksum();
-    storage.set(reactiveStore.getData());
-  });
-
-  tree.addEventListener('delete', (event, data) => {
-    let parentId = data.parent;
-    tree.selectNodeById(parentId);
-  });
+  const eventManager = new TreeEventManager(tree, reactiveStore, storage);
 
   editor.load();
 
@@ -110,9 +54,23 @@ document.addEventListener('alpine:init', async () => {
 
   // =========================== Watch changes on selectedNode ===========================
 
+  const footer = document.querySelector('#application-footer');
   reactiveStore.addWatcher('selectedNode', (data) => {
     compiler.compile(reactiveStore.getData());
     const yaml = compiler.getYaml();
+
+
+    validator.validate(yaml).then(result => {
+      if(result.valid) {
+        footer.innerHTML = '<span>🎉 compose is valid</span>';
+      }
+      else {
+        footer.innerHTML = '<span>💀 compose is invalid: </span><span>' + result.error + '</span>';
+      }
+    });
+
+
+
     codeEditor.session.setValue(yaml);
 
     const selectedNode = reactiveStore.selectedNode;
@@ -135,6 +93,59 @@ document.addEventListener('alpine:init', async () => {
     if (serviceName) {
       codeEditor.selectServiceInEditor(serviceName);
     }
+
+    const graphDescriptor = reactiveStore.toEchartsServicesGraph();
+    // const graphDescriptor = reactiveStore.toEchartsNetworksGraph();
+
+    console.group('%cbootstrap.js :: 127 ', 'color: #418646; font-size: 1rem');
+    console.log(graphDescriptor);
+    console.groupEnd();
+
+
+    const  myChart = echarts.init(document.querySelector('#compose-services-diagram'));
+    //myChart.showLoading();
+
+    const option = {
+      legend: [
+        {
+          data: graphDescriptor.categories.map(function (a) {
+            return a.name;
+          })
+        }
+      ],
+      series: [
+        {
+          type: 'graph',
+          layout: 'force',
+          animation: false,
+          label: {
+            show: true,
+            position: 'right',
+            formatter: '{b}'
+          },
+          edgeSymbol: ['circle', 'arrow'],
+          edgeSymbolSize: [4, 10],
+          edgeLabel: {
+            fontSize: 20
+          },
+          lineStyle: {
+            width: 2,
+            curveness: 0.2
+          },
+          roam: true,
+          draggable: true,
+          data: graphDescriptor.nodes,
+          categories: graphDescriptor.categories,
+          force: {
+            edgeLength: 200,
+            repulsion: 2000,
+            gravity: 1
+          },
+          edges: graphDescriptor.links
+        }
+      ]
+    };
+    myChart.setOption(option);
   });
 
 
@@ -160,15 +171,35 @@ document.addEventListener('alpine:init', async () => {
   const yamlUrl = "modules/docker-compose/demo-files/07-test-build.yaml";
   const treeData = await parser.loadAndParseFromUrl(yamlUrl);
 
-  console.log('%cbootstrap.js :: 128 =============================', 'color: #f00; font-size: 1rem');
-  console.log(treeData);
-
   reactiveStore.setTreeData(treeData);
   tree.render();
 
   compiler.compile(reactiveStore.getData());
   const yaml = compiler.getYaml();
   codeEditor.session.setValue(yaml);
+
+
+  /* kept for future reference
+  // <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  const graphDefinition = reactiveStore.toMermaidJs();
+  document.querySelector('#compose-services-diagram').textContent = graphDefinition;
+  mermaid.registerIconPacks([
+    {
+        name: 'logos',
+        loader: () =>
+        fetch('https://unpkg.com/@iconify-json/logos@1/icons.json').then((res) => res.json()),
+    },
+  ]);
+  mermaid.initialize({
+    startOnLoad: true,
+  });
+
+  await mermaid.run({
+    nodes: [
+      document.querySelector('#compose-services-diagram')
+    ]
+  });
+  */
 
 });
 

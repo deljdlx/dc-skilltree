@@ -31,8 +31,7 @@ class DockerComposeDependsOnRenderer extends FieldRenderer {
 
             <div class="flex flex-col gap-1">
               <template x-for="(dependency, index) in selectedNode.${this._descriptor.model}" :key="index">
-
-
+                  <!--<pre x-text="JSON.stringify(getServiceNames())"></pre>//-->
                   <div class="flex items-center gap-1">
 
                     <template x-if="typeof getServiceNames === 'function'">
@@ -76,7 +75,10 @@ class DockerComposeDependsOnRenderer extends FieldRenderer {
                     if(!selectedNode.${this._descriptor.model}) {
                       selectedNode.${this._descriptor.model} = []
                     }
-                    selectedNode.${this._descriptor.model}.push({ key: '', value: [] })
+                    console.log('ICI');
+                    selectedNode.${this._descriptor.model}.push({ key: '', value: [
+                      { key: 'condition', value: 'service_started' },
+                    ] })
                   "
                 >
                   ➕
@@ -85,7 +87,7 @@ class DockerComposeDependsOnRenderer extends FieldRenderer {
 
             <div class="flex flex-col gap-3">
               <template x-for="(dependency, index) in selectedNode.${this._descriptor.model}" :key="index">
-                <div class="bg-gray-800 p-2 border rounded-lg text-white">
+                <div class="depends-on-container">
 
                   <div class="flex items-center gap-1">
                     <h3>Service : </h3>
@@ -110,7 +112,7 @@ class DockerComposeDependsOnRenderer extends FieldRenderer {
                   </div>
 
                   <!-- ============================================================================ -->
-                  <div class="mt-2 rounded-lg flex flex-col gap-1 border rounded-lg p-4 bg-gray-700">
+                  <div class="depends-on-container__options">
                     <h4 class="text-sm  flex items-center justify-start gap-2">
                       <span>Options</span>
                       <button type="button"
@@ -151,7 +153,7 @@ class DockerComposeDependsOnRenderer extends FieldRenderer {
 
   handleOptionType() {
     return `
-      <select x-model="subOption.key" class="select-xs border rounded w-1/3">
+      <select x-model="subOption.key" class="deponds-on-option">
         <option value=""></option>
         <template x-for="option in ['condition', 'restart', 'required']">
           <option
@@ -167,7 +169,7 @@ class DockerComposeDependsOnRenderer extends FieldRenderer {
   handleRequiredOption() {
     return `
       <template x-if="subOption.key === 'required'">
-        <select x-model="subOption.value" class="">
+        <select x-model="subOption.value">
           <option value=""></option>
           <template x-for="value in [true, false,]">
             <option
@@ -203,6 +205,7 @@ class DockerComposeDependsOnRenderer extends FieldRenderer {
     return `
       <template x-if="subOption.key === 'condition'">
         <select x-model="subOption.value" class="">
+          <option value=""></option>
           <option
             :selected="'service_started' === subOption.value"
             value="service_started"
