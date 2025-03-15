@@ -17,7 +17,10 @@ document.addEventListener('alpine:init', async () => {
   const normalizer = new DockerComposeNormalizer();
   const parser = new DockerComposeParser(normalizer);
   const compiler = new DockerComposeCompiler();
-  const validator = new DockerComposeValidator('http://localhost:3003/validate');
+
+  let host = window.location.hostname;
+  let validatorUrl = `http://${host}:3000/validate`;
+  const validator = new DockerComposeValidator(validatorUrl);
 
   const storage = new LocalStorage('skill-tree');
   const reactiveStore = await initializeTree();
