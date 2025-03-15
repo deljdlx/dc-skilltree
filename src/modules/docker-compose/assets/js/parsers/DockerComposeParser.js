@@ -22,10 +22,10 @@ class DockerComposeParser {
 
   async loadAndParseFromUrl(url) {
     const yaml = await this.loadFromUrl(url);
-    return this.buildTree(yaml);
+    return this.parse(yaml);
   }
 
-  buildTree(yaml) {
+  parse(yaml) {
     this.yamlData = jsyaml.load(yaml);
 
     const treeData = [{

@@ -10,34 +10,38 @@ class DockerComposeNetworksRenderer extends FieldRenderer {
   renderEmpty() {
     let { caption } = this.prepareAttributes();
     return `
-        <fieldset class="attribute-container" x-init="
-          selectedNode.${this._descriptor.model} = [];
-        ">
-          <div class="flex flex-col gap-2">
-            <label class="">${caption}</label>
-            <button type="button"
-              class="p-2 mt-2 bg-green-500 hover:bg-green-600 text-white rounded"
-              @click="selectedNode.${this._descriptor.model} = [{
-                key: '',
-                value: []
-              }]">
-              ➕ Network Configuration
-            </button>
-          </div>
-        </fieldset>
+      <fieldset class="attribute-container" x-init="
+        selectedNode.${this._descriptor.model} = [];
+      ">
+        <div class="flex flex-col gap-2">
+          <label class="">${caption}</label>
+          <button type="button"
+            class="p-2 mt-2 bg-green-500 hover:bg-green-600 text-white rounded"
+            @click="selectedNode.${this._descriptor.model} = [{
+              key: '',
+              value: []
+            }]">
+            ➕ Network Configuration
+          </button>
+        </div>
+      </fieldset>
     `;
   }
 
   renderWithOptions() {
     let { caption, model } = this.prepareAttributes();
     return `
-      <template x-if="Array.isArray(selectedNode.${this._descriptor.model})">
         <fieldset class="attribute-container">
           <div class="flex flex-col gap-2">
             <h2 class="attribute-header">
               <span>${caption}</span>
 
-              <template x-if="typeof selectedNode.${this._descriptor.model}[0] === 'string'">
+              <template
+                x-effect="console.log(selectedNode)"
+                x-if="
+                  Array.isArray(selectedNode.${this._descriptor.model})
+                  && typeof selectedNode.${this._descriptor.model}[0] === 'string'
+              ">
                 <button type="button"
                   class="btn-xs bg-green-500 text-white rounded"
                   @click="selectedNode.${this._descriptor.model}.push('')"
@@ -67,7 +71,6 @@ class DockerComposeNetworksRenderer extends FieldRenderer {
 
           </div>
         </fieldset>
-      </template>
     `;
   }
 

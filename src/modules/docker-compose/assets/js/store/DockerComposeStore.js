@@ -135,7 +135,7 @@ class DockerComposeStore extends Store
           id: service.text,
           name: service.text,
           value: 1,
-          symbolSize: 60,
+          symbolSize: 30,
           category: 'Services',
           draggable: true
         });
@@ -148,7 +148,7 @@ class DockerComposeStore extends Store
           id: service.text,
           name: service.text,
           value: 1,
-          symbolSize: 60,
+          symbolSize: 30,
           category: 'Services',
           draggable: true
         });

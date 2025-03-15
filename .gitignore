@@ -1,4 +1,7 @@
 .vscode
 .env
 
+
+___sandbox
+node_modules
 src/images

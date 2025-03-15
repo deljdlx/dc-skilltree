@@ -2,7 +2,6 @@ class DockerComposeNodeFieldRenderer extends TreeNodeFieldRenderer
 {
   renderField(fieldName, descriptor, node) {
     let renderer = null;
-
     switch (descriptor.type) {
       case 'docker-compose-depends-on': {
         renderer = new DockerComposeDependsOnRenderer(fieldName, descriptor, node);
@@ -22,8 +21,6 @@ class DockerComposeNodeFieldRenderer extends TreeNodeFieldRenderer
       }
     }
 
-    if(!renderer) {
-      return super.renderField(fieldName, descriptor, node);
-    }
+    return super.renderField(fieldName, descriptor, node);
   }
 }

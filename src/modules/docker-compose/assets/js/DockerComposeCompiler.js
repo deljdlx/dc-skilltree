@@ -95,9 +95,6 @@ class DockerComposeCompiler {
 
 
   processServiceEnvironment(environment) {
-    console.group('%cDockerComposeCompiler.js :: 98 =============================', 'color: #094797; font-size: 1rem');
-    console.log(environment);
-    console.groupEnd();
     if (!Array.isArray(environment)) {
       return null;
     }

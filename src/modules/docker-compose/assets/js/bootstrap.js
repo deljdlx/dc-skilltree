@@ -3,7 +3,7 @@ initializeTree = async function () {
   let reactiveStore = Alpine.reactive(store);
   Alpine.data('application', () => (reactiveStore))
 
-  const nodeTypes = await fetch('modules/docker-compose/node-types.json').then(response => response.json());
+  const nodeTypes = await fetch('modules/docker-compose/assets/node-types.json').then(response => response.json());
   reactiveStore.setNodeTypes(nodeTypes);
 
   const renderer = new DockerComposeNodeFieldRenderer();
@@ -11,7 +11,6 @@ initializeTree = async function () {
 
   return reactiveStore;
 };
-
 
 
 document.addEventListener('alpine:init', async () => {
@@ -36,6 +35,19 @@ document.addEventListener('alpine:init', async () => {
   const eventManager = new TreeEventManager(tree, reactiveStore, storage);
 
   editor.load();
+
+
+  const loadTrigger = document.querySelector('#import-compose-trigger');
+  loadTrigger.addEventListener('click', async (e) => {
+    const yaml = document.querySelector('#import-compose').value;
+    const treeData = await parser.parse(yaml);
+    console.group('%cbootstrap.js :: 45 =============================', 'color: #329195; font-size: 1rem');
+    console.log(treeData);
+    console.groupEnd();
+    reactiveStore.setTreeData(treeData);
+    tree.reload();
+
+  });
 
 
   // codeEditor.on('click', async (data) => {
@@ -96,12 +108,6 @@ document.addEventListener('alpine:init', async () => {
 
     const graphDescriptor = reactiveStore.toEchartsServicesGraph();
     // const graphDescriptor = reactiveStore.toEchartsNetworksGraph();
-
-    console.group('%cbootstrap.js :: 127 ', 'color: #418646; font-size: 1rem');
-    console.log(graphDescriptor);
-    console.groupEnd();
-
-
     const  myChart = echarts.init(document.querySelector('#compose-services-diagram'));
     //myChart.showLoading();
 
@@ -149,16 +155,6 @@ document.addEventListener('alpine:init', async () => {
   });
 
 
-
-
-  // ======================================================
-  const clearTrigger = document.querySelector('#clear-trigger');
-  clearTrigger.addEventListener('click', async (e) => {
-    // storage.remove();
-    // document.location.reload();
-  });
-
-
   // const yamlUrl = "modules/docker-compose/demo-files/compose-all.yml";
   // const yamlUrl = "modules/docker-compose/demo-files/compose.yml";
   // const yamlUrl = "modules/docker-compose/demo-files/00-hello-world.yaml";
@@ -177,6 +173,66 @@ document.addEventListener('alpine:init', async () => {
   compiler.compile(reactiveStore.getData());
   const yaml = compiler.getYaml();
   codeEditor.session.setValue(yaml);
+
+
+
+
+
+
+
+  const graphDescriptor = reactiveStore.toEchartsServicesGraph();
+  // const graphDescriptor = reactiveStore.toEchartsNetworksGraph();
+  const  myChart = echarts.init(document.querySelector('#compose-services-diagram'));
+  //myChart.showLoading();
+
+  const option = {
+    legend: [
+      {
+        data: graphDescriptor.categories.map(function (a) {
+          return a.name;
+        })
+      }
+    ],
+    series: [
+      {
+        type: 'graph',
+        layout: 'force',
+        animation: false,
+        label: {
+          show: true,
+          position: 'right',
+          formatter: '{b}'
+        },
+        edgeSymbol: ['circle', 'arrow'],
+        edgeSymbolSize: [4, 10],
+        edgeLabel: {
+          fontSize: 20
+        },
+        lineStyle: {
+          width: 2,
+          curveness: 0.2
+        },
+        roam: true,
+        draggable: true,
+        data: graphDescriptor.nodes,
+        categories: graphDescriptor.categories,
+        force: {
+          edgeLength: 200,
+          repulsion: 2000,
+          gravity: 1
+        },
+        edges: graphDescriptor.links
+      }
+    ]
+  };
+  myChart.setOption(option);
+
+
+
+
+
+
+
 
 
   /* kept for future reference

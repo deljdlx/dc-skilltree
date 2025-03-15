@@ -5,6 +5,11 @@ class ServiceNode extends Node
     if(networks.length === 0) {
       return [];
     }
+
+    if(!networks[0].data.networks) {
+      return [];
+    }
+
     return networks[0].data.networks.map(network => network.key);
   }
 }

@@ -1,8 +1,0 @@
-version: '3.8'
-
-services:
-  simple-build:
-    build:
-      context: ./app
-    image: myapp:simple
-

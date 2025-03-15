@@ -59,9 +59,8 @@ class Store {
     return this._data.treeData;
   }
 
-    // ===========================
+  // ===========================
 
-  // 🔥 Ajout de la méthode pour observer une propriété spécifique
   addWatcher(property, callback) {
     if (!this._listeners.watch[property]) {
       this._listeners.watch[property] = [];
@@ -69,7 +68,6 @@ class Store {
     this._listeners.watch[property].push(callback);
   }
 
-  // 🔥 Méthode pour notifier les watchers d'un changement de propriété
   notifyWatchers(property, value) {
     if (this._listeners.watch[property]) {
       this._listeners.watch[property].forEach(callback => callback(value));

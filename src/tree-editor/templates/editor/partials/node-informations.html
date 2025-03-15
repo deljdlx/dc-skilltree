@@ -4,8 +4,8 @@
     <form
         id="node-attributes"
         x-show="selectedNode"
-        x-effect="console.log(selectedNode)"
         x-init="$watch('selectedNode', (value) => {
+            console.clear();
             console.group('%cnode-informations.html :: 9 =============================', 'color: #f00; font-size: 1rem');
             console.log('Mutation detected on selectedNode');
             console.log('selectedNode', value);
@@ -13,10 +13,10 @@
             notifyWatchers('selectedNode', value);
         })"
     >
-        <template x-for="(field, fieldName) in getNodeTypeByNode(selectedNode).fields">
+        <template x-for="(field, fieldName) in getNodeTypeByNode(selectedNode).fields" :key="fieldName + '-' + selectedNode.id">
             <div x-html="renderField(fieldName, field, selectedNode)"></div>
         </template>
     </form>
-    <pre x-text="JSON.stringify(selectedNode, null, 2)"></pre>
+    <!-- <pre x-text="JSON.stringify(selectedNode, null, 2)"></pre> -->
 </template>
 

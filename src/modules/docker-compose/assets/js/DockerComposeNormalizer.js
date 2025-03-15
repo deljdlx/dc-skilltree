@@ -83,6 +83,11 @@ class DockerComposeNormalizer {
 
     let normalizedNetworks = JSON.parse(JSON.stringify(networks));
 
+
+    if(!networks.data.networks) {
+      return null;
+    }
+
     normalizedNetworks.data.networks = networks.data.networks.map(network => {
       if (typeof network === 'object') {
         return network;
@@ -158,11 +163,16 @@ class DockerComposeNormalizer {
     normalized.data.build = build.data.build.map(item => {
       if (item.key === "args") {
         item.value = item.value.map(arg => {
-            const parts = arg.split("=");
-            return {
-              key: parts[0],
-              value: parts[1]
-            }
+
+          if(typeof arg === 'object') {
+            return arg;
+          }
+
+          const parts = arg.split("=");
+          return {
+            key: parts[0],
+            value: parts[1]
+          }
         });
       }
       return item;
